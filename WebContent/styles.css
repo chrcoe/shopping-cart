@@ -1,0 +1,218 @@
+@CHARSET "ISO-8859-1";
+
+/* ------------ Header Styles ----------- */
+#header {
+	width: 1000px;
+	background-color: #347C17;
+	border-radius: 8px;
+	margin-bottom: 0px;
+}
+
+#heading {
+	background-color: #347C17;
+	border-radius: 8px;
+	text-color: #000000;
+	text-indent: 20px;
+	text-shadow: 1px 1px #C0C0C0;
+	width: 600px;
+	height: 60px;
+	padding: 25px, 10px, 25px, 10px;
+	margin-right: 100px;
+	padding-bottom: 20px;
+    float: left;
+}
+
+#search {
+	align: right;
+	padding-top: 25px;
+}
+
+#menu {
+    width: 1000px;
+    height: 35px;
+    font-size: 16px;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 3px 2px 3px #F1F1F1;
+    background-color: #C0C0C0;
+    border-radius: 8px;
+    clear: both;
+}
+
+#menu ul {
+    height: auto;
+    padding: 8px 0px;
+    margin: 0px;
+}
+
+#menu li {
+    display: inline;
+    padding: 20px;
+}
+
+#menu a {
+    text-decoration: none;
+    color: #000000;
+    padding: 8px 8px 8px 8px;
+}
+
+#menu a:hover {
+    color: #000000;
+    background-color: #FFF;
+}
+
+/* ------------ Body Styles ----------- */
+
+html, body {
+	font-family: Verdana, Geneva, sans-serif;
+    margin:0;
+    padding:0;
+    height:100%; /* needed for container min-height */
+}
+
+a:link {
+	color: #0099CC;
+}
+
+a:visited {
+	color: #5588BB;
+}
+
+#container {
+    position: relative; /* needed for footer positioning*/
+    margin: 0 auto; /* center, not in IE5 */
+    width: 1000px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    height: auto !important; /* real browsers */
+    height: 100%; /* IE6: treaded as min-height*/
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    min-height: 100%; /* real browsers */
+}
+
+#content {
+	padding-bottom: 433px; /* bottom padding for footer */
+	background: #f0f0f0;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#content h2 {
+	padding-left: 25px;
+	margin-top: 0px;
+	padding-top: 20px;
+}
+
+.tag {
+	font-weight: bold;
+	padding-right: 6px;
+	padding-left: 5px;
+	padding-bottom: 5px;
+}
+
+#content h4 {
+	margin-bottom: 5px;
+}
+
+.allitems th {
+	border-style: none;
+}
+
+.allItems td {
+	padding-right: 30px;
+	padding-bottom: 5px;
+}
+
+.allItems a {
+    color: #000000;
+}
+
+.descTable th, .descTable td {
+	border-style: solid;
+	border-width: 1px;
+}
+
+.descTable a {
+	color: #000000;
+}
+
+#con {
+	padding-left: 10px;
+	padding-bottom: 5px;
+	list-style-type: none;
+}
+
+#con span {
+	margin-right: 10px;
+}
+
+/* ------------ Footer Styles ----------- */
+
+#footer {
+    position: absolute;
+    width: 1000px;
+    bottom: 0; /* stick to bottom */
+    background: #ddd;
+}
+
+#footer {
+	padding-left: 0px;
+	margin-left: 0px;
+}
+
+#footer h3 {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin: 0px;
+}
+
+.line-separator {
+    height:1px;
+    background:#717171;
+    border-bottom:1px solid #313030;
+}
+
+
+#contacts {
+	width: 75%;
+	float: left;
+	padding-left: 10px;
+}
+
+#footer ul{
+	height: auto;
+    padding: 0px 0px;
+    margin: 0px;
+    list-style-type: none;
+}
+
+#contacts span {
+	margin-right: 10px;
+	padding-right: 10px;
+	font-weight: bold;
+}
+
+#connect {
+	float: left;
+}
+
+#newsletter {
+	text-align: center;
+	clear: both;
+	padding-top: 10px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+}
+
+#newsletter p {
+	margin-bottom: 1px;
+}
+
+.footnote {
+	text-align: center;
+}
+
