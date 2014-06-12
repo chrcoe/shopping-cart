@@ -5,14 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="styles.css" type="text/css">
-<title>Products</title>
+<title>Product Detail</title>
 </head>
 <body>
     <div id="container">
         <jsp:include page="Header.jsp" />
         <div id="content">
-            <h2>Products</h2>
-            
+            <h2>Product Detail</h2>
         </div>
         <jsp:include page="Footer.jsp" />
     </div>
