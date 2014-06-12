@@ -12,7 +12,7 @@
         <jsp:include page="Header.jsp" />
         <div id="content">
             <h2>Products</h2>
-            
+            <a href='productdetail.jsp'>details</a> random product
         </div>
         <jsp:include page="Footer.jsp" />
     </div>

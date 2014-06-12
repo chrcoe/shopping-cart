@@ -5,26 +5,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="styles.css" type="text/css">
-<title>Login</title>
+<title>Register</title>
 </head>
 <body>
     <div id="container">
         <jsp:include page="Header.jsp" />
         <div id="content">
-            <h2>Login</h2>
-            <div id="column" style="float:left;margin:5;width:50%">
+            <h2>Register</h2>
             this form currently does nothing
-              <FORM action="login.jsp" method="post">
+              <FORM action="register.jsp" method="post">
                 <label for="username">Username: </label>
                   <input type="text" id="username"><BR>
                 <label for="password">Password: </label>
                   <input type="password" id="password"><BR>
-                <input type="submit" value="Login">
+                <label for="email">Email: </label>
+                  <input type="text" id="email"><BR>
+                <label for="firstname">First Name: </label>
+                  <input type="text" id="firstname"><BR>
+                <label for="lastname">Last Name: </label>
+                  <input type="text" id="lastname"><BR>
+                <input type="submit" value="Register">
               </FORM>
-            </div>
-            <div id="column" style="float:left;margin:5;width:50%">
-              <a href='register.jsp'>register</a>
-            </div>
         </div>
         <jsp:include page="Footer.jsp" />
     </div>
