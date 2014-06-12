@@ -4,6 +4,6 @@
 <div id="footer">
     <div class="line-separator"></div>
     <br>
-    <div class="footnote">&copy; Copyright &copy; 2013. All rights reserved</div>
+    <div class="footnote">Copyright &copy; 2014. All rights reserved</div>
     <br>
 </div> <!-- /#footer -->
