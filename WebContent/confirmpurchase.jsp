@@ -5,14 +5,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="styles.css" type="text/css">
-<title>Shopping Cart</title>
+<title>Confirm Purchase</title>
 </head>
 <body>
     <div id="container">
         <jsp:include page="Header.jsp" />
         <div id="content">
-            <h2>Shopping Cart</h2>
-            <a href="checkout.jsp">Check Out</a>
+            <h2>Confirm Purchase</h2>
+            your purchase has been confirmed...
         </div>
         <jsp:include page="Footer.jsp" />
     </div>

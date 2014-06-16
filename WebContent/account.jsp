@@ -12,6 +12,9 @@
         <jsp:include page="Header.jsp" />
         <div id="content">
             <h2>My Account</h2>
+            <div>account details here...</div>
+            <br/>
+            <a href="orderhistory.jsp">see order history</a>
         </div>
         <jsp:include page="Footer.jsp" />
     </div>

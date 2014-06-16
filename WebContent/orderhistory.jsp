@@ -5,14 +5,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="styles.css" type="text/css">
-<title>Shopping Cart</title>
+<title>My Order History</title>
 </head>
 <body>
     <div id="container">
         <jsp:include page="Header.jsp" />
         <div id="content">
-            <h2>Shopping Cart</h2>
-            <a href="checkout.jsp">Check Out</a>
+            <h2>My Order History</h2>
+            <ul>
+            <li>Order 1 - Status:Shipped</li>
+            <li>Order 2 - Status:Canceled</li>
+            <li>Order 3 - Status:Pending Fulfillment</li>
+            </ul>
         </div>
         <jsp:include page="Footer.jsp" />
     </div>
