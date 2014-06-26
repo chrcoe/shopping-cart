@@ -24,7 +24,7 @@ public class XMLTest {
 	}
 
 	@Test
-	public void test() throws Exception {
+	public void test_xml_policy_config_reader() throws Exception {
 		InputStream is = this.getClass().getResourceAsStream("Policies.xml");
 		JAXBContext jaxbContext = JAXBContext.newInstance(TransactionPolicy.class);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
