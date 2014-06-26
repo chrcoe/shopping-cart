@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TransactionPolicy>
+	<Transaction id="CheckOut">
+		<Policy id="IsRegistered" rule="Pre" />
+		<Policy id="InStock" rule="Pre" />
+		<Policy id="PremiumStatus" rule="Post">
+			<Parameter id="MinOrders" value="5" />
+		</Policy>
+		<Policy id="Shipping" rule="Pre">
+			<Parameter id="rate" value=".02" />
+			<Parameter id="PremiumRate" value="0.0" />
+		</Policy>
+	</Transaction>
+	<Transaction id="AddToCart">
+		<Policy id="HasReservation" rule="Pre" />
+	</Transaction>
+</TransactionPolicy>
