@@ -3,7 +3,12 @@ package model;
 public class Order {
 	int orderID;
 	int userID;
-	
+
+	public Order(int orderID, int userID) {
+	    this.orderID = orderID;
+	    this.userID = userID;
+	}
+
 	public int getOrderID() {
 		return orderID;
 	}
@@ -16,5 +21,5 @@ public class Order {
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
-	
+
 }
