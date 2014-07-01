@@ -10,6 +10,21 @@ public class Product {
 	int reorderLevel;
 	boolean discontinued;
 	
+	public Product() {
+		
+	}
+	public Product(int productID, String productName, int categoryID,
+			double unitPrice, int unitsInStock, int unitsOnOrder,
+			int reorderLevel, boolean discontinued) {
+		this.productID = productID;
+		this.productName = productName;
+		this.categoryID = categoryID;
+		this.unitPrice = unitPrice;
+		this.unitsInStock = unitsInStock;
+		this.unitsOnOrder = unitsOnOrder;
+		this.reorderLevel = reorderLevel;
+		this.discontinued = discontinued;
+	}
 	public int getProductID() {
 		return productID;
 	}

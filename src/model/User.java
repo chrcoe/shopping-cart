@@ -9,6 +9,19 @@ public class User {
 	String zip;
 	String phone;
 	
+	public User() {
+		
+	}
+	public User(int userID, String name, String address, String city,
+			String state, String zip, String phone) {
+		this.userID = userID;
+		this.name = name;
+		this.address = address;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+		this.phone = phone;
+	}
 	public int getUserID() {
 		return userID;
 	}

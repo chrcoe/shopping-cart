@@ -6,6 +6,14 @@ public class Cart {
 	
 	double cartTotal;
 	
+	public Cart() {
+		
+	}
+	public Cart(int cartID, int userID, double cartTotal) {
+		this.cartID = cartID;
+		this.userID = userID;
+		this.cartTotal = cartTotal;
+	}
 	public int getCartID() {
 		return cartID;
 	}

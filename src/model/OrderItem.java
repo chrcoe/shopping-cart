@@ -7,6 +7,17 @@ public class OrderItem {
 	int quantity;
 	double linePrice;
 	
+	public OrderItem() {
+		
+	}
+	public OrderItem(int orderItemID, int productID, int orderID, int quantity,
+			double linePrice) {
+		this.orderItemID = orderItemID;
+		this.productID = productID;
+		this.orderID = orderID;
+		this.quantity = quantity;
+		this.linePrice = linePrice;
+	}
 	public int getOrderItemID() {
 		return orderItemID;
 	}

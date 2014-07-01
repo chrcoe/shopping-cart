@@ -4,6 +4,10 @@ public class Order {
 	int orderID;
 	int userID;
 
+	public Order() {
+		
+	}
+
 	public Order(int orderID, int userID) {
 	    this.orderID = orderID;
 	    this.userID = userID;
