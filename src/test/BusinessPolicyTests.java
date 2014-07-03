@@ -43,17 +43,8 @@ public class BusinessPolicyTests {
 	public ExpectedException exception = ExpectedException.none();
 	
 	@Test
-	public void test_PolicyException() throws PolicyException{
-		UnitOfWork uow = new AddItemToCart();
-		//uow.policies.add(new Policy());
-
-		exception.expect(PolicyException.class);
-		uow.Go();
-	}
-	
-	@Test
 	public void test_checkout_policies_unregistered() throws PolicyException{
-		final User u = new User();
+		User u = new User();
 		UnitOfWork co = UnitOfWork.create(CheckOut.class, policyGraph).with(u);
 		exception.expect(PolicyException.class);
 		co.Go();
@@ -62,7 +53,7 @@ public class BusinessPolicyTests {
 	@Test
 	public void test_checkout_policies_registered() throws PolicyException{
 		exception = ExpectedException.none();
-		final User u = new User();
+		User u = new User();
 		u.setUserID(1);
 		UnitOfWork co = UnitOfWork.create(CheckOut.class, policyGraph).with(u);
 		co.Go();
