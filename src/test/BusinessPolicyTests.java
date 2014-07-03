@@ -17,10 +17,10 @@ import org.junit.rules.ExpectedException;
 import policy.TransactionPolicy;
 import business.AddItemToCart;
 import business.CheckOut;
+import business.Context;
 import business.UnitOfWork;
 import business.policy.IsRegisteredPolicy;
 import business.policy.Policy;
-import business.policy.PolicyContext;
 import business.policy.PolicyException;
 
 public class BusinessPolicyTests {
@@ -45,16 +45,7 @@ public class BusinessPolicyTests {
 	@Test
 	public void test_PolicyException() throws PolicyException{
 		UnitOfWork uow = new AddItemToCart();
-		uow.policies.add(new Policy(new PolicyContext(new Object[]{})){
-			@Override
-			public void preCheck() throws PolicyException {
-				throw new PolicyException("Item cannot be reserved");
-			}
-
-			@Override
-			public void postCheck() throws PolicyException {
-				// TODO Auto-generated method stub
-			}});
+		//uow.policies.add(new Policy());
 
 		exception.expect(PolicyException.class);
 		uow.Go();
@@ -63,10 +54,7 @@ public class BusinessPolicyTests {
 	@Test
 	public void test_checkout_policies_unregistered() throws PolicyException{
 		final User u = new User();
-		
-		UnitOfWork co = UnitOfWork.create(CheckOut.class, policyGraph);
-		
-		co.policies.add(new IsRegisteredPolicy(new PolicyContext(new Object[]{u})));
+		UnitOfWork co = UnitOfWork.create(CheckOut.class, policyGraph).with(u);
 		exception.expect(PolicyException.class);
 		co.Go();
 	}
@@ -76,8 +64,7 @@ public class BusinessPolicyTests {
 		exception = ExpectedException.none();
 		final User u = new User();
 		u.setUserID(1);
-		UnitOfWork co = UnitOfWork.create(CheckOut.class, policyGraph);
-		co.policies.add(new IsRegisteredPolicy(new PolicyContext(new Object[]{u})));
+		UnitOfWork co = UnitOfWork.create(CheckOut.class, policyGraph).with(u);
 		co.Go();
 	}
 

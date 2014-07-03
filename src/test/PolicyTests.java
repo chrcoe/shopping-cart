@@ -5,7 +5,7 @@ import model.User;
 
 import org.junit.Test;
 
-import business.policy.PolicyContext;
+import business.Context;
 
 public class PolicyTests {
 
@@ -14,7 +14,7 @@ public class PolicyTests {
 		User u = new User();
 		u.setUserID(1);
 		Object[] contextParams = new Object[]{u};
-		PolicyContext pc = new PolicyContext(contextParams);
+		Context pc = new Context(contextParams);
 		assertEquals(pc.get(User.class),u);
 		User u1 = (User)pc.get(User.class);
 		assertEquals(u1.getUserID(),1);

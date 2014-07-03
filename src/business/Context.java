@@ -1,12 +1,12 @@
-package business.policy;
+package business;
 
 import java.util.HashMap;
 
-public class PolicyContext {
+public class Context {
 
 	private HashMap<Class,Object> contextMap = new  HashMap<Class,Object>();
 	
-	public PolicyContext(Object[] objects){
+	public Context(Object[] objects){
 		for(Object o:objects){
 			contextMap.put(o.getClass(),o);
 		}

@@ -11,6 +11,9 @@ import business.policy.PolicyList;
 
 public abstract class UnitOfWork {
 	
+	private business.Context ctx;
+	private PolicyList policies = new PolicyList();
+	
 	public static UnitOfWork create(Class<?> workClass,TransactionPolicy policyGraph){
 		UnitOfWork u = null;
 		try {
@@ -20,7 +23,7 @@ public abstract class UnitOfWork {
 			for(Transaction t:policyGraph.getTransaction()){
 				if(workClass.getName().equalsIgnoreCase(t.getId())){
 					for(Policy p:t.getPolicy()){
-						Class policy = Class.forName(p.getId());
+						Class<?> policy = Class.forName(p.getId());
 						business.policy.Policy bp = (business.policy.Policy) policy.getDeclaredConstructor().newInstance();
 						u.policies.add(bp);
 					}
@@ -34,13 +37,24 @@ public abstract class UnitOfWork {
 		return u;
 	}
 	
-	public PolicyList policies = new PolicyList();
-	
 	protected abstract void execute();
 	
 	public void Go() throws PolicyException{
-		this.policies.preCheck();
+		this.policies.preCheck(ctx);
 		execute();
-		this.policies.postCheck();
+		this.policies.postCheck(ctx);
+	}
+
+	public UnitOfWork with(Object contextObject) {
+		this.ctx = new business.Context(new Object[]{contextObject});
+		return this;
+	}
+	public UnitOfWork with(Object[] contextObjectArray) {
+		this.ctx = new business.Context(contextObjectArray);
+		return this;
+	}
+	public UnitOfWork with(business.Context context) {
+		this.ctx = context;
+		return this;
 	}
 }
