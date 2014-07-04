@@ -15,7 +15,7 @@ public class ProductDAO {
         // TODO: implement this method
         int productID = -1; // need to use the lastAutoKey idea here
         String productName = null;
-        int categoryID = -1; // we need a category identifier .. either change
+        String categoryName = null; // we need a category identifier .. either change
                              // this to be yet another model/table, or change to
                              // be a string value
         double unitPrice = -1;
@@ -24,7 +24,7 @@ public class ProductDAO {
         int reorderLevel = -1;
         boolean discontinued = false;
 
-        Product newProd = new Product(productID, productName, categoryID,
+        Product newProd = new Product(productID, productName, categoryName,
                 unitPrice, unitsInStock, unitsOnOrder, reorderLevel,
                 discontinued);
 
@@ -36,7 +36,7 @@ public class ProductDAO {
         // TODO: implement this method
         // would populate fields from SQL result
         String productName = null;
-        int categoryID = -1; // we need a category identifier .. either change
+        String categoryName = null; // we need a category identifier .. either change
                              // this to be yet another model/table, or change to
                              // be a string value
         double unitPrice = -1;
@@ -45,11 +45,11 @@ public class ProductDAO {
         int reorderLevel = -1;
         boolean discontinued = false;
 
-        return new Product(productID, productName, categoryID, unitPrice,
+        return new Product(productID, productName, categoryName, unitPrice,
                 unitsInStock, unitsOnOrder, reorderLevel, discontinued);
     }
 
-    public ArrayList<Product> getProductsByCategoryID(int categoryID) {
+    public ArrayList<Product> getProductsByCategoryName(String categoryName) {
 
         int productID = -1; // need to use the lastAutoKey idea here
         String productName = null;
@@ -59,7 +59,7 @@ public class ProductDAO {
         int reorderLevel = -1;
         boolean discontinued = false;
 
-        Product newProd = new Product(productID, productName, categoryID,
+        Product newProd = new Product(productID, productName, categoryName,
                 unitPrice, unitsInStock, unitsOnOrder, reorderLevel,
                 discontinued);
 

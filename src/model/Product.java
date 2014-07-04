@@ -3,22 +3,22 @@ package model;
 public class Product {
 	int productID;
 	String productName;
-	int categoryID;
+	String categoryName;
 	double unitPrice;
 	int unitsInStock;
 	int unitsOnOrder;
 	int reorderLevel;
 	boolean discontinued;
-	
+
 	public Product() {
-		
+
 	}
-	public Product(int productID, String productName, int categoryID,
+	public Product(int productID, String productName, String categoryName,
 			double unitPrice, int unitsInStock, int unitsOnOrder,
 			int reorderLevel, boolean discontinued) {
 		this.productID = productID;
 		this.productName = productName;
-		this.categoryID = categoryID;
+		this.categoryName = categoryName;
 		this.unitPrice = unitPrice;
 		this.unitsInStock = unitsInStock;
 		this.unitsOnOrder = unitsOnOrder;
@@ -37,11 +37,11 @@ public class Product {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-	public int getCategoryID() {
-		return categoryID;
+	public String getCategoryName() {
+		return categoryName;
 	}
-	public void setCategoryID(int categoryID) {
-		this.categoryID = categoryID;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 	public double getUnitPrice() {
 		return unitPrice;

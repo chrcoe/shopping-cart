@@ -29,7 +29,7 @@ public class ProductDAOTest {
     }
 
     @Test
-    public void test_getProductsByCategoryID() throws Exception {
+    public void test_getProductsByCategoryName() throws Exception {
         // TODO: implement this test
         assertFalse("Built to fail until implemented", true);
     }
