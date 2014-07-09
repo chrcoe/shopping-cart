@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import policy.Policy;
 import policy.Transaction;
 import policy.TransactionPolicy;
-import business.policy.PolicyException;
+import business.exceptions.PolicyException;
 import business.policy.PolicyList;
 
 public abstract class UnitOfWork {

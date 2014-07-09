@@ -1,4 +1,4 @@
-package business;
+package business.exceptions;
 
 public class InventoryUpdateException extends Exception {
 

@@ -3,6 +3,7 @@ package business.policy;
 import java.util.ArrayList;
 
 import business.Context;
+import business.exceptions.PolicyException;
 
 public class PolicyList extends ArrayList<Policy> {
 	private static final long serialVersionUID = 1L;

@@ -19,9 +19,9 @@ import business.AddItemToCart;
 import business.CheckOut;
 import business.Context;
 import business.UnitOfWork;
+import business.exceptions.PolicyException;
 import business.policy.IsRegisteredPolicy;
 import business.policy.Policy;
-import business.policy.PolicyException;
 
 public class BusinessPolicyTests {
 	TransactionPolicy policyGraph;

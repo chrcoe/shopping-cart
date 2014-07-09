@@ -3,6 +3,10 @@ package business;
 import java.sql.SQLException;
 import java.util.Hashtable;
 
+import business.exceptions.InsufficientInventoryException;
+import business.exceptions.InventoryConsistancyException;
+import business.exceptions.InventoryUpdateException;
+
 public class ItemGateway {
 	private static Hashtable<Integer,ItemGateway> itemTable = new Hashtable<Integer,ItemGateway>();
 	
