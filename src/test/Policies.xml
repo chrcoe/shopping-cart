@@ -2,7 +2,6 @@
 <TransactionPolicy>
 	<Transaction id="business.CheckOut">
 		<Policy id="business.policy.IsRegisteredPolicy" rule="Pre" />
-		<!-- 
 		<Policy id="InStock" rule="Pre" />
 		<Policy id="PremiumStatus" rule="Post">
 			<Parameter id="MinOrders" value="5" />
@@ -11,11 +10,8 @@
 			<Parameter id="rate" value=".02" />
 			<Parameter id="PremiumRate" value="0.0" />
 		</Policy>
-		 -->
 	</Transaction>
-	<!-- 
 	<Transaction id="business.AddItemToCart">
 		<Policy id="HasReservation" rule="Pre" />
 	</Transaction>
-	 -->
 </TransactionPolicy>
