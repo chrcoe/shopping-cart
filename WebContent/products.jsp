@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,7 +13,36 @@
         <jsp:include page="Header.jsp" />
         <div id="content">
             <h2>Products</h2>
-            <a href='productdetail.jsp'>details</a> random product
+            <div class="product_container">
+                <div class="product_image">
+                    <img src="./images/coming_soon_image.png"/>
+                </div>
+                <div class="product_description">
+                    <div class="product_name">"A Demo Product"</div>
+                    <div class="product_category product_row2">Category: Miscellaneous</div>
+                    <div class="product_price product_row2">Price: $130.95</div>
+                    <div class="product_available">Number Available: 5</div>
+                </div>
+                <div class="add_product">Add to Cart</div>
+                <div class="detail_link">
+                    <a href='productdetail.jsp'>Details</a>
+                </div>
+            </div>
+            <c:forEach items="${requestScope.products}" var="product">
+                <div class="product_container">
+                    <div class="product_image">
+                        <img src="${product.imagePath}"/>
+                    </div>
+                    <div class="product_description">
+                        <div class="product_name">"${product.name}"</div>
+                        <div class="product_category">Category: "${product.category}"</div>
+                        <div class="product_price">Price: $"${product.price}"</div>
+                    </div>
+                    <div class="detail_link">
+                        <a href='productdetail.jsp'>details</a>
+                    </div>
+                </div>
+            </c:forEach>
         </div>
         <jsp:include page="Footer.jsp" />
     </div>

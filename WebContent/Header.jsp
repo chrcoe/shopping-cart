@@ -1,15 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div id="header">
+<div class="header">
     <div id="heading">
-        <h1>The Name of the Store</h1>
+        <h1>Southwind Trading Company</h1>
     </div>
     <div id="search">
         <form method="post" action="SearchForProducts.do">
             <input name="itemName" type="text" value="" class="txtfield" />
-            <input type="submit" value="Search Products" class="button" />
+            <input type="submit" value="Search Products" class="" />
         </form>
     </div>
-    <div id="menu">    
+    <div class="menu">    
         <ul>
             <li id="navIndex">
                 <a href="<c:url value='/index.jsp' />" target="_self">Home</a>
