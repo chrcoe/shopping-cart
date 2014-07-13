@@ -2,16 +2,13 @@ package test.dao_test;
 
 import static org.junit.Assert.*;
 
-import java.sql.Connection;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.sql.DataSource;
 
 import model.User;
 
-import org.apache.tomcat.dbcp.dbcp.DataSourceConnectionFactory;
+import org.apache.naming.java.javaURLContextFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -19,36 +16,37 @@ import org.junit.Test;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource;
 
-import dao.DBConnector;
+//import dao.DBConnector;
+
 import dao.UserDAO;
 
 public class UserDAOTest {
 
     private UserDAO uDAO;
-    private DBConnector dbc; // this mimics connecting from a servlet
-
-    private Connection connect() {
-        // the following commented code shows an example of how the servlet
-        // connect() method should flow.
-
-        // String url = getServletContext().getInitParameter("url");
-        // String user_name = getServletContext().getInitParameter("userId");
-        // String password = getServletContext().getInitParameter("password");
-        // ConnectionMaker conMaker = new ConnectionMaker();
-        // conMaker.setUrl(url);
-        // conMaker.setPassword(password);
-        // conMaker.setUserId(user_name);
-        // Connection conn = conMaker.getConnection();
-        // return conn;
-
-        // we are mimicking this here:
-        String url = "jdbc:mysql://localhost:3306/cart_comp461_db";
-        String uid = "comp461";
-        String pwd = "comp461&!";
-        dbc = new DBConnector(url, uid, pwd);
-
-        return dbc.getConnection();
-    }
+//    private DBConnector dbc; // this mimics connecting from a servlet
+//
+//    private Connection connect() {
+//        // the following commented code shows an example of how the servlet
+//        // connect() method should flow.
+//
+//        // String url = getServletContext().getInitParameter("url");
+//        // String user_name = getServletContext().getInitParameter("userId");
+//        // String password = getServletContext().getInitParameter("password");
+//        // ConnectionMaker conMaker = new ConnectionMaker();
+//        // conMaker.setUrl(url);
+//        // conMaker.setPassword(password);
+//        // conMaker.setUserId(user_name);
+//        // Connection conn = conMaker.getConnection();
+//        // return conn;
+//
+//        // we are mimicking this here:
+//        String url = "jdbc:mysql://localhost:3306/cart_comp461_db";
+//        String uid = "comp461";
+//        String pwd = "comp461&!";
+//        dbc = new DBConnector(url, uid, pwd);
+//
+//        return dbc.getConnection();
+//    }
 
     @BeforeClass
     public static void setUpClass() throws Exception {
@@ -59,9 +57,12 @@ public class UserDAOTest {
         // rcarver - setup the jndi context and the datasource
         try {
             // Create initial context
+            // System.setProperty(Context.INITIAL_CONTEXT_FACTORY,
+            // "org.apache.naming.java.javaURLContextFactory");
+            // System.setProperty(Context.URL_PKG_PREFIXES,
+            // "org.apache.naming");
             System.setProperty(Context.INITIAL_CONTEXT_FACTORY,
-                    "org.apache.naming.java.javaURLContextFactory");
-            System.setProperty(Context.URL_PKG_PREFIXES, "org.apache.naming");
+                    javaURLContextFactory.class.getName());
             InitialContext ic = new InitialContext();
 
             ic.createSubcontext("java:");
@@ -93,7 +94,7 @@ public class UserDAOTest {
 
     @After
     public void tearDown() throws Exception {
-        dbc.closeConnection();
+        uDAO.closeConnection();
     }
 
     @Test

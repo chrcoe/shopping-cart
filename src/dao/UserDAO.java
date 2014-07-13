@@ -7,39 +7,35 @@ import java.sql.Statement;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import model.User;
 
 public class UserDAO {
 
-    // TODO: figure out singleton DBConnection...
     private Connection con;
 
-    @SuppressWarnings("unused")
-    public UserDAO() throws Exception {
+    public UserDAO() throws NamingException, SQLException {
 
         // initialize lastAutoKeys here
 
         Context cxt = new InitialContext();
-        Context webContext = (Context)cxt.lookup("java:/comp/env");
-        DataSource ds = (DataSource) cxt.lookup("jdbc/CartDB");
+        DataSource ds = (DataSource) cxt.lookup( "java:/comp/env/jdbc/CartDB" );
 
         con = ds.getConnection();
 
-        // try {
-        // con = DBConnector.getConnection();
-        // }
-        // catch (Exception e) {
-        // e.printStackTrace();
-        // }
     }
 
-    public UserDAO(Connection inConn) {
+//    public UserDAO(Connection inConn) {
+//
+//        // initialize lastAutoKeys here
+//
+//        con = inConn;
+//    }
 
-        // initialize lastAutoKeys here
-
-        con = inConn;
+    public void closeConnection() throws SQLException {
+        con.close();
     }
 
     // CREATE

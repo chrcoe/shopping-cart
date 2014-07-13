@@ -146,7 +146,7 @@ INSERT INTO `cart_comp461_db`.`OrderItem` (`idOrderItem`, `idOrder`, `idProduct`
 
 COMMIT;
 
-CREATE USER `comp461` IDENTIFIED BY 'comp461&!';
+CREATE USER `comp461` IDENTIFIED BY 'comp461';
 
 grant DELETE on TABLE `cart_comp461_db`.`Order` to comp461;
 grant INSERT on TABLE `cart_comp461_db`.`Order` to comp461;
