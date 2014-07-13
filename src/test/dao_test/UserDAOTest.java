@@ -35,7 +35,7 @@ public class UserDAOTest {
         // we are mimicking this here:
         String url = "jdbc:mysql://localhost:3306/cart_comp461_db";
         String uid = "comp461";
-        String pwd = "comp461&!";
+        String pwd = "comp461";
         dbc = new DBConnector(url, uid, pwd);
 
         return dbc.getConnection();
@@ -48,7 +48,7 @@ public class UserDAOTest {
 
     @After
     public void tearDown() throws Exception {
-        dbc.closeConnection();
+//        dbc.closeConnection();
     }
 
     @Test

@@ -34,7 +34,7 @@
   </context-param>
   <context-param>
     <param-name>password</param-name>
-    <param-value><![CDATA[comp461&!]]></param-value>
+    <param-value>comp461</param-value>
   </context-param>
   <context-param>
     <param-name>url</param-name>

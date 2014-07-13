@@ -12,23 +12,27 @@ public class UserDAO {
     // TODO: figure out singleton DBConnection...
     private Connection con;
 
-//    public UserDAO() {
-//
-//        // initialize lastAutoKeys here
-//
-//        try {
-//            con = DBConnector.getConnection();
-//        }
-//        catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public UserDAO() {
+
+        // initialize lastAutoKeys here
+
+        try {
+            con = DBConnector.getConnection();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public UserDAO(Connection inConn) {
 
         // initialize lastAutoKeys here
 
         con = inConn;
+    }
+
+    public void closeConnection() throws SQLException {
+        con.close();
     }
 
     // CREATE

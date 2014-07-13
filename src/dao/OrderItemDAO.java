@@ -1,12 +1,34 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 import model.OrderItem;
 
 public class OrderItemDAO {
 
-    // TODO: figure out singleton DBConnection...
+    private Connection con;
+
+    public OrderItemDAO() throws NamingException, SQLException {
+
+        // initialize lastAutoKeys here
+
+        Context cxt = new InitialContext();
+        DataSource ds = (DataSource) cxt.lookup( "java:/comp/env/jdbc/CartDB" );
+
+        con = ds.getConnection();
+
+    }
+
+    public void closeConnection() throws SQLException {
+        con.close();
+    }
 
     // CREATE
     public OrderItem createOrderItemByOrderID(int orderID) {
