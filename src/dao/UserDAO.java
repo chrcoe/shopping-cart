@@ -5,6 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 import model.User;
 
 public class UserDAO {
@@ -12,17 +16,24 @@ public class UserDAO {
     // TODO: figure out singleton DBConnection...
     private Connection con;
 
-//    public UserDAO() {
-//
-//        // initialize lastAutoKeys here
-//
-//        try {
-//            con = DBConnector.getConnection();
-//        }
-//        catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    @SuppressWarnings("unused")
+    public UserDAO() throws Exception {
+
+        // initialize lastAutoKeys here
+
+        Context cxt = new InitialContext();
+        Context webContext = (Context)cxt.lookup("java:/comp/env");
+        DataSource ds = (DataSource) cxt.lookup("jdbc/CartDB");
+
+        con = ds.getConnection();
+
+        // try {
+        // con = DBConnector.getConnection();
+        // }
+        // catch (Exception e) {
+        // e.printStackTrace();
+        // }
+    }
 
     public UserDAO(Connection inConn) {
 
