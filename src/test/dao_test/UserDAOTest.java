@@ -23,30 +23,6 @@ import dao.UserDAO;
 public class UserDAOTest {
 
     private UserDAO uDAO;
-//    private DBConnector dbc; // this mimics connecting from a servlet
-//
-//    private Connection connect() {
-//        // the following commented code shows an example of how the servlet
-//        // connect() method should flow.
-//
-//        // String url = getServletContext().getInitParameter("url");
-//        // String user_name = getServletContext().getInitParameter("userId");
-//        // String password = getServletContext().getInitParameter("password");
-//        // ConnectionMaker conMaker = new ConnectionMaker();
-//        // conMaker.setUrl(url);
-//        // conMaker.setPassword(password);
-//        // conMaker.setUserId(user_name);
-//        // Connection conn = conMaker.getConnection();
-//        // return conn;
-//
-//        // we are mimicking this here:
-//        String url = "jdbc:mysql://localhost:3306/cart_comp461_db";
-//        String uid = "comp461";
-//        String pwd = "comp461&!";
-//        dbc = new DBConnector(url, uid, pwd);
-//
-//        return dbc.getConnection();
-//    }
 
     @BeforeClass
     public static void setUpClass() throws Exception {
@@ -56,13 +32,10 @@ public class UserDAOTest {
         // from the servlet to use Junit properly.
         // rcarver - setup the jndi context and the datasource
         try {
-            // Create initial context
-            // System.setProperty(Context.INITIAL_CONTEXT_FACTORY,
-            // "org.apache.naming.java.javaURLContextFactory");
-            // System.setProperty(Context.URL_PKG_PREFIXES,
-            // "org.apache.naming");
             System.setProperty(Context.INITIAL_CONTEXT_FACTORY,
                     javaURLContextFactory.class.getName());
+            // needed to add tomcat-juli.jar because InitialContext uses it for
+            // logging .. else all tests would fail with a ClassNotFound Exception
             InitialContext ic = new InitialContext();
 
             ic.createSubcontext("java:");
@@ -70,10 +43,7 @@ public class UserDAOTest {
             ic.createSubcontext("java:/comp/env");
             ic.createSubcontext("java:/comp/env/jdbc");
 
-            // Construct DataSource
             MysqlConnectionPoolDataSource ds = new MysqlConnectionPoolDataSource();
-            // OracleConnectionPoolDataSource ds = new
-            // OracleConnectionPoolDataSource();
             ds.setURL("jdbc:mysql://localhost:3306/cart_comp461_db");
             ds.setUser("comp461");
             ds.setPassword("comp461");

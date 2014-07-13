@@ -27,13 +27,6 @@ public class UserDAO {
 
     }
 
-//    public UserDAO(Connection inConn) {
-//
-//        // initialize lastAutoKeys here
-//
-//        con = inConn;
-//    }
-
     public void closeConnection() throws SQLException {
         con.close();
     }
