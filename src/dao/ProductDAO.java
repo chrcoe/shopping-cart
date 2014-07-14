@@ -6,7 +6,7 @@ import model.Product;
 
 public class ProductDAO {
 
-    // TODO: figure out singleton DBConnection...
+    // TODO: setup constructors to handle connection pooling
 
     // CREATE
     public int createProduct(Product newProduct) {

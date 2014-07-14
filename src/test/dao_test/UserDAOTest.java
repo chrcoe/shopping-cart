@@ -8,6 +8,7 @@ import javax.naming.NamingException;
 
 import model.User;
 
+import org.apache.naming.java.javaURLContextFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -31,8 +32,9 @@ public class UserDAOTest {
         try {
             // Create initial context
             System.setProperty(Context.INITIAL_CONTEXT_FACTORY,
-                    "org.apache.naming.java.javaURLContextFactory");
-            System.setProperty(Context.URL_PKG_PREFIXES, "org.apache.naming");
+                    javaURLContextFactory.class.getName());
+            // needed to add tomcat-juli.jar because InitialContext uses it for
+            // logging .. else all tests would fail with a ClassNotFound Exception
             InitialContext ic = new InitialContext();
 
             ic.createSubcontext("java:");
@@ -42,8 +44,6 @@ public class UserDAOTest {
 
             // Construct DataSource
             MysqlConnectionPoolDataSource ds = new MysqlConnectionPoolDataSource();
-            // OracleConnectionPoolDataSource ds = new
-            // OracleConnectionPoolDataSource();
             ds.setURL("jdbc:mysql://localhost:3306/cart_comp461_db");
             ds.setUser("comp461");
             ds.setPassword("comp461");

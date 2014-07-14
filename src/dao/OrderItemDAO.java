@@ -6,7 +6,7 @@ import model.OrderItem;
 
 public class OrderItemDAO {
 
-    // TODO: figure out singleton DBConnection...
+    // TODO: setup constructors to handle connection pooling
 
     // CREATE
     public OrderItem createOrderItemByOrderID(int orderID) {

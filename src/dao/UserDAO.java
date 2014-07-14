@@ -8,6 +8,7 @@ import java.sql.Statement;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import model.User;
@@ -17,7 +18,8 @@ public class UserDAO {
     private Connection con;
     private int lastUserAutoKey;
 
-    public UserDAO() throws Exception {
+    public UserDAO() throws NamingException, SQLException {
+
         // initialize lastAutoKeys here
         lastUserAutoKey = -1;
 
