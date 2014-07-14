@@ -28,18 +28,18 @@
                     <a href='productdetail.jsp'>Details</a>
                 </div>
             </div>
-            <c:forEach items="${requestScope.products}" var="product">
+            <c:forEach items="${actionBean.allProducts}" var="product">
                 <div class="product_container">
                     <div class="product_image">
-                        <img src="${product.imagePath}"/>
+                        
                     </div>
                     <div class="product_description">
-                        <div class="product_name">"${product.name}"</div>
-                        <div class="product_category">Category: "${product.category}"</div>
-                        <div class="product_price">Price: $"${product.price}"</div>
+                        <div class="product_name">${product.productName}</div>
+                        <div class="product_category">Category: ${product.categoryName}</div>
+                        <div class="product_price">Price: $${product.unitPrice}</div>
                     </div>
                     <div class="detail_link">
-                        <a href='productdetail.jsp'>details</a>
+                        <a href='Product.action?getProduct=&itemId=${product.productID}'>Details</a>
                     </div>
                 </div>
             </c:forEach>

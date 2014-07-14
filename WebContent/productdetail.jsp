@@ -16,11 +16,11 @@
             <div class="detail_container">
                 <div class="detail_image detail_row1"><img src="./images/coming_soon_large.png"/></div>
                 <div class="detail_product detail_row1">
-                    <div class="detail_name">A Demo Product</div>
+                    <div class="detail_name">${actionBean.item.productName}</div>
                     <div class="detail_desc">This is an excellent product for demonstrating your website. If you need to show exactly what your site will look like when you actually have some content, then you can't go wrong with one of these demo products.</div>
                 </div>
-                <div class="detail_quant detail_row2"><b>Number Available:</b>&nbsp; &nbsp; 5</div>
-                <div class="detail_price detail_row2"><b>Price:</b>&nbsp; &nbsp; $130.95</div>
+                <div class="detail_quant detail_row2"><b>Number Available:</b>&nbsp; &nbsp; ${actionBean.item.unitsInStock}</div>
+                <div class="detail_price detail_row2"><b>Price:</b>&nbsp; &nbsp; $ ${actionBean.item.unitPrice}</div>
                 <div class="detail_add">
                     <div class="button">Add To Cart</div>
                 </div>
