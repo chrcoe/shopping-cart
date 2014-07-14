@@ -34,54 +34,48 @@ public class UserDAO {
     }
 
     // CREATE
-    public int createUser(User newUser) {
-        try {
-            Statement s = con.createStatement(
-                    java.sql.ResultSet.TYPE_FORWARD_ONLY,
-                    java.sql.ResultSet.CONCUR_UPDATABLE);
+    public int createUser(User newUser) throws SQLException {
 
-            ResultSet rs = null;
+        Statement s = con.createStatement(java.sql.ResultSet.TYPE_FORWARD_ONLY,
+                java.sql.ResultSet.CONCUR_UPDATABLE);
 
-            // insert into User (NAME,ADDRESS,CITY,STATE,ZIP,PHONE)
-            // VALUES (...);
+        ResultSet rs = null;
 
-            String sql = String.format(
-                    "INSERT INTO cart_comp461_db.User (idUser, name,"
-                            + "address, city, state, zip, phone) VALUES"
-                            + "(null, \'%s\', \'%s\', \'%s\', \'%s\', \'%s\',"
-                            + "\'%s\')", newUser.getName(),
-                    newUser.getAddress(), newUser.getCity(),
-                    newUser.getState(), newUser.getZip(), newUser.getPhone());
+        // insert into User (NAME,ADDRESS,CITY,STATE,ZIP,PHONE)
+        // VALUES (...);
 
-            s.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
-            rs = s.getGeneratedKeys();
-            rs.last();
-            lastUserAutoKey = rs.getInt(1);
+        String sql = String.format(
+                "INSERT INTO cart_comp461_db.User (idUser, name,"
+                        + "address, city, state, zip, phone) VALUES"
+                        + "(null, \'%s\', \'%s\', \'%s\', \'%s\', \'%s\',"
+                        + "\'%s\')", newUser.getName(), newUser.getAddress(),
+                newUser.getCity(), newUser.getState(), newUser.getZip(),
+                newUser.getPhone());
 
-            s.close();
-            rs.close();
+        s.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+        rs = s.getGeneratedKeys();
+        rs.last();
+        lastUserAutoKey = rs.getInt(1);
 
-        }
-        catch (SQLException e) {
-            System.out.println("Statement failed to execute on DB");
-            e.printStackTrace();
-        }
+        s.close();
+        rs.close();
 
         return lastUserAutoKey;
     }
 
     // RETRIEVE
     /**
-     *
-     * @param userID the ID of the user to lookup
+     * @param userID
+     *            the ID of the user to lookup
      * @return the User Model object, or null if not found
-     * @throws SQLException when SQL error occurs
+     * @throws SQLException
+     *             when SQL error occurs
      */
     public User getUserByUserID(int userID) throws SQLException {
 
         User record = null;
-        String sql = "SELECT * FROM cart_comp461_db.User "
-                + "WHERE idUser = " + userID;
+        String sql = "SELECT * FROM cart_comp461_db.User " + "WHERE idUser = "
+                + userID;
 
         // prepared statement
         Statement s = con.createStatement();
@@ -109,30 +103,25 @@ public class UserDAO {
     }
 
     // UPDATE
-    public void updateUser(User theUser) {
+    public void updateUser(User theUser) throws SQLException {
         // UPDATE <table> SET <column>=<value> WHERE ID=<id>
-        try {
-            String sql = "UPDATE cart_comp461_db.User SET "
-                    + "name = ?, address = ?, city = ?, state = ?, zip = ?,"
-                    + "phone = ? WHERE idUser = ?";
 
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, theUser.getName());
-            ps.setString(2, theUser.getAddress());
-            ps.setString(3, theUser.getCity());
-            ps.setString(4, theUser.getState());
-            ps.setString(5, theUser.getZip());
-            ps.setString(6, theUser.getPhone());
-            ps.setInt(7,  theUser.getUserID());
-            ps.executeUpdate();
+        String sql = "UPDATE cart_comp461_db.User SET "
+                + "name = ?, address = ?, city = ?, state = ?, zip = ?,"
+                + "phone = ? WHERE idUser = ?";
 
-            ps.close();
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, theUser.getName());
+        ps.setString(2, theUser.getAddress());
+        ps.setString(3, theUser.getCity());
+        ps.setString(4, theUser.getState());
+        ps.setString(5, theUser.getZip());
+        ps.setString(6, theUser.getPhone());
+        ps.setInt(7, theUser.getUserID());
+        ps.executeUpdate();
 
-        }
-        catch (SQLException e) {
-            System.out.println("Statement failed to execute on DB");
-            e.printStackTrace();
-        }
+        ps.close();
+
     }
 
     // DELETE

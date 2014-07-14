@@ -24,6 +24,7 @@ DROP TABLE IF EXISTS `cart_comp461_db`.`Product` ;
 CREATE  TABLE IF NOT EXISTS `cart_comp461_db`.`Product` (
   `idProduct` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
+  `description` VARCHAR(255) NULL ,
   `categoryName` VARCHAR(45) NULL ,
   `price` DOUBLE NULL ,
   `amt_in_stock` INT NULL ,
@@ -100,6 +101,8 @@ CREATE  TABLE IF NOT EXISTS `cart_comp461_db`.`OrderItem` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
@@ -109,9 +112,9 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `cart_comp461_db`;
-INSERT INTO `cart_comp461_db`.`Product` (`idProduct`, `name`, `categoryName`, `price`, `amt_in_stock`, `amt_on_order`, `reorder_threshold`, `is_discontinued`) VALUES (1, 'Swiss', 'cheese', 4.99, 10, 2, 3, 0);
-INSERT INTO `cart_comp461_db`.`Product` (`idProduct`, `name`, `categoryName`, `price`, `amt_in_stock`, `amt_on_order`, `reorder_threshold`, `is_discontinued`) VALUES (2, 'American', 'cheese', 1.99, 2, 0, 1, 1);
-INSERT INTO `cart_comp461_db`.`Product` (`idProduct`, `name`, `categoryName`, `price`, `amt_in_stock`, `amt_on_order`, `reorder_threshold`, `is_discontinued`) VALUES (3, 'Jeans', 'clothes', 24.99, 1, 10, 2, 0);
+INSERT INTO `cart_comp461_db`.`Product` (`idProduct`, `name`, `description`, `categoryName`, `price`, `amt_in_stock`, `amt_on_order`, `reorder_threshold`, `is_discontinued`) VALUES (1, 'Swiss', NULL, 'cheese', 4.99, 10, 2, 3, 0);
+INSERT INTO `cart_comp461_db`.`Product` (`idProduct`, `name`, `description`, `categoryName`, `price`, `amt_in_stock`, `amt_on_order`, `reorder_threshold`, `is_discontinued`) VALUES (2, 'American', NULL, 'cheese', 1.99, 2, 0, 1, 1);
+INSERT INTO `cart_comp461_db`.`Product` (`idProduct`, `name`, `description`, `categoryName`, `price`, `amt_in_stock`, `amt_on_order`, `reorder_threshold`, `is_discontinued`) VALUES (3, 'Jeans', NULL, 'clothes', 24.99, 1, 10, 2, 0);
 
 COMMIT;
 

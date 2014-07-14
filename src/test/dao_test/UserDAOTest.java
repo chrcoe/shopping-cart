@@ -61,7 +61,6 @@ public class UserDAOTest {
 
     @Before
     public void setUp() throws Exception {
-        // uDAO = new UserDAO(connect());
         uDAO = new UserDAO();
     }
 
