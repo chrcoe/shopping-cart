@@ -20,6 +20,7 @@ import business.CheckOut;
 import business.Context;
 import business.UnitOfWork;
 import business.exceptions.PolicyException;
+import business.exceptions.UserNotRegisteredException;
 import business.policy.IsRegisteredPolicy;
 import business.policy.Policy;
 
@@ -46,7 +47,7 @@ public class BusinessPolicyTests {
 	public void test_checkout_policies_unregistered() throws PolicyException{
 		User u = new User();
 		UnitOfWork co = UnitOfWork.create(CheckOut.class, policyGraph).with(u);
-		exception.expect(PolicyException.class);
+		exception.expect(UserNotRegisteredException.class);
 		co.Go();
 	}
 	

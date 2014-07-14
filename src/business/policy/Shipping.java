@@ -7,8 +7,7 @@ import business.exceptions.UserNotRegisteredException;
 public class Shipping extends Policy {
 
 	@Override
-	public void preCheck(Context context) throws PolicyException,
-			UserNotRegisteredException {
+	public void preCheck(Context context) throws PolicyException {
 		// TODO Auto-generated method stub
 
 	}
