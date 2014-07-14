@@ -2,16 +2,12 @@ package test.dao_test;
 
 import static org.junit.Assert.*;
 
-import java.sql.Connection;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.sql.DataSource;
 
 import model.User;
 
-import org.apache.tomcat.dbcp.dbcp.DataSourceConnectionFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -19,36 +15,11 @@ import org.junit.Test;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource;
 
-import dao.DBConnector;
 import dao.UserDAO;
 
 public class UserDAOTest {
 
     private UserDAO uDAO;
-    private DBConnector dbc; // this mimics connecting from a servlet
-
-    private Connection connect() {
-        // the following commented code shows an example of how the servlet
-        // connect() method should flow.
-
-        // String url = getServletContext().getInitParameter("url");
-        // String user_name = getServletContext().getInitParameter("userId");
-        // String password = getServletContext().getInitParameter("password");
-        // ConnectionMaker conMaker = new ConnectionMaker();
-        // conMaker.setUrl(url);
-        // conMaker.setPassword(password);
-        // conMaker.setUserId(user_name);
-        // Connection conn = conMaker.getConnection();
-        // return conn;
-
-        // we are mimicking this here:
-        String url = "jdbc:mysql://localhost:3306/cart_comp461_db";
-        String uid = "comp461";
-        String pwd = "comp461&!";
-        dbc = new DBConnector(url, uid, pwd);
-
-        return dbc.getConnection();
-    }
 
     @BeforeClass
     public static void setUpClass() throws Exception {
@@ -93,13 +64,34 @@ public class UserDAOTest {
 
     @After
     public void tearDown() throws Exception {
-        dbc.closeConnection();
+        uDAO.closeConnection();
     }
 
     @Test
     public void test_createUser() throws Exception {
-        // TODO: implement this test
-        assertFalse("Built to fail until implemented", true);
+        User newUser = new User(-1, "Jim", "321 Test Road", "Columbus", "OH",
+                "43230", "6148881234");
+        int userId = uDAO.createUser(newUser);
+
+        User testUser = uDAO.getUserByUserID(userId);
+
+        // the user ID will change every time this test runs, so we can't test
+        // it
+        // properly.
+        // assertTrue("ID did not match", testUser.getUserID() == 2);
+        assertTrue("NAME did not match",
+                testUser.getName().equalsIgnoreCase("Jim"));
+        assertTrue("ADDRESS did not match", testUser.getAddress()
+                .equalsIgnoreCase("321 Test Road"));
+        assertTrue("CITY did not match",
+                testUser.getCity().equalsIgnoreCase("Columbus"));
+        assertTrue("STATE did not match",
+                testUser.getState().equalsIgnoreCase("OH"));
+        assertTrue("ZIP did not match",
+                testUser.getZip().equalsIgnoreCase("43230"));
+        assertTrue("PHONE did not match",
+                testUser.getPhone().equalsIgnoreCase("6148881234"));
+
     }
 
     @Test
@@ -124,8 +116,38 @@ public class UserDAOTest {
 
     @Test
     public void test_updateUser() throws Exception {
-        // TODO: implement this test
-        assertFalse("Built to fail until implemented", true);
+        User user = new User(-1, "Jim", "321 Test Road", "Columbus", "OH",
+                "43230", "6148881234");
+
+        User newUser = uDAO.getUserByUserID(1);
+        // check before update
+        assertTrue("ID did not match", newUser.getUserID() == 1);
+        assertTrue("NAME did not match",
+                newUser.getName().equalsIgnoreCase("John"));
+        assertTrue("ADDRESS did not match", newUser.getAddress()
+                .equalsIgnoreCase("123 Home Road"));
+        assertTrue("CITY did not match",
+                newUser.getCity().equalsIgnoreCase("Delaware"));
+        assertTrue("STATE did not match",
+                newUser.getState().equalsIgnoreCase("OH"));
+        assertTrue("ZIP did not match",
+                newUser.getZip().equalsIgnoreCase("43015"));
+        assertTrue("PHONE did not match",
+                newUser.getPhone().equalsIgnoreCase("7401234567"));
+
+        uDAO.updateUser(user);
+        // check after update
+        assertTrue("NAME did not match", user.getName().equalsIgnoreCase("Jim"));
+        assertTrue("ADDRESS did not match",
+                user.getAddress().equalsIgnoreCase("321 Test Road"));
+        assertTrue("CITY did not match",
+                user.getCity().equalsIgnoreCase("Columbus"));
+        assertTrue("STATE did not match", user.getState()
+                .equalsIgnoreCase("OH"));
+        assertTrue("ZIP did not match", user.getZip().equalsIgnoreCase("43230"));
+        assertTrue("PHONE did not match",
+                user.getPhone().equalsIgnoreCase("6148881234"));
+
     }
 
     @Test

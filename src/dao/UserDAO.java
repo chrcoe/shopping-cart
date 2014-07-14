@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,57 +14,62 @@ import model.User;
 
 public class UserDAO {
 
-    // TODO: figure out singleton DBConnection...
     private Connection con;
+    private int lastUserAutoKey;
 
-    @SuppressWarnings("unused")
     public UserDAO() throws Exception {
-
         // initialize lastAutoKeys here
+        lastUserAutoKey = -1;
 
         Context cxt = new InitialContext();
-        Context webContext = (Context)cxt.lookup("java:/comp/env");
-        DataSource ds = (DataSource) cxt.lookup("jdbc/CartDB");
+        DataSource ds = (DataSource) cxt.lookup("java:/comp/env/jdbc/CartDB");
 
         con = ds.getConnection();
-
-        // try {
-        // con = DBConnector.getConnection();
-        // }
-        // catch (Exception e) {
-        // e.printStackTrace();
-        // }
     }
 
-    public UserDAO(Connection inConn) {
-
-        // initialize lastAutoKeys here
-
-        con = inConn;
+    public void closeConnection() throws SQLException {
+        con.close();
     }
 
     // CREATE
     public int createUser(User newUser) {
-        // the idea here is to pass in all user info by building the object
-        // first then this method will return that user's PK in the DB
-        // TODO: implement this method
-        int userID = -1; // need to use the lastAutoKey idea here
-        String name = null;
-        String address = null;
-        String city = null;
-        String state = null;
-        String zip = null;
-        String phone = null;
+        try {
+            Statement s = con.createStatement(
+                    java.sql.ResultSet.TYPE_FORWARD_ONLY,
+                    java.sql.ResultSet.CONCUR_UPDATABLE);
 
-        User user = new User(userID, name, address, city, state, zip, phone);
+            ResultSet rs = null;
 
-        return user.getUserID();
+            // insert into User (NAME,ADDRESS,CITY,STATE,ZIP,PHONE)
+            // VALUES (...);
+
+            String sql = String.format(
+                    "INSERT INTO cart_comp461_db.User (idUser, name,"
+                            + "address, city, state, zip, phone) VALUES"
+                            + "(null, \'%s\', \'%s\', \'%s\', \'%s\', \'%s\',"
+                            + "\'%s\')", newUser.getName(),
+                    newUser.getAddress(), newUser.getCity(),
+                    newUser.getState(), newUser.getZip(), newUser.getPhone());
+
+            s.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+            rs = s.getGeneratedKeys();
+            rs.last();
+            lastUserAutoKey = rs.getInt(1);
+
+            s.close();
+            rs.close();
+
+        }
+        catch (SQLException e) {
+            System.out.println("Statement failed to execute on DB");
+            e.printStackTrace();
+        }
+
+        return lastUserAutoKey;
     }
 
     // RETRIEVE
     public User getUserByUserID(int userID) {
-        // TODO: implement this method
-        // would populate fields from SQL result
 
         User record = null;
 
@@ -102,12 +108,48 @@ public class UserDAO {
 
     // UPDATE
     public void updateUser(User theUser) {
-        // TODO: implement this method
+        // UPDATE <table> SET <column>=<value> WHERE ID=<id>
+        try {
+            String sql = "UPDATE cart_comp461_db.User SET "
+                    + "name = ?, address = ?, city = ?, state = ?, zip = ?,"
+                    + "phone = ? WHERE idUser = ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, theUser.getName());
+            ps.setString(2, theUser.getAddress());
+            ps.setString(3, theUser.getCity());
+            ps.setString(4, theUser.getState());
+            ps.setString(5, theUser.getZip());
+            ps.setString(6, theUser.getPhone());
+            ps.setInt(7,  theUser.getUserID());
+            ps.executeUpdate();
+
+            ps.close();
+
+        }
+        catch (SQLException e) {
+            System.out.println("Statement failed to execute on DB");
+            e.printStackTrace();
+        }
     }
 
     // DELETE
     public void removeUser(User theUser) {
-        // TODO: implement this method
+        // DELETE FROM cart_comp461_db.User WHERE ID = <id>
+
+        try {
+            String sql = "DELETE FROM cart_comp461_db.User WHERE ID = ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, theUser.getUserID());
+
+            ps.execute();
+            ps.close();
+        }
+        catch (SQLException e) {
+            System.out.println("Statement failed to execute on DB");
+            e.printStackTrace();
+        }
     }
 
     public void removeUserByUserID(int userID) {

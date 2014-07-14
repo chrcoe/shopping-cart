@@ -9,15 +9,12 @@
 -- if you don't want to see the error after the first build, just uncomment the following
 -- line, and it will drop that user and re-create the user properly.
 
--- DROP USER `comp461`;
+DROP USER `comp461`;
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
-DROP SCHEMA IF EXISTS `cart_comp461_db` ;
-CREATE SCHEMA IF NOT EXISTS `cart_comp461_db` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
-USE `cart_comp461_db` ;
 
 -- -----------------------------------------------------
 -- Table `cart_comp461_db`.`Product`
@@ -71,7 +68,7 @@ CREATE  TABLE IF NOT EXISTS `cart_comp461_db`.`Order` (
   CONSTRAINT `fk_Order_User1`
     FOREIGN KEY (`idUser` )
     REFERENCES `cart_comp461_db`.`User` (`idUser` )
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
@@ -94,15 +91,14 @@ CREATE  TABLE IF NOT EXISTS `cart_comp461_db`.`OrderItem` (
   CONSTRAINT `fk_OrderItem_Order1`
     FOREIGN KEY (`idOrder` )
     REFERENCES `cart_comp461_db`.`Order` (`idOrder` )
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_OrderItem_Product1`
     FOREIGN KEY (`idProduct` )
     REFERENCES `cart_comp461_db`.`Product` (`idProduct` )
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
