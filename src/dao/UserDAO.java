@@ -71,40 +71,40 @@ public class UserDAO {
     }
 
     // RETRIEVE
-    public User getUserByUserID(int userID) {
+    /**
+     *
+     * @param userID the ID of the user to lookup
+     * @return the User Model object, or null if not found
+     * @throws SQLException when SQL error occurs
+     */
+    public User getUserByUserID(int userID) throws SQLException {
 
         User record = null;
+        String sql = "SELECT * FROM cart_comp461_db.User "
+                + "WHERE idUser = " + userID;
 
-        try {
-            String sql = "SELECT * FROM cart_comp461_db.User "
-                    + "where idUser = " + userID;
+        // prepared statement
+        Statement s = con.createStatement();
+        ResultSet rs = s.executeQuery(sql);
 
-            // prepared statement
-            Statement s = con.createStatement();
-            ResultSet rs = s.executeQuery(sql);
+        int id;
+        String name, address, city, state, zip, phone;
 
-            int id;
-            String name, address, city, state, zip, phone;
+        while (rs.next()) {
+            id = rs.getInt("idUser");
+            name = rs.getString("name");
+            address = rs.getString("address");
+            city = rs.getString("city");
+            state = rs.getString("state");
+            zip = rs.getString("zip");
+            phone = rs.getString("phone");
 
-            while (rs.next()) {
-                id = rs.getInt("idUser");
-                name = rs.getString("name");
-                address = rs.getString("address");
-                city = rs.getString("city");
-                state = rs.getString("state");
-                zip = rs.getString("zip");
-                phone = rs.getString("phone");
-
-                record = new User(id, name, address, city, state, zip, phone);
-            }
-
-            s.close();
-            rs.close();
+            record = new User(id, name, address, city, state, zip, phone);
         }
-        catch (SQLException e) {
-            System.out.println("Statement failed to execute on DB");
-            e.printStackTrace();
-        }
+
+        s.close();
+        rs.close();
+
         return record;
     }
 
@@ -136,25 +136,29 @@ public class UserDAO {
     }
 
     // DELETE
-    public void removeUser(User theUser) {
+    public void removeUser(User theUser) throws SQLException {
         // DELETE FROM cart_comp461_db.User WHERE ID = <id>
 
-        try {
-            String sql = "DELETE FROM cart_comp461_db.User WHERE ID = ?";
+        String sql = "DELETE FROM cart_comp461_db.User WHERE idUser = ?";
 
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, theUser.getUserID());
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, theUser.getUserID());
 
-            ps.execute();
-            ps.close();
-        }
-        catch (SQLException e) {
-            System.out.println("Statement failed to execute on DB");
-            e.printStackTrace();
-        }
+        ps.execute();
+        ps.close();
+
     }
 
-    public void removeUserByUserID(int userID) {
-        // TODO: implement this method
+    public void removeUserByUserID(int userID) throws SQLException {
+        // DELETE FROM cart_comp461_db.User WHERE ID = <id>
+
+        String sql = "DELETE FROM cart_comp461_db.User WHERE idUser = ?";
+
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, userID);
+
+        ps.execute();
+        ps.close();
+
     }
 }

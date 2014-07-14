@@ -2,6 +2,8 @@ package test.dao_test;
 
 import static org.junit.Assert.*;
 
+import java.sql.SQLException;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -34,7 +36,8 @@ public class UserDAOTest {
             System.setProperty(Context.INITIAL_CONTEXT_FACTORY,
                     javaURLContextFactory.class.getName());
             // needed to add tomcat-juli.jar because InitialContext uses it for
-            // logging .. else all tests would fail with a ClassNotFound Exception
+            // logging .. else all tests would fail with a ClassNotFound
+            // Exception
             InitialContext ic = new InitialContext();
 
             ic.createSubcontext("java:");
@@ -152,14 +155,58 @@ public class UserDAOTest {
 
     @Test
     public void test_removeUser() throws Exception {
-        // TODO: implement this test
-        assertFalse("Built to fail until implemented", true);
+        User newUser = new User(-1, "Jim", "321 Test Road", "Columbus", "OH",
+                "43230", "6148881234");
+        int userId = uDAO.createUser(newUser);
+        User testUser = uDAO.getUserByUserID(userId);
+
+        // should exist here
+        assertTrue("NAME did not match",
+                testUser.getName().equalsIgnoreCase("Jim"));
+        assertTrue("ADDRESS did not match", testUser.getAddress()
+                .equalsIgnoreCase("321 Test Road"));
+        assertTrue("CITY did not match",
+                testUser.getCity().equalsIgnoreCase("Columbus"));
+        assertTrue("STATE did not match",
+                testUser.getState().equalsIgnoreCase("OH"));
+        assertTrue("ZIP did not match",
+                testUser.getZip().equalsIgnoreCase("43230"));
+        assertTrue("PHONE did not match",
+                testUser.getPhone().equalsIgnoreCase("6148881234"));
+
+        uDAO.removeUser(testUser);
+        // but not here
+        testUser = uDAO.getUserByUserID(userId);
+        assertNull("expected no record to be returned (null)", testUser);
+
     }
 
     @Test
     public void test_removeUserByUserID() throws Exception {
-        // TODO: implement this test
-        assertFalse("Built to fail until implemented", true);
+        User newUser = new User(-1, "Jim", "321 Test Road", "Columbus", "OH",
+                "43230", "6148881234");
+        int userId = uDAO.createUser(newUser);
+        User testUser = uDAO.getUserByUserID(userId);
+
+        // should exist here
+        assertTrue("NAME did not match",
+                testUser.getName().equalsIgnoreCase("Jim"));
+        assertTrue("ADDRESS did not match", testUser.getAddress()
+                .equalsIgnoreCase("321 Test Road"));
+        assertTrue("CITY did not match",
+                testUser.getCity().equalsIgnoreCase("Columbus"));
+        assertTrue("STATE did not match",
+                testUser.getState().equalsIgnoreCase("OH"));
+        assertTrue("ZIP did not match",
+                testUser.getZip().equalsIgnoreCase("43230"));
+        assertTrue("PHONE did not match",
+                testUser.getPhone().equalsIgnoreCase("6148881234"));
+
+        uDAO.removeUserByUserID(userId);
+        // but not here
+        testUser = uDAO.getUserByUserID(userId);
+        assertNull("expected no record to be returned (null)", testUser);
+
     }
 
 }
