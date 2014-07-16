@@ -14,9 +14,6 @@ public class IsUserRegistered extends Policy {
 	}
 
 	@Override
-	public void postCheck(Context context) throws PolicyException {
-		// TODO Auto-generated method stub
-		
-	}
+	public void postCheck(Context context) throws PolicyException {}
 
 }
