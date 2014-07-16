@@ -69,21 +69,46 @@ public class ProductDAOTest {
 
     @Test
     public void test_createProduct() throws Exception {
-        Product newProd = new Product(-1, "tacos", "tacos desc", "mexican food",
-                15.99, 5, 10, 5, false);
+        Product newProd = new Product(-1, "tacos", "tacos desc",
+                "mexican food", 15.99, 5, 10, 5, false);
 
         int prodId = pDAO.createProduct(newProd);
-        // the following is not yet implemented
         Product testProd = pDAO.getProductByProductID(prodId);
 
-        // TODO: implement this test
-        assertFalse("Built to fail until implemented", true);
+        assertTrue("name did not match", testProd.getProductName()
+                .equalsIgnoreCase("tacos"));
+        assertTrue("description did not match", testProd.getDescription()
+                .equalsIgnoreCase("tacos desc"));
+        assertTrue("categoryName did not match", testProd.getCategoryName()
+                .equalsIgnoreCase("mexican food"));
+        assertTrue("price did not match", testProd.getUnitPrice() == 15.99);
+        assertTrue("amt_in_stock did not match",
+                testProd.getUnitsInStock() == 5);
+        assertTrue("amt_on_order did not match",
+                testProd.getUnitsOnOrder() == 10);
+        assertTrue("threshold did not match", testProd.getReorderLevel() == 5);
+        assertFalse("discontinued flag did not match",
+                testProd.isDiscontinued());
     }
 
     @Test
     public void test_getProductByProductID() throws Exception {
-        // TODO: implement this test
-        assertFalse("Built to fail until implemented", true);
+        Product testProd = pDAO.getProductByProductID(1);
+
+        assertTrue("ID did not match", testProd.getProductID() == 1);
+        assertTrue("name did not match", testProd.getProductName()
+                .equalsIgnoreCase("swiss"));
+        assertNull("description did not match", testProd.getDescription());
+        assertTrue("categoryName did not match", testProd.getCategoryName()
+                .equalsIgnoreCase("cheese"));
+        assertTrue("price did not match", testProd.getUnitPrice() == 4.99);
+        assertTrue("amt_in_stock did not match",
+                testProd.getUnitsInStock() == 10);
+        assertTrue("amt_on_order did not match",
+                testProd.getUnitsOnOrder() == 2);
+        assertTrue("threshold did not match", testProd.getReorderLevel() == 3);
+        assertFalse("discontinued flag did not match",
+                testProd.isDiscontinued());
     }
 
     @Test
@@ -94,20 +119,110 @@ public class ProductDAOTest {
 
     @Test
     public void test_updateProduct() throws Exception {
-        // TODO: implement this test
-        assertFalse("Built to fail until implemented", true);
+        Product prod = new Product(-1, "tacos", "tacos desc",
+                "mexican food", 15.99, 5, 10, 5, false);
+
+        // add one to update
+        Product newProd = new Product(-1, "swiss", null,
+                "cheese", 4.99, 10, 2, 3, false);
+        int prodId = pDAO.createProduct(newProd);
+        newProd = pDAO.getProductByProductID(prodId);
+
+        // check before update
+        assertTrue("ID did not match", newProd.getProductID() == prodId);
+        assertTrue("name did not match", newProd.getProductName()
+                .equalsIgnoreCase("swiss"));
+        // TODO: fix this test/ maybe the code? it is returning a string of "null" so it won't match null
+        assertNull("description did not match", newProd.getDescription());
+        assertTrue("categoryName did not match", newProd.getCategoryName()
+                .equalsIgnoreCase("cheese"));
+        assertTrue("price did not match", newProd.getUnitPrice() == 4.99);
+        assertTrue("amt_in_stock did not match",
+                newProd.getUnitsInStock() == 10);
+        assertTrue("amt_on_order did not match",
+                newProd.getUnitsOnOrder() == 2);
+        assertTrue("threshold did not match", newProd.getReorderLevel() == 3);
+        assertFalse("discontinued flag did not match",
+                newProd.isDiscontinued());
+
+        // update product that has this ID with that Product object
+        pDAO.updateProduct(newProd.getProductID(), prod);
+        Product testProd = pDAO.getProductByProductID(newProd.getProductID());
+        // check after update
+        assertTrue("name did not match", testProd.getProductName()
+                .equalsIgnoreCase("tacos"));
+        assertTrue("description did not match", testProd.getDescription()
+                .equalsIgnoreCase("tacos desc"));
+        assertTrue("categoryName did not match", testProd.getCategoryName()
+                .equalsIgnoreCase("mexican food"));
+        assertTrue("price did not match", testProd.getUnitPrice() == 15.99);
+        assertTrue("amt_in_stock did not match",
+                testProd.getUnitsInStock() == 5);
+        assertTrue("amt_on_order did not match",
+                testProd.getUnitsOnOrder() == 10);
+        assertTrue("threshold did not match", testProd.getReorderLevel() == 5);
+        assertFalse("discontinued flag did not match",
+                testProd.isDiscontinued());
     }
 
     @Test
     public void test_removeProduct() throws Exception {
-        // TODO: implement this test
-        assertFalse("Built to fail until implemented", true);
+        Product newProd = new Product(-1, "tacos", "tacos desc",
+                "mexican food", 15.99, 5, 10, 5, false);
+
+        int prodId = pDAO.createProduct(newProd);
+        Product testProd = pDAO.getProductByProductID(prodId);
+
+        // should exist here
+        assertTrue("name did not match", testProd.getProductName()
+                .equalsIgnoreCase("tacos"));
+        assertTrue("description did not match", testProd.getDescription()
+                .equalsIgnoreCase("tacos desc"));
+        assertTrue("categoryName did not match", testProd.getCategoryName()
+                .equalsIgnoreCase("mexican food"));
+        assertTrue("price did not match", testProd.getUnitPrice() == 15.99);
+        assertTrue("amt_in_stock did not match",
+                testProd.getUnitsInStock() == 5);
+        assertTrue("amt_on_order did not match",
+                testProd.getUnitsOnOrder() == 10);
+        assertTrue("threshold did not match", testProd.getReorderLevel() == 5);
+        assertFalse("discontinued flag did not match",
+                testProd.isDiscontinued());
+
+        pDAO.removeProduct(testProd);
+        // but not here
+        testProd = pDAO.getProductByProductID(prodId);
+        assertNull("expected no record to be returned (null)", testProd);
     }
 
     @Test
     public void test_removeProductByProductID() throws Exception {
-        // TODO: implement this test
-        assertFalse("Built to fail until implemented", true);
+        Product newProd = new Product(-1, "tacos", "tacos desc",
+                "mexican food", 15.99, 5, 10, 5, false);
+
+        int prodId = pDAO.createProduct(newProd);
+        Product testProd = pDAO.getProductByProductID(prodId);
+
+        // should exist here
+        assertTrue("name did not match", testProd.getProductName()
+                .equalsIgnoreCase("tacos"));
+        assertTrue("description did not match", testProd.getDescription()
+                .equalsIgnoreCase("tacos desc"));
+        assertTrue("categoryName did not match", testProd.getCategoryName()
+                .equalsIgnoreCase("mexican food"));
+        assertTrue("price did not match", testProd.getUnitPrice() == 15.99);
+        assertTrue("amt_in_stock did not match",
+                testProd.getUnitsInStock() == 5);
+        assertTrue("amt_on_order did not match",
+                testProd.getUnitsOnOrder() == 10);
+        assertTrue("threshold did not match", testProd.getReorderLevel() == 5);
+        assertFalse("discontinued flag did not match",
+                testProd.isDiscontinued());
+
+        pDAO.removeProductByProductID(prodId);
+        // but not here
+        testProd = pDAO.getProductByProductID(prodId);
+        assertNull("expected no record to be returned (null)", testProd);
     }
 
 }

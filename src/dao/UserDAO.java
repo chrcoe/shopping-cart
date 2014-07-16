@@ -103,7 +103,7 @@ public class UserDAO {
     }
 
     // UPDATE
-    public void updateUser(User theUser) throws SQLException {
+    public void updateUser(int userId, User theUser) throws SQLException {
         // UPDATE <table> SET <column>=<value> WHERE ID=<id>
 
         String sql = "UPDATE cart_comp461_db.User SET "
@@ -117,11 +117,10 @@ public class UserDAO {
         ps.setString(4, theUser.getState());
         ps.setString(5, theUser.getZip());
         ps.setString(6, theUser.getPhone());
-        ps.setInt(7, theUser.getUserID());
+        ps.setInt(7, userId);
         ps.executeUpdate();
 
         ps.close();
-
     }
 
     // DELETE
@@ -135,7 +134,6 @@ public class UserDAO {
 
         ps.execute();
         ps.close();
-
     }
 
     public void removeUserByUserID(int userID) throws SQLException {
@@ -148,6 +146,5 @@ public class UserDAO {
 
         ps.execute();
         ps.close();
-
     }
 }

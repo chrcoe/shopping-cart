@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -50,7 +51,9 @@ public class ProductDAO {
                         + "reorder_threshold, is_discontinued) VALUES "
                         + "(null, \'%s\', \'%s\', \'%s\', %s, %s, "
                         + "%s, %s, %s)", newProduct.getProductName(),
-                newProduct.getDescription(), newProduct.getCategoryName(),
+                        // this might be the problem .. it is creating it in the DB with "null" instead of null because it it putting in \'null\' instead of null
+                        // might be best to change the restrictions on the fields, or check if it's null set as empty string .. seems wrong...
+                        newProduct.getDescription(), newProduct.getCategoryName(),
                 newProduct.getUnitPrice(), newProduct.getUnitsInStock(),
                 newProduct.getUnitsOnOrder(), newProduct.getReorderLevel(),
                 newProduct.isDiscontinued());
@@ -67,24 +70,42 @@ public class ProductDAO {
     }
 
     // RETRIEVE
-    public Product getProductByProductID(int productID) {
-        // TODO: implement this method
-        // would populate fields from SQL result
-        String productName = null;
-        String desc = null;
-        String categoryName = null; // we need a category identifier .. either
-                                    // change
-        // this to be yet another model/table, or change to
-        // be a string value
-        double unitPrice = -1;
-        int unitsInStock = -1;
-        int unitsOnOrder = -1;
-        int reorderLevel = -1;
-        boolean discontinued = false;
+    public Product getProductByProductID(int productID) throws SQLException {
+        // SELECT * FROM cart_comp461_db.Product WHERE idProduct = <>
 
-        return new Product(productID, productName, desc, categoryName,
-                unitPrice, unitsInStock, unitsOnOrder, reorderLevel,
-                discontinued);
+        Product record = null;
+        String sql = "SELECT * FROM cart_comp461_db.Product "
+                + "WHERE idProduct = " + productID;
+
+        // prepared statement
+        Statement s = con.createStatement();
+        ResultSet rs = s.executeQuery(sql);
+
+        int id, unitsInStock, unitsOnOrder, reorderLevel;
+        String productName, productDesc, categoryName;
+        double unitPrice;
+        boolean discontinued;
+
+        while (rs.next()) {
+            id = rs.getInt("idProduct");
+            productName = rs.getString("name");
+            productDesc = rs.getString("description");
+            categoryName = rs.getString("categoryName");
+            unitsInStock = rs.getInt("amt_in_stock");
+            unitsOnOrder = rs.getInt("amt_on_order");
+            reorderLevel = rs.getInt("reorder_threshold");
+            unitPrice = rs.getDouble("price");
+            discontinued = rs.getBoolean("is_discontinued");
+
+            record = new Product(id, productName, productDesc, categoryName,
+                    unitPrice, unitsInStock, unitsOnOrder, reorderLevel,
+                    discontinued);
+        }
+
+        s.close();
+        rs.close();
+
+        return record;
     }
 
     public ArrayList<Product> getProductsByCategoryName(String categoryName) {
@@ -110,16 +131,53 @@ public class ProductDAO {
     }
 
     // UPDATE
-    public void updateProduct(Product theProduct) {
-        // TODO: implement this method
+    public void updateProduct(int productId, Product theProduct) throws SQLException {
+        // UPDATE <table> SET <column>=<value> WHERE ID=<id>
+
+        String sql = "UPDATE cart_comp461_db.Product SET "
+                + "name = ?, description = ?, categoryName = ?, price = ?," +
+                "amt_in_stock = ?, amt_on_order = ?, reorder_threshold = ?," +
+                "is_discontinued = ? WHERE idProduct = ?";
+
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, theProduct.getProductName());
+        // TODO: trace getDescription during update .. it sometimes passes "null" instead of null
+        ps.setString(2, theProduct.getDescription());
+        ps.setString(3, theProduct.getCategoryName());
+        ps.setDouble(4, theProduct.getUnitPrice());
+        ps.setInt(5, theProduct.getUnitsInStock());
+        ps.setInt(6, theProduct.getUnitsOnOrder());
+        ps.setInt(7, theProduct.getReorderLevel());
+        ps.setBoolean(8, theProduct.isDiscontinued());
+        ps.setInt(9, productId);
+
+        ps.executeUpdate();
+
+        ps.close();
     }
 
     // DELETE
-    public void removeProduct(Product theProduct) {
-        // TODO: implement this method
+    public void removeProduct(Product theProduct) throws SQLException {
+        // DELETE FROM cart_comp461_db.Product WHERE ID = <id>
+
+        String sql = "DELETE FROM cart_comp461_db.Product WHERE idProduct = ?";
+
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, theProduct.getProductID());
+
+        ps.execute();
+        ps.close();
     }
 
-    public void removeProductByProductID(int productID) {
-        // TODO: implement this method
+    public void removeProductByProductID(int productID) throws SQLException {
+        // DELETE FROM cart_comp461_db.Product WHERE ID = <id>
+
+        String sql = "DELETE FROM cart_comp461_db.Product WHERE idProduct = ?";
+
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, productID);
+
+        ps.execute();
+        ps.close();
     }
 }

@@ -121,9 +121,12 @@ public class UserDAOTest {
         User user = new User(-1, "Jim", "321 Test Road", "Columbus", "OH",
                 "43230", "6148881234");
 
-        User newUser = uDAO.getUserByUserID(1);
+        // add one to update
+        User newUser = new User(-1,"John", "123 Home Road","Delaware",
+                "OH", "43015", "7401234567");
+        int userId = uDAO.createUser(newUser);
+        newUser = uDAO.getUserByUserID(userId);
         // check before update
-        assertTrue("ID did not match", newUser.getUserID() == 1);
         assertTrue("NAME did not match",
                 newUser.getName().equalsIgnoreCase("John"));
         assertTrue("ADDRESS did not match", newUser.getAddress()
@@ -137,18 +140,19 @@ public class UserDAOTest {
         assertTrue("PHONE did not match",
                 newUser.getPhone().equalsIgnoreCase("7401234567"));
 
-        uDAO.updateUser(user);
+        uDAO.updateUser(newUser.getUserID(), user);
+        User testUser = uDAO.getUserByUserID(newUser.getUserID());
         // check after update
-        assertTrue("NAME did not match", user.getName().equalsIgnoreCase("Jim"));
+        assertTrue("NAME did not match", testUser.getName().equalsIgnoreCase("Jim"));
         assertTrue("ADDRESS did not match",
-                user.getAddress().equalsIgnoreCase("321 Test Road"));
+                testUser.getAddress().equalsIgnoreCase("321 Test Road"));
         assertTrue("CITY did not match",
-                user.getCity().equalsIgnoreCase("Columbus"));
-        assertTrue("STATE did not match", user.getState()
+                testUser.getCity().equalsIgnoreCase("Columbus"));
+        assertTrue("STATE did not match", testUser.getState()
                 .equalsIgnoreCase("OH"));
-        assertTrue("ZIP did not match", user.getZip().equalsIgnoreCase("43230"));
+        assertTrue("ZIP did not match", testUser.getZip().equalsIgnoreCase("43230"));
         assertTrue("PHONE did not match",
-                user.getPhone().equalsIgnoreCase("6148881234"));
+                testUser.getPhone().equalsIgnoreCase("6148881234"));
 
     }
 
@@ -177,7 +181,6 @@ public class UserDAOTest {
         // but not here
         testUser = uDAO.getUserByUserID(userId);
         assertNull("expected no record to be returned (null)", testUser);
-
     }
 
     @Test
@@ -205,7 +208,6 @@ public class UserDAOTest {
         // but not here
         testUser = uDAO.getUserByUserID(userId);
         assertNull("expected no record to be returned (null)", testUser);
-
     }
 
 }
