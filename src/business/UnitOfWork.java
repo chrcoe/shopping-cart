@@ -22,9 +22,10 @@ public abstract class UnitOfWork {
 			u = (UnitOfWork) c.newInstance();
 			for(Transaction t:policyGraph.getTransaction()){
 				if(workClass.getName().equalsIgnoreCase(t.getId())){
-					for(Policy p:t.getPolicy()){
-						Class<?> policy = Class.forName(p.getId());
+					for(Policy polInfo : t.getPolicy()){
+						Class<?> policy = Class.forName(polInfo.getId());
 						business.policy.Policy bp = (business.policy.Policy) policy.getDeclaredConstructor().newInstance();
+						bp.setPolicyInfo(polInfo);
 						u.policies.add(bp);
 					}
 					break;
@@ -56,5 +57,13 @@ public abstract class UnitOfWork {
 	public UnitOfWork with(business.Context context) {
 		this.ctx = context;
 		return this;
+	}
+
+	public PolicyList getPolicies() {
+		return policies;
+	}
+
+	public void setPolicies(PolicyList policies) {
+		this.policies = policies;
 	}
 }

@@ -23,7 +23,6 @@ public class ProductGateway {
 			if (!gwTable.containsKey(productId)) {
 				gwTable.put(productId, new ProductGateway(productId));
 			}
-
 		}
 		return gwTable.get(productId);
 	}

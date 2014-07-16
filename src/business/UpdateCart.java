@@ -1,6 +1,6 @@
 package business;
 
-public class AddItemToCart extends UnitOfWork {
+public class UpdateCart extends UnitOfWork {
 
 	@Override
 	protected void execute() {
