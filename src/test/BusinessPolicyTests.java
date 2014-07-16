@@ -21,7 +21,7 @@ import business.Context;
 import business.UnitOfWork;
 import business.exceptions.PolicyException;
 import business.exceptions.UserNotRegisteredException;
-import business.policy.IsRegisteredPolicy;
+import business.policy.IsUserRegistered;
 import business.policy.Policy;
 
 public class BusinessPolicyTests {

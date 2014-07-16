@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TransactionPolicy>
 	<Transaction id="business.CheckOut">
-		<Policy id="business.policy.IsRegisteredPolicy" rule="Pre" />
-		<Policy id="business.policy.IsProductInStock" rule="Pre" />
+		<Policy id="business.policy.IsUserRegistered" rule="Pre" />
+		<Policy id="business.policy.HasSufficientInventory" rule="Pre" />
 		<Policy id="business.policy.IsProfilePremiumStatus" rule="Post">
 			<Parameter id="MinOrders" value="5" />
 		</Policy>

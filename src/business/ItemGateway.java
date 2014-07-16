@@ -19,14 +19,17 @@ public class ItemGateway {
 	}
 	
 	private static ItemGateway getInstance(int itemId){
-		if(!itemTable.containsKey(itemId)){
-			itemTable.put(itemId, new ItemGateway(itemId));
+		synchronized (itemTable) {
+			if (!itemTable.containsKey(itemId)) {
+				itemTable.put(itemId, new ItemGateway(itemId));
+			}
+
 		}
 		return itemTable.get(itemId);
 	}
 	
-	public static void Reserve(int itemId, int quantity){
-	
+	public static void Reserve(int itemId, int quantity) throws InsufficientInventoryException{
+		ItemGateway.getInstance(itemId).Reserve(quantity);
 	}
 	
 	private synchronized void Reserve(int quantity) throws InsufficientInventoryException{
