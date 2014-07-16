@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import policy.TransactionPolicy;
-import business.AddItemToCart;
+import business.UpdateCart;
 import business.CheckOut;
 import business.Context;
 import business.UnitOfWork;
@@ -47,6 +47,7 @@ public class BusinessPolicyTests {
 	public void test_checkout_policies_unregistered() throws PolicyException{
 		User u = new User();
 		UnitOfWork co = UnitOfWork.create(CheckOut.class, policyGraph).with(u);
+		assertEquals(co.getPolicies().size(),4);
 		exception.expect(UserNotRegisteredException.class);
 		co.Go();
 	}

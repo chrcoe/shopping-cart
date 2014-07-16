@@ -7,11 +7,14 @@
 			<Parameter id="MinOrders" value="5" />
 		</Policy>
 		<Policy id="business.policy.Shipping" rule="Pre">
-			<Parameter id="FlatRate" value=".015" />
+			<Parameter id="Rate" value=".015" />
 			<Parameter id="PremiumRate" value="0.0" />
 		</Policy>
 	</Transaction>
-	<Transaction id="business.AddItemToCart">
-		<Policy id="business.policy.HasItemReservation" rule="Pre" />
+	<Transaction id="business.UpdateCart">
+		<Policy id="business.policy.Shipping" rule="Pre">
+			<Parameter id="Rate" value=".015" />
+			<Parameter id="PremiumRate" value="0.0" />
+		</Policy>
 	</Transaction>
 </TransactionPolicy>
