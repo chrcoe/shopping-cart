@@ -1,19 +1,19 @@
 package model;
 
 public class CartItem {
-	int cartItemID;
-	int productID;
-	int cartID;
-	int quantity;
-	double linePrice;
+	private int cartItemID;
+	private Product product;
+	private int cartID;
+	private int quantity;
+	private double linePrice;
 	
 	public CartItem() {
 		
 	}
-	public CartItem(int cartItemID, int productID, int cartID, int quantity,
+	public CartItem(int cartItemID, Product product, int cartID, int quantity,
 			double linePrice) {
 		this.cartItemID = cartItemID;
-		this.productID = productID;
+		this.product = product;
 		this.cartID = cartID;
 		this.quantity = quantity;
 		this.linePrice = linePrice;
@@ -24,11 +24,11 @@ public class CartItem {
 	public void setCartItemID(int cartItemID) {
 		this.cartItemID = cartItemID;
 	}
-	public int getProductID() {
-		return productID;
+	public Product getProduct() {
+		return product;
 	}
-	public void setProductID(int productID) {
-		this.productID = productID;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 	public int getCartID() {
 		return cartID;

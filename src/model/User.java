@@ -1,13 +1,13 @@
 package model;
 
 public class User {
-	int userID;
-	String name;
-	String address;
-	String city;
-	String state;
-	String zip;
-	String phone;
+	private int userID;
+	private String name;
+	private String address;
+	private String city;
+	private String state;
+	private String zip;
+	private String phone;
 	
 	public User() {
 		

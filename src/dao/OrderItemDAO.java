@@ -10,6 +10,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import model.OrderItem;
+import model.Product;
 
 public class OrderItemDAO {
 
@@ -34,10 +35,10 @@ public class OrderItemDAO {
     public OrderItem createOrderItemByOrderID(int orderID) {
         // TODO: implement this method
         int orderItemID = -1; // need to use the lastAutoKey idea here
-        int productID = -1;
+        Product product = null;
         int quantity = -1;
         double linePrice = -1.1;
-        return new OrderItem(orderItemID, productID, orderID, quantity,
+        return new OrderItem(orderItemID, product, orderID, quantity,
                 linePrice);
     }
 
@@ -45,19 +46,19 @@ public class OrderItemDAO {
     public ArrayList<OrderItem> getOrderItemsByOrderID(int orderID) {
         // TODO: implement this method
         int orderItemID = -1;
-        int productID = -1;
+        Product product = null;
         int quantity = -1;
         double linePrice = -1.1;
 
         // populate list from SQL resultset
         ArrayList<OrderItem> orderItems = new ArrayList<OrderItem>();
-        orderItems.add(new OrderItem(orderItemID, productID, orderID, quantity,
+        orderItems.add(new OrderItem(orderItemID, product, orderID, quantity,
                 linePrice));
 
         return orderItems;
     }
 
-    public ArrayList<OrderItem> getOrderItemsByProductID(int productID) {
+    public ArrayList<OrderItem> getOrderItemsByProductID(Product product) {
         // TODO: implement this method
         int orderItemID = -1;
         int orderID = -1;
@@ -66,7 +67,7 @@ public class OrderItemDAO {
 
         // populate list from SQL resultset
         ArrayList<OrderItem> orderItems = new ArrayList<OrderItem>();
-        orderItems.add(new OrderItem(orderItemID, productID, orderID, quantity,
+        orderItems.add(new OrderItem(orderItemID, product, orderID, quantity,
                 linePrice));
 
         return orderItems;

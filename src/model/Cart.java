@@ -1,10 +1,13 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Cart {
-	int cartID;
-	int userID;
+	private int cartID;
+	private int userID;
+	private ArrayList<CartItem> items;
 	
-	double cartTotal;
+	private double cartTotal;
 	
 	public Cart() {
 		

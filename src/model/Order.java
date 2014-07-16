@@ -1,8 +1,11 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Order {
-	int orderID;
-	int userID;
+	private int orderID;
+	private int userID;
+	private ArrayList<OrderItem> items;
 
 	public Order() {
 		

@@ -1,14 +1,14 @@
 package model;
 
 public class Product {
-	int productID;
-	String productName;
-	String categoryName;
-	double unitPrice;
-	int unitsInStock;
-	int unitsOnOrder;
-	int reorderLevel;
-	boolean discontinued;
+	private int productID;
+	private String productName;
+	private String categoryName;
+	private double unitPrice;
+	private int unitsInStock;
+	private int unitsOnOrder;
+	private int reorderLevel;
+	private boolean discontinued;
 
 	public Product() {
 
