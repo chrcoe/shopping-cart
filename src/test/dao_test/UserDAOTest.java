@@ -12,6 +12,7 @@ import model.User;
 
 import org.apache.naming.java.javaURLContextFactory;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -23,6 +24,7 @@ import dao.UserDAO;
 public class UserDAOTest {
 
     private UserDAO uDAO;
+    private static InitialContext ic;
 
     @BeforeClass
     public static void setUpClass() throws Exception {
@@ -38,7 +40,7 @@ public class UserDAOTest {
             // needed to add tomcat-juli.jar because InitialContext uses it for
             // logging .. else all tests would fail with a ClassNotFound
             // Exception
-            InitialContext ic = new InitialContext();
+            ic = new InitialContext();
 
             ic.createSubcontext("java:");
             ic.createSubcontext("java:/comp");
@@ -59,6 +61,16 @@ public class UserDAOTest {
 
     }
 
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+        // unbind in reverse order
+        ic.unbind("java:/comp/env/jdbc/CartDB");
+        ic.unbind("java:/comp/env/jdbc");
+        ic.unbind("java:/comp/env");
+        ic.unbind("java:/comp");
+        ic.unbind("java:");
+    }
+
     @Before
     public void setUp() throws Exception {
         uDAO = new UserDAO();
@@ -73,14 +85,10 @@ public class UserDAOTest {
     public void test_createUser() throws Exception {
         User newUser = new User(-1, "Jim", "321 Test Road", "Columbus", "OH",
                 "43230", "6148881234");
-        int userId = uDAO.createUser(newUser);
 
+        int userId = uDAO.createUser(newUser);
         User testUser = uDAO.getUserByUserID(userId);
 
-        // the user ID will change every time this test runs, so we can't test
-        // it
-        // properly.
-        // assertTrue("ID did not match", testUser.getUserID() == 2);
         assertTrue("NAME did not match",
                 testUser.getName().equalsIgnoreCase("Jim"));
         assertTrue("ADDRESS did not match", testUser.getAddress()
@@ -94,6 +102,7 @@ public class UserDAOTest {
         assertTrue("PHONE did not match",
                 testUser.getPhone().equalsIgnoreCase("6148881234"));
 
+        uDAO.removeUser(testUser);
     }
 
     @Test
@@ -122,8 +131,8 @@ public class UserDAOTest {
                 "43230", "6148881234");
 
         // add one to update
-        User newUser = new User(-1,"John", "123 Home Road","Delaware",
-                "OH", "43015", "7401234567");
+        User newUser = new User(-1, "John", "123 Home Road", "Delaware", "OH",
+                "43015", "7401234567");
         int userId = uDAO.createUser(newUser);
         newUser = uDAO.getUserByUserID(userId);
         // check before update
@@ -143,17 +152,20 @@ public class UserDAOTest {
         uDAO.updateUser(newUser.getUserID(), user);
         User testUser = uDAO.getUserByUserID(newUser.getUserID());
         // check after update
-        assertTrue("NAME did not match", testUser.getName().equalsIgnoreCase("Jim"));
-        assertTrue("ADDRESS did not match",
-                testUser.getAddress().equalsIgnoreCase("321 Test Road"));
+        assertTrue("NAME did not match",
+                testUser.getName().equalsIgnoreCase("Jim"));
+        assertTrue("ADDRESS did not match", testUser.getAddress()
+                .equalsIgnoreCase("321 Test Road"));
         assertTrue("CITY did not match",
                 testUser.getCity().equalsIgnoreCase("Columbus"));
-        assertTrue("STATE did not match", testUser.getState()
-                .equalsIgnoreCase("OH"));
-        assertTrue("ZIP did not match", testUser.getZip().equalsIgnoreCase("43230"));
+        assertTrue("STATE did not match",
+                testUser.getState().equalsIgnoreCase("OH"));
+        assertTrue("ZIP did not match",
+                testUser.getZip().equalsIgnoreCase("43230"));
         assertTrue("PHONE did not match",
                 testUser.getPhone().equalsIgnoreCase("6148881234"));
 
+        uDAO.removeUser(newUser);
     }
 
     @Test

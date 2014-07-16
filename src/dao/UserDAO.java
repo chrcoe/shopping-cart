@@ -36,29 +36,26 @@ public class UserDAO {
     // CREATE
     public int createUser(User newUser) throws SQLException {
 
-        Statement s = con.createStatement(java.sql.ResultSet.TYPE_FORWARD_ONLY,
-                java.sql.ResultSet.CONCUR_UPDATABLE);
+        String sql = "INSERT INTO cart_comp461_db.User (idUser, name,"
+                + "address, city, state, zip, phone) VALUES"
+                + "(?, ?, ?, ?, ?, ?, ?)";
 
         ResultSet rs = null;
 
-        // insert into User (NAME,ADDRESS,CITY,STATE,ZIP,PHONE)
-        // VALUES (...);
+        PreparedStatement ps = con.prepareStatement(sql,
+                Statement.RETURN_GENERATED_KEYS);
+        ps.setNull(1, java.sql.Types.INTEGER);
+        ps.setString(2, newUser.getName());
+        ps.setString(3, newUser.getAddress());
+        ps.setString(4, newUser.getCity());
+        ps.setString(5, newUser.getState());
+        ps.setString(6, newUser.getZip());
+        ps.setString(7, newUser.getPhone());
 
-        String sql = String.format(
-                "INSERT INTO cart_comp461_db.User (idUser, name,"
-                        + "address, city, state, zip, phone) VALUES"
-                        + "(null, \'%s\', \'%s\', \'%s\', \'%s\', \'%s\',"
-                        + "\'%s\')", newUser.getName(), newUser.getAddress(),
-                newUser.getCity(), newUser.getState(), newUser.getZip(),
-                newUser.getPhone());
-
-        s.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
-        rs = s.getGeneratedKeys();
+        ps.executeUpdate();
+        rs = ps.getGeneratedKeys();
         rs.last();
         lastUserAutoKey = rs.getInt(1);
-
-        s.close();
-        rs.close();
 
         return lastUserAutoKey;
     }

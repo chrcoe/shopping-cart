@@ -35,36 +35,33 @@ public class ProductDAO {
 
     // CREATE
     public int createProduct(Product newProduct) throws SQLException {
-        Statement s = con.createStatement(java.sql.ResultSet.TYPE_FORWARD_ONLY,
-                java.sql.ResultSet.CONCUR_UPDATABLE);
+
+        String sql = "INSERT INTO cart_comp461_db.Product (idProduct, name, "
+                + "description, categoryName, price, amt_in_stock, "
+                + "amt_on_order, reorder_threshold, is_discontinued) VALUES "
+                + "(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         ResultSet rs = null;
 
-        // INSERT INTO cart_comp461_db.Product
-        // (name,description,categoryName,price,amt_in_stock, amt_on_order,
-        // reorder_threshold, is_discontinued)
-        // VALUES (...);
+        PreparedStatement ps = con.prepareStatement(sql,
+                Statement.RETURN_GENERATED_KEYS);
+        ps.setNull(1, java.sql.Types.INTEGER);
+        ps.setString(2, newProduct.getProductName());
+        ps.setString(3, newProduct.getDescription());
+        ps.setString(4, newProduct.getCategoryName());
+        ps.setDouble(5, newProduct.getUnitPrice());
+        ps.setDouble(6, newProduct.getUnitsInStock());
+        ps.setDouble(7, newProduct.getUnitsOnOrder());
+        ps.setInt(8, newProduct.getReorderLevel());
+        ps.setBoolean(9, newProduct.isDiscontinued());
 
-        String sql = String.format(
-                "INSERT INTO cart_comp461_db.Product (idProduct, name, description, "
-                        + "categoryName, price, amt_in_stock, amt_on_order, "
-                        + "reorder_threshold, is_discontinued) VALUES "
-                        + "(null, \'%s\', \'%s\', \'%s\', %s, %s, "
-                        + "%s, %s, %s)", newProduct.getProductName(),
-                        // this might be the problem .. it is creating it in the DB with "null" instead of null because it it putting in \'null\' instead of null
-                        // might be best to change the restrictions on the fields, or check if it's null set as empty string .. seems wrong...
-                        newProduct.getDescription(), newProduct.getCategoryName(),
-                newProduct.getUnitPrice(), newProduct.getUnitsInStock(),
-                newProduct.getUnitsOnOrder(), newProduct.getReorderLevel(),
-                newProduct.isDiscontinued());
-
-        s.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
-        rs = s.getGeneratedKeys();
+        ps.executeUpdate();
+        rs = ps.getGeneratedKeys();
         rs.last();
         lastProductAutoKey = rs.getInt(1);
 
-        s.close();
         rs.close();
+        ps.close();
 
         return lastProductAutoKey;
     }
@@ -77,7 +74,6 @@ public class ProductDAO {
         String sql = "SELECT * FROM cart_comp461_db.Product "
                 + "WHERE idProduct = " + productID;
 
-        // prepared statement
         Statement s = con.createStatement();
         ResultSet rs = s.executeQuery(sql);
 
@@ -108,40 +104,55 @@ public class ProductDAO {
         return record;
     }
 
-    public ArrayList<Product> getProductsByCategoryName(String categoryName) {
+    public ArrayList<Product> getProductsByCategoryName(String categoryName)
+            throws SQLException {
 
-        int productID = -1; // need to use the lastAutoKey idea here
-        String productName = null;
-        String desc = null;
-        double unitPrice = -1;
-        int unitsInStock = -1;
-        int unitsOnOrder = -1;
-        int reorderLevel = -1;
-        boolean discontinued = false;
+        String sql = String.format("SELECT * FROM cart_comp461_db.Product WHERE "
+                + "categoryName = \'%s\'", categoryName);
 
-        Product newProd = new Product(productID, productName, desc,
-                categoryName, unitPrice, unitsInStock, unitsOnOrder,
-                reorderLevel, discontinued);
+        Statement s = con.createStatement();
+        ResultSet rs = s.executeQuery(sql);
 
         ArrayList<Product> prodList = new ArrayList<Product>();
-        prodList.add(newProd); // this is just an example, would need to add the
-        // entire resultset to prodList and return the entire list
+        int productID, unitsInStock, unitsOnOrder, reorderLevel;
+        String productName, productDesc, catName;
+        double unitPrice;
+        boolean discontinued;
+
+        while (rs.next()) {
+
+            productID = rs.getInt("idProduct");
+            productName = rs.getString("name");
+            productDesc = rs.getString("description");
+            catName = rs.getString("categoryName");
+            unitPrice = rs.getDouble("price");
+            unitsInStock = rs.getInt("amt_in_stock");
+            unitsOnOrder = rs.getInt("amt_on_order");
+            reorderLevel = rs.getInt("reorder_threshold");
+            discontinued = rs.getBoolean("is_discontinued");
+
+            Product newProd = new Product(productID, productName, productDesc,
+                    catName, unitPrice, unitsInStock, unitsOnOrder,
+                    reorderLevel, discontinued);
+
+            prodList.add(newProd);
+        }
 
         return prodList;
     }
 
     // UPDATE
-    public void updateProduct(int productId, Product theProduct) throws SQLException {
+    public void updateProduct(int productId, Product theProduct)
+            throws SQLException {
         // UPDATE <table> SET <column>=<value> WHERE ID=<id>
 
         String sql = "UPDATE cart_comp461_db.Product SET "
-                + "name = ?, description = ?, categoryName = ?, price = ?," +
-                "amt_in_stock = ?, amt_on_order = ?, reorder_threshold = ?," +
-                "is_discontinued = ? WHERE idProduct = ?";
+                + "name = ?, description = ?, categoryName = ?, price = ?,"
+                + "amt_in_stock = ?, amt_on_order = ?, reorder_threshold = ?,"
+                + "is_discontinued = ? WHERE idProduct = ?";
 
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, theProduct.getProductName());
-        // TODO: trace getDescription during update .. it sometimes passes "null" instead of null
         ps.setString(2, theProduct.getDescription());
         ps.setString(3, theProduct.getCategoryName());
         ps.setDouble(4, theProduct.getUnitPrice());

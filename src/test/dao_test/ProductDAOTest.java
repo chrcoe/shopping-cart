@@ -2,6 +2,8 @@ package test.dao_test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -10,6 +12,7 @@ import model.Product;
 
 import org.apache.naming.java.javaURLContextFactory;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -21,6 +24,7 @@ import dao.ProductDAO;
 public class ProductDAOTest {
 
     private ProductDAO pDAO;
+    private static InitialContext ic;
 
     @BeforeClass
     public static void setUpClass() throws Exception {
@@ -36,7 +40,7 @@ public class ProductDAOTest {
             // needed to add tomcat-juli.jar because InitialContext uses it for
             // logging .. else all tests would fail with a ClassNotFound
             // Exception
-            InitialContext ic = new InitialContext();
+            ic = new InitialContext();
 
             ic.createSubcontext("java:");
             ic.createSubcontext("java:/comp");
@@ -55,6 +59,16 @@ public class ProductDAOTest {
             ex.printStackTrace();
         }
 
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+        // unbind in reverse order
+        ic.unbind("java:/comp/env/jdbc/CartDB");
+        ic.unbind("java:/comp/env/jdbc");
+        ic.unbind("java:/comp/env");
+        ic.unbind("java:/comp");
+        ic.unbind("java:");
     }
 
     @Before
@@ -89,6 +103,8 @@ public class ProductDAOTest {
         assertTrue("threshold did not match", testProd.getReorderLevel() == 5);
         assertFalse("discontinued flag did not match",
                 testProd.isDiscontinued());
+
+        pDAO.removeProduct(testProd);
     }
 
     @Test
@@ -113,18 +129,52 @@ public class ProductDAOTest {
 
     @Test
     public void test_getProductsByCategoryName() throws Exception {
-        // TODO: implement this test
-        assertFalse("Built to fail until implemented", true);
+        Product prod1 = new Product(-1, "catTest", "catTest",
+                "testCategoryNameInProduct", 0.99, 10, 0, 5, false);
+        Product prod2 = new Product(-1, "catTest", "catTest",
+                "testCategoryNameInProduct", 0.99, 10, 0, 5, false);
+        Product prod3 = new Product(-1, "catTest", "catTest",
+                "testCategoryNameInProduct", 0.99, 10, 0, 5, false);
+
+        ArrayList<Product> prodList = new ArrayList<Product>();
+        prodList.add(prod1);
+        prodList.add(prod2);
+        prodList.add(prod3);
+
+        for (Product prod : prodList) {
+            int id = pDAO.createProduct(prod);
+            prod.setProductID(id);
+        }
+
+        ArrayList<Product> prodList1 = pDAO
+                .getProductsByCategoryName("testCategoryNameInProduct");
+        assertEquals(3, prodList1.size());
+        for (Product prod : prodList1) {
+            assertTrue("name did not match", prod.getProductName()
+                    .equalsIgnoreCase("catTest"));
+            assertTrue("description did not match", prod.getDescription()
+                    .equalsIgnoreCase("catTest"));
+            assertTrue("name did not match", prod.getCategoryName()
+                    .equalsIgnoreCase("testCategoryNameInProduct"));
+            assertEquals(0.99, prod.getUnitPrice(), 0.00);
+            assertEquals(10, prod.getUnitsInStock());
+            assertEquals(0, prod.getUnitsOnOrder());
+            assertEquals(5, prod.getReorderLevel());
+            assertFalse(prod.isDiscontinued());
+
+            pDAO.removeProduct(prod);
+        }
+
     }
 
     @Test
     public void test_updateProduct() throws Exception {
-        Product prod = new Product(-1, "tacos", "tacos desc",
-                "mexican food", 15.99, 5, 10, 5, false);
+        Product prod = new Product(-1, "tacos", "tacos desc", "mexican food",
+                15.99, 5, 10, 5, false);
 
         // add one to update
-        Product newProd = new Product(-1, "swiss", null,
-                "cheese", 4.99, 10, 2, 3, false);
+        Product newProd = new Product(-1, "swiss", null, "cheese", 4.99, 10, 2,
+                3, false);
         int prodId = pDAO.createProduct(newProd);
         newProd = pDAO.getProductByProductID(prodId);
 
@@ -132,18 +182,15 @@ public class ProductDAOTest {
         assertTrue("ID did not match", newProd.getProductID() == prodId);
         assertTrue("name did not match", newProd.getProductName()
                 .equalsIgnoreCase("swiss"));
-        // TODO: fix this test/ maybe the code? it is returning a string of "null" so it won't match null
         assertNull("description did not match", newProd.getDescription());
         assertTrue("categoryName did not match", newProd.getCategoryName()
                 .equalsIgnoreCase("cheese"));
         assertTrue("price did not match", newProd.getUnitPrice() == 4.99);
         assertTrue("amt_in_stock did not match",
                 newProd.getUnitsInStock() == 10);
-        assertTrue("amt_on_order did not match",
-                newProd.getUnitsOnOrder() == 2);
+        assertTrue("amt_on_order did not match", newProd.getUnitsOnOrder() == 2);
         assertTrue("threshold did not match", newProd.getReorderLevel() == 3);
-        assertFalse("discontinued flag did not match",
-                newProd.isDiscontinued());
+        assertFalse("discontinued flag did not match", newProd.isDiscontinued());
 
         // update product that has this ID with that Product object
         pDAO.updateProduct(newProd.getProductID(), prod);
@@ -163,6 +210,8 @@ public class ProductDAOTest {
         assertTrue("threshold did not match", testProd.getReorderLevel() == 5);
         assertFalse("discontinued flag did not match",
                 testProd.isDiscontinued());
+
+        pDAO.removeProduct(newProd);
     }
 
     @Test
