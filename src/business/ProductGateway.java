@@ -7,29 +7,29 @@ import business.exceptions.InsufficientInventoryException;
 import business.exceptions.InventoryConsistancyException;
 import business.exceptions.InventoryUpdateException;
 
-public class ItemGateway {
-	private static Hashtable<Integer,ItemGateway> itemTable = new Hashtable<Integer,ItemGateway>();
+public class ProductGateway {
+	private static Hashtable<Integer,ProductGateway> gwTable = new Hashtable<Integer,ProductGateway>();
 	
-	private int itemId = 0;
+	private int productId = 0;
 	private int inventory = 20;
 	private int reservations = 0;
 	
-	private ItemGateway(int itemId){
-		this.itemId = itemId;
+	private ProductGateway(int productId){
+		this.productId = productId;
 	}
 	
-	private static ItemGateway getInstance(int itemId){
-		synchronized (itemTable) {
-			if (!itemTable.containsKey(itemId)) {
-				itemTable.put(itemId, new ItemGateway(itemId));
+	private static ProductGateway getInstance(int productId){
+		synchronized (gwTable) {
+			if (!gwTable.containsKey(productId)) {
+				gwTable.put(productId, new ProductGateway(productId));
 			}
 
 		}
-		return itemTable.get(itemId);
+		return gwTable.get(productId);
 	}
 	
-	public static void Reserve(int itemId, int quantity) throws InsufficientInventoryException{
-		ItemGateway.getInstance(itemId).Reserve(quantity);
+	public static void Reserve(int productId, int quantity) throws InsufficientInventoryException{
+		ProductGateway.getInstance(productId).Reserve(quantity);
 	}
 	
 	private synchronized void Reserve(int quantity) throws InsufficientInventoryException{
@@ -57,7 +57,7 @@ public class ItemGateway {
 		try {
 			this.updateInventory(getInventory()-cartQuantity);
 		} catch (SQLException e) {
-			throw new InventoryUpdateException("No changes made to Inventory or Reservations [PID:"+this.itemId+"]");
+			throw new InventoryUpdateException("No changes made to Inventory or Reservations [PID:"+this.productId+"]");
 		}
 		this.reservations -= cartQuantity;
 	}
