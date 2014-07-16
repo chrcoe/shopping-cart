@@ -3,11 +3,11 @@
 	<Transaction id="business.CheckOut">
 		<Policy id="business.policy.IsUserRegistered" rule="Pre" />
 		<Policy id="business.policy.HasSufficientInventory" rule="Pre" />
-		<Policy id="business.policy.IsProfilePremiumStatus" rule="Post">
+		<Policy id="business.policy.UpdateProfileStatus" rule="Post">
 			<Parameter id="MinOrders" value="5" />
 		</Policy>
 		<Policy id="business.policy.Shipping" rule="Pre">
-			<Parameter id="rate" value=".02" />
+			<Parameter id="FlatRate" value=".015" />
 			<Parameter id="PremiumRate" value="0.0" />
 		</Policy>
 	</Transaction>
