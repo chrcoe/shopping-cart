@@ -40,15 +40,17 @@ public class ProductDAO {
         String categoryName = null; // we need a category identifier .. either change
                              // this to be yet another model/table, or change to
                              // be a string value
+        String description = null;
         double unitPrice = -1;
         int unitsInStock = -1;
         int unitsOnOrder = -1;
         int reorderLevel = -1;
         boolean discontinued = false;
+        String imagePath = "./images/coming_soon_image.png";
 
-        Product newProd = new Product(productID, productName, categoryName,
+        Product newProd = new Product(productID, productName, description, categoryName,
                 unitPrice, unitsInStock, unitsOnOrder, reorderLevel,
-                discontinued);
+                discontinued, imagePath);
 
         return newProd.getProductID();
     }
@@ -61,29 +63,33 @@ public class ProductDAO {
         String categoryName = null; // we need a category identifier .. either change
                              // this to be yet another model/table, or change to
                              // be a string value
+        String description = null;
         double unitPrice = -1;
         int unitsInStock = -1;
         int unitsOnOrder = -1;
         int reorderLevel = -1;
         boolean discontinued = false;
+        String imagePath = null;
 
-        return new Product(productID, productName, categoryName, unitPrice,
-                unitsInStock, unitsOnOrder, reorderLevel, discontinued);
+        return new Product(productID, productName, description, categoryName, unitPrice,
+                unitsInStock, unitsOnOrder, reorderLevel, discontinued, imagePath);
     }
 
     public ArrayList<Product> getProductsByCategoryName(String categoryName) {
 
         int productID = -1; // need to use the lastAutoKey idea here
         String productName = null;
+        String description = null;
         double unitPrice = -1;
         int unitsInStock = -1;
         int unitsOnOrder = -1;
         int reorderLevel = -1;
         boolean discontinued = false;
+        String imagePath = null;
 
-        Product newProd = new Product(productID, productName, categoryName,
+        Product newProd = new Product(productID, productName, description, categoryName,
                 unitPrice, unitsInStock, unitsOnOrder, reorderLevel,
-                discontinued);
+                discontinued, imagePath);
 
         ArrayList<Product> prodList = new ArrayList<Product>();
         prodList.add(newProd); // this is just an example, would need to add the

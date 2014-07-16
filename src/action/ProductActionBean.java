@@ -1,5 +1,6 @@
 package action;
 
+import test.view.ProductsTest;
 import model.Product;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
@@ -24,12 +25,14 @@ public class ProductActionBean implements ActionBean{
 	
 	@DefaultHandler
     public Resolution getAll() {
-		this.allProducts = new Product[]{new Product(1234, "name", "category", 9.99, 20, 0, 2, false)};
+		ProductsTest pt = new ProductsTest();
+		this.allProducts = pt.getAllProducts();
         return new ForwardResolution("/products.jsp");
     }
 	
 	public Resolution getProduct(){
-		this.item = new Product(1234, "name", "category", 9.99, 20, 0, 2, false);
+		ProductsTest pt = new ProductsTest();
+		this.item = pt.getItem();
 		return new ForwardResolution("/productdetail.jsp");
 	}
 

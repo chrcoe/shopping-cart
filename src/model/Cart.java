@@ -8,6 +8,7 @@ public class Cart {
 	private ArrayList<CartItem> items;
 	
 	private double cartTotal;
+	private double shippingCost;
 	
 	public Cart() {
 		
@@ -34,6 +35,18 @@ public class Cart {
 	}
 	public void setCartTotal(double cartTotal) {
 		this.cartTotal = cartTotal;
+	}
+	public double getShippingCost() {
+		return shippingCost;
+	}
+	public void setShippingCost(double shippingCost) {
+		this.shippingCost = shippingCost;
+	}
+	public ArrayList<CartItem> getItems() {
+		return items;
+	}
+	public void setItems(ArrayList<CartItem> items) {
+		this.items = items;
 	}
 	
 }

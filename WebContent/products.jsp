@@ -31,13 +31,14 @@
             <c:forEach items="${actionBean.allProducts}" var="product">
                 <div class="product_container">
                     <div class="product_image">
-                        
+                        <img src="${product.imagePath}"/>
                     </div>
                     <div class="product_description">
                         <div class="product_name">${product.productName}</div>
-                        <div class="product_category">Category: ${product.categoryName}</div>
-                        <div class="product_price">Price: $${product.unitPrice}</div>
+                        <div class="product_category product_row2">Category: ${product.categoryName}</div>
+                        <div class="product_price product_row2">Price: $${product.unitPrice}</div>
                     </div>
+                    <div class="add_product">Add to Cart</div>
                     <div class="detail_link">
                         <a href='Product.action?getProduct=&itemId=${product.productID}'>Details</a>
                     </div>

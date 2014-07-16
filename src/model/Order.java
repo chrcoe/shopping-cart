@@ -29,4 +29,12 @@ public class Order {
 		this.userID = userID;
 	}
 
+	public ArrayList<OrderItem> getItems() {
+		return items;
+	}
+
+	public void setItems(ArrayList<OrderItem> items) {
+		this.items = items;
+	}
+
 }
