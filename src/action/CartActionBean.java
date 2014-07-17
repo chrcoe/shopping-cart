@@ -38,6 +38,12 @@ public class CartActionBean implements ActionBean{
 		return new ForwardResolution("/cart.jsp");
 	}
 
+	@HandlesEvent("CheckOut")
+	public Resolution checkOut(){
+		
+		return new ForwardResolution("/cart.jsp");
+	}
+	
 	public int getProductId() {
 		return productId;
 	}
