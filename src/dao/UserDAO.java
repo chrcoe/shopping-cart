@@ -62,6 +62,8 @@ public class UserDAO {
 
     // RETRIEVE
     /**
+     * Returns a User object when searching via the user's ID.
+     *
      * @param userID
      *            the ID of the user to lookup
      * @return the User Model object, or null if not found
