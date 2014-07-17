@@ -7,22 +7,23 @@ import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.Resolution;
 
 public class CartActionBean implements ActionBean{
+	
 	private int productId;
 
+	private CartAppActionBeanContext ctx;
+	
 	@Override
-	public ActionBeanContext getContext() {
-		// TODO Auto-generated method stub
-		return null;
+	public CartAppActionBeanContext getContext() {
+		return ctx;
 	}
 
 	@Override
-	public void setContext(ActionBeanContext arg0) {
-		// TODO Auto-generated method stub
+	public void setContext(ActionBeanContext context) {
+		this.ctx = (CartAppActionBeanContext)context;
 	}
 	
 	@HandlesEvent("AddToCart")
 	public Resolution addToCart(){
-		
 		return new ForwardResolution("/cart.jsp");
 	}
 	

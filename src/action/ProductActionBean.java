@@ -11,19 +11,21 @@ import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.Resolution;
 
 public class ProductActionBean implements ActionBean{
-	private ActionBeanContext ctx;
+	
 	private Product[] allProducts = null;
 	private Product item = null;
 	private int itemID;
 
+	private CartAppActionBeanContext ctx;
+	
 	@Override
-	public ActionBeanContext getContext() {
+	public CartAppActionBeanContext getContext() {
 		return ctx;
 	}
 
 	@Override
 	public void setContext(ActionBeanContext context) {
-		this.ctx = context;
+		this.ctx = (CartAppActionBeanContext)context;
 	}
 	
 	@DefaultHandler
