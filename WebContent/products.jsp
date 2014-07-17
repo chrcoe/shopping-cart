@@ -13,21 +13,6 @@
         <jsp:include page="Header.jsp" />
         <div id="content">
             <h2>Products</h2>
-            <div class="product_container">
-                <div class="product_image">
-                    <img src="./images/coming_soon_image.png"/>
-                </div>
-                <div class="product_description">
-                    <div class="product_name">"A Demo Product"</div>
-                    <div class="product_category product_row2">Category: Miscellaneous</div>
-                    <div class="product_price product_row2">Price: $130.95</div>
-                    <div class="product_available">Number Available: 5</div>
-                </div>
-                <div class="add_product">Add to Cart</div>
-                <div class="detail_link">
-                    <a href='productdetail.jsp'>Details</a>
-                </div>
-            </div>
             <c:forEach items="${actionBean.allProducts}" var="product">
                 <div class="product_container">
                     <div class="product_image">

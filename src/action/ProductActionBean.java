@@ -1,5 +1,6 @@
 package action;
 
+import dao.ProductDAO;
 import test.view.ProductsTest;
 import model.Product;
 import net.sourceforge.stripes.action.ActionBean;
@@ -12,6 +13,7 @@ public class ProductActionBean implements ActionBean{
 	private ActionBeanContext ctx;
 	private Product[] allProducts = null;
 	private Product item = null;
+	private int itemID;
 
 	@Override
 	public ActionBeanContext getContext() {
@@ -32,7 +34,7 @@ public class ProductActionBean implements ActionBean{
 	
 	public Resolution getProduct(){
 		ProductsTest pt = new ProductsTest();
-		this.item = pt.getItem();
+		this.item = pt.getItem(itemID);
 		return new ForwardResolution("/productdetail.jsp");
 	}
 
@@ -45,6 +47,8 @@ public class ProductActionBean implements ActionBean{
 	}
 
 	public void setItemId(String itemId) {
+		itemID = Integer.parseInt(itemId);
+		//item = new ProductDAO().getProductByProductID(itemID);
 		System.out.println("setting item id to ["+itemId+"]");
 	}
 

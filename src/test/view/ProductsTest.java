@@ -17,6 +17,15 @@ public class ProductsTest {
 	public Product getItem() {
 		return item;
 	}
+	public Product getItem(int id) {
+		
+		for (Product pr : allProducts) {
+			if (pr.getProductID() == id) {
+				return pr;
+			}
+		}
+		return null;
+	}
 	public void setItem(Product item) {
 		this.item = item;
 	}
