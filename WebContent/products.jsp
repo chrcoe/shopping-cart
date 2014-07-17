@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+ <%@ taglib prefix="stripes" uri="http://stripes.sourceforge.net/stripes.tld" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -25,7 +26,10 @@
                     </div>
                     <div class="add_product">Add to Cart</div>
                     <div class="detail_link">
-                        <a href='Product.action?getProduct=&itemId=${product.productID}'>Details</a>
+                        <stripes:link beanclass="action.ProductActionBean" event="showDetail">
+                            <stripes:param name="itemId" value="${product.productID}"/>
+                            Details
+                        </stripes:link>
                     </div>
                 </div>
             </c:forEach>

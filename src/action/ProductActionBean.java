@@ -35,7 +35,7 @@ public class ProductActionBean implements ActionBean{
         return new ForwardResolution("/products.jsp");
     }
 	
-	@HandlesEvent("ShowAll")
+	@HandlesEvent("showDetail")
 	public Resolution getProduct(){
 		ProductsTest pt = new ProductsTest();
 		this.item = pt.getItem(itemID);
