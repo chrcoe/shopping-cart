@@ -81,7 +81,7 @@ public class OrderDAO {
         return record;
     }
 
-    public ArrayList<Order> getAllOrdersByUserID(int userID)
+    public ArrayList<Order> getOrdersByUserID(int userID)
             throws SQLException {
         String sql = "SELECT * FROM cart_comp461_db.Order WHERE " + "idUser = "
                 + userID;

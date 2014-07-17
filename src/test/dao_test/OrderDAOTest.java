@@ -132,7 +132,7 @@ public class OrderDAOTest {
             ord.setOrderID(id);
         }
 
-        ArrayList<Order> orderList1 = oDAO.getAllOrdersByUserID(userId);
+        ArrayList<Order> orderList1 = oDAO.getOrdersByUserID(userId);
         assertEquals(3, orderList1.size());
         for (Order ord : orderList1) {
             assertEquals(userId, ord.getUserID());
