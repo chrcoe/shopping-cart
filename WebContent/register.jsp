@@ -36,7 +36,7 @@
                     <input type="text" id="lastname"><BR>
                 </div>
                 <div class="single_row">
-                    <input type="submit" value="Register">
+                    <div class="button shared_row">Register</div>
                 </div>
               </div>
         </div>
