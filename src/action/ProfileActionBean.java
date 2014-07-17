@@ -28,6 +28,12 @@ public class ProfileActionBean implements ActionBean {
 		this.ctx.setUser(udao.getUserByUserID(getUserID()));
 		return new ForwardResolution("/");
 	}
+	
+	@HandlesEvent("LogOut")
+	public Resolution logOut(){
+		this.ctx.setUser(null);
+		return new ForwardResolution("/");
+	}
 
 	public int getUserID() {
 		return userID;
