@@ -7,6 +7,7 @@ import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.Resolution;
 
 public class ProductActionBean implements ActionBean{
@@ -32,6 +33,7 @@ public class ProductActionBean implements ActionBean{
         return new ForwardResolution("/products.jsp");
     }
 	
+	@HandlesEvent("ShowAll")
 	public Resolution getProduct(){
 		ProductsTest pt = new ProductsTest();
 		this.item = pt.getItem(itemID);
