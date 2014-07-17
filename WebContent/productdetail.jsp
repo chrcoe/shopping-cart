@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="stripes" uri="http://stripes.sourceforge.net/stripes.tld" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,7 +23,10 @@
                 
                 <div class="detail_price detail_row2"><b>Price:</b>&nbsp; &nbsp; $ ${actionBean.item.unitPrice}</div>
                 <div class="detail_add">
-                    <div class="button">Add To Cart</div>
+                    <stripes:link beanclass="action.CartActionBean" event="AddToCart">
+                        <stripes:param name="itemId" value="${actionBean.item.productID}"/>
+                        <div class="button">Add to Cart</div>
+                    </stripes:link>
                 </div>
             </div>
         </div>
