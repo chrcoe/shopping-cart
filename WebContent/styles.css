@@ -167,7 +167,7 @@ a:visited {
 	text-align: right;
 }
 
-.add_product {
+.add_product a {
 	color: #000080
 }
 
@@ -282,6 +282,10 @@ a:visited {
 	padding: 0;
 	margin-top: 0;
 	height: 500px;
+}
+
+.button a {
+	text-decoration: none;
 }
 
 /* ------------ Footer Styles ----------- */
