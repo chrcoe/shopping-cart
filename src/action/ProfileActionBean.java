@@ -11,7 +11,7 @@ public class ProfileActionBean implements ActionBean {
 	private CartAppActionBeanContext ctx;
 	private int userID;
 	private String pwd;
-	
+
 	@Override
 	public CartAppActionBeanContext getContext() {
 		return ctx;
@@ -21,14 +21,17 @@ public class ProfileActionBean implements ActionBean {
 	public void setContext(ActionBeanContext context) {
 		this.ctx = (CartAppActionBeanContext)context;
 	}
-	
+
 	@HandlesEvent("LogIn")
 	public Resolution logIn(){
+
+	    // TODO: handle SQLExceptions
+
 		dao.UserDAO udao= new dao.UserDAO();
 		this.ctx.setUser(udao.getUserByUserID(getUserID()));
 		return new ForwardResolution("/");
 	}
-	
+
 	@HandlesEvent("LogOut")
 	public Resolution logOut(){
 		this.ctx.setUser(null);

@@ -2,18 +2,18 @@ package model;
 
 public class OrderItem {
 	private int orderItemID;
-	private Product product;
+	private int productID;
 	private int orderID;
 	private int quantity;
 	private double linePrice;
-	
+
 	public OrderItem() {
-		
+
 	}
-	public OrderItem(int orderItemID, Product product, int orderID, int quantity,
+	public OrderItem(int orderItemID, int productID, int orderID, int quantity,
 			double linePrice) {
 		this.orderItemID = orderItemID;
-		this.product = product;
+		this.productID = productID;
 		this.orderID = orderID;
 		this.quantity = quantity;
 		this.linePrice = linePrice;
@@ -24,11 +24,11 @@ public class OrderItem {
 	public void setOrderItemID(int orderItemID) {
 		this.orderItemID = orderItemID;
 	}
-	public Product getProduct() {
-		return product;
+	public int getProductID() {
+		return productID;
 	}
-	public void setProductID(Product product) {
-		this.product = product;
+	public void setProductID(int productID) {
+		this.productID = productID;
 	}
 	public int getOrderID() {
 		return orderID;
@@ -48,5 +48,5 @@ public class OrderItem {
 	public void setLinePrice(double linePrice) {
 		this.linePrice = linePrice;
 	}
-	
+
 }

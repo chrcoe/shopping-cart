@@ -35,16 +35,22 @@
 		<servlet-name>StripesDispatcher</servlet-name>
 		<url-pattern>*.action</url-pattern>
 	</servlet-mapping>
-	<context-param>
-		<param-name>userId</param-name>
-		<param-value>comp461</param-value>
-	</context-param>
-	<context-param>
-		<param-name>password</param-name>
-		<param-value>comp461</param-value>
-	</context-param>
-	<context-param>
-		<param-name>url</param-name>
-		<param-value>jdbc:mysql://localhost:3306/cart_comp461_db</param-value>
-	</context-param>
+<!--   <context-param> -->
+<!--     <param-name>userId</param-name> -->
+<!--     <param-value>comp461</param-value> -->
+<!--   </context-param> -->
+<!--   <context-param> -->
+<!--     <param-name>password</param-name> -->
+<!--     <param-value><![CDATA[comp461&!]]></param-value> -->
+<!--   </context-param> -->
+<!--   <context-param> -->
+<!--     <param-name>url</param-name> -->
+<!--     <param-value>jdbc:mysql://localhost:3306/cart_comp461_db</param-value> -->
+<!--   </context-param> -->
+	<resource-ref>
+    	<description>DB Connection</description>
+		<res-ref-name>jdbc/CartDB</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
 </web-app>
