@@ -1,5 +1,8 @@
 package action;
 
+import policy.TransactionPolicy;
+import business.UnitOfWork;
+import business.exceptions.PolicyException;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.ForwardResolution;
@@ -9,6 +12,7 @@ import net.sourceforge.stripes.action.Resolution;
 public class CartActionBean implements ActionBean{
 	
 	private int productId;
+	private int quantity;
 
 	private CartAppActionBeanContext ctx;
 	
@@ -24,6 +28,7 @@ public class CartActionBean implements ActionBean{
 	
 	@HandlesEvent("AddToCart")
 	public Resolution addToCart(){
+		//this.ctx.getUser().getCart().addItem(this.getProductId(),this.getQuantity());
 		return new ForwardResolution("/cart.jsp");
 	}
 	
@@ -41,7 +46,14 @@ public class CartActionBean implements ActionBean{
 
 	@HandlesEvent("CheckOut")
 	public Resolution checkOut(){
-		
+		TransactionPolicy policyGraph = (TransactionPolicy) this.ctx.getServletContext().getAttribute("AppPolicy");
+		UnitOfWork checkout = UnitOfWork.create(business.CheckOut.class, policyGraph);
+		try {
+			checkout.Go();
+		} catch (PolicyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return new ForwardResolution("/cart.jsp");
 	}
 	
@@ -51,6 +63,14 @@ public class CartActionBean implements ActionBean{
 
 	public void setProductId(int productId) {
 		this.productId = productId;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 }
