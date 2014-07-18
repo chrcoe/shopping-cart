@@ -16,6 +16,9 @@ import model.Product;
 
 public class ProductDAO {
 
+    // TODO: add image_path to the DB table and access it with ProductDAO
+    // until this is done, everything to do with Product will fail
+
     private Connection con;
     private int lastProductAutoKey;
 
@@ -37,10 +40,11 @@ public class ProductDAO {
     // CREATE
     public int createProduct(Product newProduct) throws SQLException {
 
+
         String sql = "INSERT INTO cart_comp461_db.Product (idProduct, name, "
                 + "description, categoryName, price, amt_in_stock, "
-                + "amt_on_order, reorder_threshold, is_discontinued) VALUES "
-                + "(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "amt_on_order, reorder_threshold, is_discontinued, image_path) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         ResultSet rs = null;
 
@@ -55,6 +59,7 @@ public class ProductDAO {
         ps.setDouble(7, newProduct.getUnitsOnOrder());
         ps.setInt(8, newProduct.getReorderLevel());
         ps.setBoolean(9, newProduct.isDiscontinued());
+        ps.setString(10, newProduct.getImagePath());
 
         ps.executeUpdate();
         rs = ps.getGeneratedKeys();
@@ -79,10 +84,9 @@ public class ProductDAO {
         ResultSet rs = s.executeQuery(sql);
 
         int id, unitsInStock, unitsOnOrder, reorderLevel;
-        String productName, productDesc, categoryName;
+        String productName, productDesc, categoryName, imagePath;
         double unitPrice;
         boolean discontinued;
-        String imagePath = null;
 
         while (rs.next()) {
             id = rs.getInt("idProduct");
@@ -94,6 +98,7 @@ public class ProductDAO {
             reorderLevel = rs.getInt("reorder_threshold");
             unitPrice = rs.getDouble("price");
             discontinued = rs.getBoolean("is_discontinued");
+            imagePath = rs.getString("image_path");
 
             record = new Product(id, productName, productDesc, categoryName,
                     unitPrice, unitsInStock, unitsOnOrder, reorderLevel,
@@ -117,10 +122,9 @@ public class ProductDAO {
 
         ArrayList<Product> prodList = new ArrayList<Product>();
         int productID, unitsInStock, unitsOnOrder, reorderLevel;
-        String productName, productDesc, catName;
+        String productName, productDesc, catName, imagePath;
         double unitPrice;
         boolean discontinued;
-        String imagePath = null;
 
         while (rs.next()) {
 
@@ -133,6 +137,7 @@ public class ProductDAO {
             unitsOnOrder = rs.getInt("amt_on_order");
             reorderLevel = rs.getInt("reorder_threshold");
             discontinued = rs.getBoolean("is_discontinued");
+            imagePath = rs.getString("image_path");
 
             Product newProd = new Product(productID, productName, productDesc,
                     catName, unitPrice, unitsInStock, unitsOnOrder,
@@ -152,7 +157,7 @@ public class ProductDAO {
         String sql = "UPDATE cart_comp461_db.Product SET "
                 + "name = ?, description = ?, categoryName = ?, price = ?,"
                 + "amt_in_stock = ?, amt_on_order = ?, reorder_threshold = ?,"
-                + "is_discontinued = ? WHERE idProduct = ?";
+                + "is_discontinued = ?, image_path = ? WHERE idProduct = ?";
 
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, theProduct.getProductName());
@@ -163,7 +168,8 @@ public class ProductDAO {
         ps.setInt(6, theProduct.getUnitsOnOrder());
         ps.setInt(7, theProduct.getReorderLevel());
         ps.setBoolean(8, theProduct.isDiscontinued());
-        ps.setInt(9, productId);
+        ps.setString(9, theProduct.getImagePath());
+        ps.setInt(10, productId);
 
         ps.executeUpdate();
 

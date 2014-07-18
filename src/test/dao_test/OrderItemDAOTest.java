@@ -354,6 +354,8 @@ public class OrderItemDAOTest {
         int productID = pDAO.createProduct(new Product(-1, "tacos",
                 "tacos desc", "mexican food", 15.99, 5, 10, 5, false, null));
 
+        // TODO: image_path
+
         int quant = 5;
         int orderItemID = oiDAO.createOrderItem(new OrderItem(-1, productID,
                 orderID, quant, -1));
@@ -399,6 +401,8 @@ public class OrderItemDAOTest {
         int orderID = oDAO.createOrderByUserID(userID);
         int productID = pDAO.createProduct(new Product(-1, "tacos",
                 "tacos desc", "mexican food", 15.99, 5, 10, 5, false, null));
+
+        // TODO: image_path
 
         int quant = 5;
         int orderItemID = oiDAO.createOrderItem(new OrderItem(-1, productID,

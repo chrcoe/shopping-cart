@@ -84,9 +84,7 @@ public class ProductDAOTest {
     @Test
     public void test_createProduct() throws Exception {
         Product newProd = new Product(-1, "tacos", "tacos desc",
-                "mexican food", 15.99, 5, 10, 5, false, null);
-
-        // TODO: imagepath testing
+                "mexican food", 15.99, 5, 10, 5, false, "imgpath");
 
         int prodId = pDAO.createProduct(newProd);
         Product testProd = pDAO.getProductByProductID(prodId);
@@ -105,6 +103,7 @@ public class ProductDAOTest {
         assertTrue("threshold did not match", testProd.getReorderLevel() == 5);
         assertFalse("discontinued flag did not match",
                 testProd.isDiscontinued());
+        assertTrue(testProd.getImagePath().equalsIgnoreCase("imgpath"));
 
         pDAO.removeProduct(testProd);
     }
@@ -127,18 +126,17 @@ public class ProductDAOTest {
         assertTrue("threshold did not match", testProd.getReorderLevel() == 3);
         assertFalse("discontinued flag did not match",
                 testProd.isDiscontinued());
+        assertTrue(testProd.getImagePath().equalsIgnoreCase("imgpath"));
     }
 
     @Test
     public void test_getProductsByCategoryName() throws Exception {
         Product prod1 = new Product(-1, "catTest", "catTest",
-                "testCategoryNameInProduct", 0.99, 10, 0, 5, false, null);
+                "testCategoryNameInProduct", 0.99, 10, 0, 5, false, "testimgpath");
         Product prod2 = new Product(-1, "catTest", "catTest",
-                "testCategoryNameInProduct", 0.99, 10, 0, 5, false, null);
+                "testCategoryNameInProduct", 0.99, 10, 0, 5, false, "testimgpath");
         Product prod3 = new Product(-1, "catTest", "catTest",
-                "testCategoryNameInProduct", 0.99, 10, 0, 5, false, null);
-
-        // TODO: imagepath testing
+                "testCategoryNameInProduct", 0.99, 10, 0, 5, false, "testimgpath");
 
         ArrayList<Product> prodList = new ArrayList<Product>();
         prodList.add(prod1);
@@ -165,6 +163,7 @@ public class ProductDAOTest {
             assertEquals(0, prod.getUnitsOnOrder());
             assertEquals(5, prod.getReorderLevel());
             assertFalse(prod.isDiscontinued());
+            assertTrue(prod.getImagePath().equalsIgnoreCase("testimgpath"));
 
             pDAO.removeProduct(prod);
         }
@@ -174,13 +173,11 @@ public class ProductDAOTest {
     @Test
     public void test_updateProduct() throws Exception {
         Product prod = new Product(-1, "tacos", "tacos desc", "mexican food",
-                15.99, 5, 10, 5, false, null);
-
-        // TODO: imagepath testing
+                15.99, 5, 10, 5, false, "imgpath");
 
         // add one to update
         Product newProd = new Product(-1, "swiss", null, "cheese", 4.99, 10, 2,
-                3, false, null);
+                3, false, "imgpathtesting");
         int prodId = pDAO.createProduct(newProd);
         newProd = pDAO.getProductByProductID(prodId);
 
@@ -197,6 +194,7 @@ public class ProductDAOTest {
         assertTrue("amt_on_order did not match", newProd.getUnitsOnOrder() == 2);
         assertTrue("threshold did not match", newProd.getReorderLevel() == 3);
         assertFalse("discontinued flag did not match", newProd.isDiscontinued());
+        assertTrue(newProd.getImagePath().equalsIgnoreCase("imgpathtesting"));
 
         // update product that has this ID with that Product object
         pDAO.updateProduct(newProd.getProductID(), prod);
@@ -216,6 +214,7 @@ public class ProductDAOTest {
         assertTrue("threshold did not match", testProd.getReorderLevel() == 5);
         assertFalse("discontinued flag did not match",
                 testProd.isDiscontinued());
+        assertTrue(testProd.getImagePath().equalsIgnoreCase("imgpath"));
 
         pDAO.removeProduct(newProd);
     }
@@ -223,9 +222,7 @@ public class ProductDAOTest {
     @Test
     public void test_removeProduct() throws Exception {
         Product newProd = new Product(-1, "tacos", "tacos desc",
-                "mexican food", 15.99, 5, 10, 5, false, null);
-
-        // TODO: imagepath testing
+                "mexican food", 15.99, 5, 10, 5, false, "imgpath");
 
         int prodId = pDAO.createProduct(newProd);
         Product testProd = pDAO.getProductByProductID(prodId);
@@ -245,6 +242,7 @@ public class ProductDAOTest {
         assertTrue("threshold did not match", testProd.getReorderLevel() == 5);
         assertFalse("discontinued flag did not match",
                 testProd.isDiscontinued());
+        assertTrue(testProd.getImagePath().equalsIgnoreCase("imgpath"));
 
         pDAO.removeProduct(testProd);
         // but not here
@@ -255,9 +253,7 @@ public class ProductDAOTest {
     @Test
     public void test_removeProductByProductID() throws Exception {
         Product newProd = new Product(-1, "tacos", "tacos desc",
-                "mexican food", 15.99, 5, 10, 5, false, null);
-
-        // TODO: imagepath testing
+                "mexican food", 15.99, 5, 10, 5, false, "imgpath");
 
         int prodId = pDAO.createProduct(newProd);
         Product testProd = pDAO.getProductByProductID(prodId);
@@ -277,6 +273,7 @@ public class ProductDAOTest {
         assertTrue("threshold did not match", testProd.getReorderLevel() == 5);
         assertFalse("discontinued flag did not match",
                 testProd.isDiscontinued());
+        assertTrue(testProd.getImagePath().equalsIgnoreCase("imgpath"));
 
         pDAO.removeProductByProductID(prodId);
         // but not here
