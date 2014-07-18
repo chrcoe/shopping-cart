@@ -1,5 +1,9 @@
 package action;
 
+import java.sql.SQLException;
+
+import javax.naming.NamingException;
+
 import dao.ProductDAO;
 import test.view.ProductsTest;
 import model.Product;
@@ -31,7 +35,13 @@ public class ProductActionBean implements ActionBean{
 	@DefaultHandler
     public Resolution getAll() {
 		ProductsTest pt = new ProductsTest();
-		this.allProducts = pt.getAllProducts();
+		try {
+			//this.allProducts = new dao.ProductDAO().getProducts();
+			this.allProducts = pt.getAllProducts();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
         return new ForwardResolution("/products.jsp");
     }
 	
@@ -52,7 +62,15 @@ public class ProductActionBean implements ActionBean{
 
 	public void setItemId(String itemId) {
 		itemID = Integer.parseInt(itemId);
-		//item = new ProductDAO().getProductByProductID(itemID);
+		try {
+			item = new ProductDAO().getProductByProductID(itemID);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("setting item id to ["+itemId+"]");
 	}
 
