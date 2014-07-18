@@ -16,9 +16,6 @@ import model.Product;
 
 public class ProductDAO {
 
-    // TODO: add image_path to the DB table and access it with ProductDAO
-    // until this is done, everything to do with Product will fail
-
     private Connection con;
     private int lastProductAutoKey;
 
