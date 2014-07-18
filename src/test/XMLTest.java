@@ -29,8 +29,8 @@ public class XMLTest {
 		JAXBContext jaxbContext = JAXBContext.newInstance(TransactionPolicy.class);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 		TransactionPolicy pol  = (TransactionPolicy) jaxbUnmarshaller.unmarshal(is);
-		assertEquals(pol.getTransaction().size(),1);
-		assertEquals(pol.getTransaction().get(0).getId(),"business.CheckOut");
+		assertEquals(2,pol.getTransaction().size());
+		assertEquals("business.CheckOut",pol.getTransaction().get(0).getId());
 		//assertEquals(pol.getTransaction().get(1).getId(),"business.AddItemToCart");
 	}
 
