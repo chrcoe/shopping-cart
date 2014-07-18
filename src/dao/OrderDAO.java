@@ -81,8 +81,7 @@ public class OrderDAO {
         return record;
     }
 
-    public ArrayList<Order> getOrdersByUserID(int userID)
-            throws SQLException {
+    public ArrayList<Order> getOrdersByUserID(int userID) throws SQLException {
         String sql = "SELECT * FROM cart_comp461_db.Order WHERE " + "idUser = "
                 + userID;
 
@@ -105,11 +104,36 @@ public class OrderDAO {
     }
 
     // do we really need this? - not implementing any tests for this yet
-    public User getUserByOrderID(int orderID) throws SQLException, NamingException {
-        UserDAO uDAO = new UserDAO();
-        User newUser = uDAO.getUserByUserID(this.getOrderByOrderID(orderID).getUserID());
-        uDAO.closeConnection();
-        return newUser;
+    public User getUserByOrderID(int orderID) throws SQLException {
+        User record = null;
+
+        String sql = "SELECT rgt.idUser,rgt.name,rgt.address,rgt.city,"
+                + "rgt.state,rgt.zip,rgt.phone FROM "
+                + "cart_comp461_db.Order lft JOIN cart_comp461_db.User rgt "
+                + "ON lft.idUser = rgt.idUser WHERE lft.idOrder = " + orderID;
+
+        Statement s = con.createStatement();
+        ResultSet rs = s.executeQuery(sql);
+
+        int id;
+        String name, address, city, state, zip, phone;
+
+        while (rs.next()) {
+            id = rs.getInt("idUser");
+            name = rs.getString("name");
+            address = rs.getString("address");
+            city = rs.getString("city");
+            state = rs.getString("state");
+            zip = rs.getString("zip");
+            phone = rs.getString("phone");
+
+            record = new User(id, name, address, city, state, zip, phone);
+        }
+
+        s.close();
+        rs.close();
+
+        return record;
     }
 
     // UPDATE

@@ -70,12 +70,12 @@ public class OrderItemDAO {
 
         // this will return the calculated lineprice by using a join statement
 
-        String sql = "SELECT lft.idOrderItem,lft.idOrder,lft.idProduct,"
-                + "lft.quantity,rgt.price * lft.quantity AS lineprice"
+        String sql = "SELECT lft.idOrderItem,lft.idOrder,lft.idProduct, "
+                + "lft.quantity,rgt.price * lft.quantity AS lineprice "
                 + "FROM cart_comp461_db.OrderItem lft "
                 + "JOIN cart_comp461_db.Product rgt "
-                + "ON lft.idProduct = rgt.idProduct"
-                + "WHERE lft.idOrderItem = 1" + orderItemID;
+                + "ON lft.idProduct = rgt.idProduct "
+                + "WHERE lft.idOrderItem = " + orderItemID;
 
         OrderItem record = null;
         Statement s = con.createStatement();
@@ -102,7 +102,7 @@ public class OrderItemDAO {
             throws SQLException {
 
         String sql = "SELECT lft.idOrderItem,lft.idOrder,lft.idProduct,"
-                + "lft.quantity,rgt.price * lft.quantity AS lineprice"
+                + "lft.quantity,rgt.price * lft.quantity AS lineprice "
                 + "FROM cart_comp461_db.OrderItem lft "
                 + "JOIN cart_comp461_db.Product rgt "
                 + "ON lft.idProduct = rgt.idProduct WHERE lft.idOrder = "
@@ -134,8 +134,8 @@ public class OrderItemDAO {
 
     public ArrayList<OrderItem> getOrderItemsByProductID(int productID)
             throws SQLException {
-        String sql = "SELECT lft.idOrderItem,lft.idOrder,lft.idProduct,"
-                + "lft.quantity,rgt.price * lft.quantity AS lineprice"
+        String sql = "SELECT lft.idOrderItem,lft.idOrder,lft.idProduct, "
+                + "lft.quantity,rgt.price * lft.quantity AS lineprice "
                 + "FROM cart_comp461_db.OrderItem lft "
                 + "JOIN cart_comp461_db.Product rgt "
                 + "ON lft.idProduct = rgt.idProduct WHERE lft.idProduct = "
@@ -165,7 +165,7 @@ public class OrderItemDAO {
     }
 
     // UPDATE
-    public void updateOrderItem(OrderItem theOrderItem) throws SQLException {
+    public void updateOrderItem(int orderItemID, OrderItem theOrderItem) throws SQLException {
         String sql = "UPDATE cart_comp461_db.OrderItem SET "
                 + "idOrder = ?, idProduct = ?, quantity = ? "
                 + "WHERE idOrderItem = ?";
@@ -174,7 +174,7 @@ public class OrderItemDAO {
         ps.setInt(1, theOrderItem.getOrderID());
         ps.setInt(2, theOrderItem.getProductID());
         ps.setInt(3, theOrderItem.getQuantity());
-        ps.setInt(4, theOrderItem.getOrderItemID());
+        ps.setInt(4, orderItemID);
         ps.executeUpdate();
 
         ps.close();

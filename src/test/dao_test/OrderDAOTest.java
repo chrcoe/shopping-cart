@@ -98,8 +98,9 @@ public class OrderDAOTest {
         assertEquals(userId, testOrder.getUserID());
 
         uDAO.removeUserByUserID(userId);
-        uDAO.closeConnection();
         oDAO.removeOrderByOrderID(orderId);
+
+        uDAO.closeConnection();
 
     }
 
@@ -137,7 +138,8 @@ public class OrderDAOTest {
         for (Order ord : orderList1) {
             assertEquals(userId, ord.getUserID());
 
-            oDAO.removeOrder(ord); // what if I don't remove this? will cascading work?
+            oDAO.removeOrder(ord); // what if I don't remove this? will
+                                   // cascading work?
             // test that later..
         }
 
@@ -148,9 +150,29 @@ public class OrderDAOTest {
 
     @Test
     public void test_getUserByOrderID() throws Exception {
-        // trying to decide if we really need the underlying method
-        // TODO: implement this test
-        assertFalse("Built to fail until implemented", true);
+        // create an order and a user, get the User by order id and verify it
+        UserDAO uDAO = new UserDAO();
+        User newUser = new User(-1, "Jim", "321 Test Road", "Columbus", "OH",
+                "43230", "6148881234");
+
+        int userID = uDAO.createUser(newUser);
+        int orderID = oDAO.createOrderByUserID(userID);
+
+        User testUser = uDAO.getUserByUserID(userID);
+        newUser = oDAO.getUserByOrderID(orderID);
+
+        assertTrue(testUser.getName().equalsIgnoreCase(newUser.getName()));
+        assertTrue(testUser.getAddress().equalsIgnoreCase(newUser.getAddress()));
+        assertTrue(testUser.getCity().equalsIgnoreCase(newUser.getCity()));
+        assertTrue(testUser.getState().equalsIgnoreCase(newUser.getState()));
+        assertTrue(testUser.getZip().equalsIgnoreCase(newUser.getZip()));
+        assertTrue(testUser.getPhone().equalsIgnoreCase(newUser.getPhone()));
+
+        uDAO.removeUserByUserID(userID);
+        oDAO.removeOrderByOrderID(orderID);
+
+        uDAO.closeConnection();
+
     }
 
     @Test
@@ -204,11 +226,11 @@ public class OrderDAOTest {
         uDAO.closeConnection();
 
         // what happens if I try to remove it twice ?
-//        oDAO.removeOrder(testOrd); // this will fail because testOrd is now null
+        // oDAO.removeOrder(testOrd); // this will fail because testOrd is now
+        // null
         oDAO.removeOrderByOrderID(orderId);
 
     }
-
 
     @Test
     public void test_removeOrderByOrderID() throws Exception {
