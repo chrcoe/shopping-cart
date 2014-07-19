@@ -131,13 +131,13 @@ public class UserDAOTest {
                 "43230", "6148881234");
 
         // add one to update
-        User newUser = new User(-1, "John", "123 Home Road", "Delaware", "OH",
+        User newUser = new User(-1, "John_", "123 Home Road", "Delaware", "OH",
                 "43015", "7401234567");
         int userId = uDAO.createUser(newUser);
         newUser = uDAO.getUserByUserID(userId);
         // check before update
         assertTrue("NAME did not match",
-                newUser.getName().equalsIgnoreCase("John"));
+                newUser.getName().equalsIgnoreCase("John_"));
         assertTrue("ADDRESS did not match", newUser.getAddress()
                 .equalsIgnoreCase("123 Home Road"));
         assertTrue("CITY did not match",

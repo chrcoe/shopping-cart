@@ -101,10 +101,10 @@ public class UserDAO {
         return record;
     }
 
-    public User getUserByName(String userName) throws SQLException{
-    	User record = null;
-        String sql = "SELECT idUser FROM cart_comp461_db.User " + "WHERE name = '"
-                + userName +"'";
+    public User getUserByName(String userName) throws SQLException {
+        User record = null;
+        String sql = "SELECT idUser FROM cart_comp461_db.User "
+                + "WHERE name = '" + userName + "'";
 
         // prepared statement
         Statement s = con.createStatement();
@@ -119,6 +119,7 @@ public class UserDAO {
 
         return record;
     }
+
     // UPDATE
     public void updateUser(int userId, User theUser) throws SQLException {
         // UPDATE <table> SET <column>=<value> WHERE ID=<id>

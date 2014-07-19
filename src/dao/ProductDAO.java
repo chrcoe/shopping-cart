@@ -37,11 +37,10 @@ public class ProductDAO {
     // CREATE
     public int createProduct(Product newProduct) throws SQLException {
 
-
         String sql = "INSERT INTO cart_comp461_db.Product (idProduct, name, "
                 + "description, categoryName, price, amt_in_stock, "
-                + "amt_on_order, reorder_threshold, is_discontinued, image_path) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "amt_on_order, reorder_threshold, is_discontinued, image_path) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         ResultSet rs = null;
 
@@ -111,8 +110,9 @@ public class ProductDAO {
     public ArrayList<Product> getProductsByCategoryName(String categoryName)
             throws SQLException {
 
-        String sql = String.format("SELECT * FROM cart_comp461_db.Product WHERE "
-                + "categoryName = \'%s\'", categoryName);
+        String sql = String.format(
+                "SELECT * FROM cart_comp461_db.Product WHERE "
+                        + "categoryName = \'%s\'", categoryName);
 
         Statement s = con.createStatement();
         ResultSet rs = s.executeQuery(sql);
@@ -144,6 +144,21 @@ public class ProductDAO {
         }
 
         return prodList;
+    }
+
+    public ArrayList<String> getCategoryList() throws SQLException {
+        String sql = "SELECT DISTINCT categoryName FROM cart_comp461_db.Product";
+
+        Statement s = con.createStatement();
+        ResultSet rs = s.executeQuery(sql);
+
+        ArrayList<String> categories = new ArrayList<String>();
+
+        while (rs.next()) {
+            categories.add(rs.getString("categoryName"));
+        }
+
+        return categories;
     }
 
     // UPDATE
