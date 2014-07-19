@@ -132,11 +132,14 @@ public class ProductDAOTest {
     @Test
     public void test_getProductsByCategoryName() throws Exception {
         Product prod1 = new Product(-1, "catTest", "catTest",
-                "testCategoryNameInProduct", 0.99, 10, 0, 5, false, "testimgpath");
+                "testCategoryNameInProduct", 0.99, 10, 0, 5, false,
+                "testimgpath");
         Product prod2 = new Product(-1, "catTest", "catTest",
-                "testCategoryNameInProduct", 0.99, 10, 0, 5, false, "testimgpath");
+                "testCategoryNameInProduct", 0.99, 10, 0, 5, false,
+                "testimgpath");
         Product prod3 = new Product(-1, "catTest", "catTest",
-                "testCategoryNameInProduct", 0.99, 10, 0, 5, false, "testimgpath");
+                "testCategoryNameInProduct", 0.99, 10, 0, 5, false,
+                "testimgpath");
 
         ArrayList<Product> prodList = new ArrayList<Product>();
         prodList.add(prod1);
@@ -167,6 +170,16 @@ public class ProductDAOTest {
 
             pDAO.removeProduct(prod);
         }
+
+    }
+
+    @Test
+    public void test_getCategoryList() throws Exception {
+
+        ArrayList<String> catList = pDAO.getCategoryList();
+        assertEquals(2, catList.size());
+        assertTrue("cheese".equalsIgnoreCase(catList.get(0)));
+        assertTrue("clothes".equalsIgnoreCase(catList.get(1)));
 
     }
 
