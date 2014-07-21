@@ -16,9 +16,11 @@ import net.sourceforge.stripes.action.Resolution;
 
 public class ProductActionBean implements ActionBean{
 	
-	private Product[] allProducts = null;
+	private Product[] products = null;
 	private Product item = null;
 	private int itemID;
+	private String category;
+	private String[] categoryNames;
 
 	private CartAppActionBeanContext ctx;
 	
@@ -32,12 +34,23 @@ public class ProductActionBean implements ActionBean{
 		this.ctx = (CartAppActionBeanContext)context;
 	}
 	
+	@HandlesEvent("getCategories")
 	@DefaultHandler
-    public Resolution getAll() {
-		ProductsTest pt = new ProductsTest();
+    public Resolution getCategories() {
 		try {
-			//this.allProducts = new dao.ProductDAO().getProducts();
-			this.allProducts = pt.getAllProducts();
+			this.categoryNames = (String[]) new dao.ProductDAO().getCategoryList().toArray();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+        return new ForwardResolution("/products.jsp");
+    }
+	
+	@HandlesEvent("getProducts")
+    public Resolution getCategoryProducts() {
+		//ProductsTest pt = new ProductsTest();
+		try {
+			this.products = (Product[]) new dao.ProductDAO().getProductsByCategoryName(this.category).toArray();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -52,10 +65,10 @@ public class ProductActionBean implements ActionBean{
 		return new ForwardResolution("/productdetail.jsp");
 	}
 
-	public Product[] getAllProducts() {
-		return allProducts;
-	}
 
+	public Product[] getProducts(){
+		return this.products;
+	}
 	public Product getItem() {
 		return item;
 	}
@@ -74,8 +87,8 @@ public class ProductActionBean implements ActionBean{
 		System.out.println("setting item id to ["+itemId+"]");
 	}
 
-//	public void setAllProducts(Product[] allProducts) {
-//		this.allProducts = allProducts;
-//	}
+	public String[] getCategoryNames() {
+		return categoryNames;
+	}
 
 }
