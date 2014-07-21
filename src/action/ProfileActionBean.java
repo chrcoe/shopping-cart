@@ -35,7 +35,7 @@ public class ProfileActionBean implements ActionBean {
 		} catch (NamingException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
+			this.ctx.setUser(null);
 			//show user error
 		}
 		return new ForwardResolution("/");
