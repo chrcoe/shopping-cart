@@ -14,7 +14,7 @@
         <jsp:include page="Header.jsp" />
         <div id="content">
             <h2>Products</h2>
-            <c:forEach items="${actionBean.allProducts}" var="product">
+            <c:forEach items="${actionBean.products}" var="product">
                 <div class="product_container">
                     <div class="product_image">
                         <img src="${product.imagePath}"/>

@@ -8,6 +8,7 @@ public class User {
 	private String state;
 	private String zip;
 	private String phone;
+	private Cart userCart;
 	
 	public User() {
 		

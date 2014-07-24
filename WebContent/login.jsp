@@ -28,7 +28,7 @@
                     <input type="password" id="password">
                 </div>
                 <div class="login_buttons">
-                    <div class="button shared_row">Login</div>
+                    <div id="loginBtn" class="button shared_row">Login</div>
                     <a href="register.jsp" class="regCb"><div class="button shared_row">Register</div></a>
                 </div>
             </div>
@@ -38,6 +38,9 @@
     <script>
     $(document).ready(function() {
         $(".regCb").colorbox({iframe: true, innerWidth:500, innerHeight:500});
+        $("#loginBtn").click(function(){
+        	
+        });
     });
     </script>
 </body>
