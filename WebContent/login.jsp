@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="stripes" uri="http://stripes.sourceforge.net/stripes.tld" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -18,20 +19,22 @@
             <h2>Login</h2>
             
             <p>this form currently does nothing</p>
+            <stripes:form beanclass="action.ProfileActionBean" focus="">
             <div class="form">             
                 <div class="single_row">
                     <label for="username">Username: </label>
-                    <input type="text" id="username">
+                    <input type="text" id="username" name="userName">
                 </div>
                 <div class="single_row">
                     <label for="password">Password: </label>
                     <input type="password" id="password">
                 </div>
                 <div class="login_buttons">
-                    <div id="loginBtn" class="button shared_row">Login</div>
+                	<stripes:submit  class="button shared_row" name="LogIn" value="Log In"/>
                     <a href="register.jsp" class="regCb"><div class="button shared_row">Register</div></a>
                 </div>
             </div>
+            </stripes:form>
         </div>
         <jsp:include page="Footer.jsp" />
     </div>
