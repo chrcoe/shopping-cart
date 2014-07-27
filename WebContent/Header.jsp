@@ -17,7 +17,7 @@
                 <a href="<c:url value='/Product.action' />" target="_self">Products</a>
             </li>
             <li id="navCart">
-                <a href="<c:url value='/cart.jsp' />" target="_self">Shopping Cart</a>
+                <a href="<c:url value='/Cart.action' />" target="_self">Shopping Cart</a>
             </li>
             <li id="navLogin">
                 <a href="<c:url value='/login.jsp' />" target="_self">Login</a>

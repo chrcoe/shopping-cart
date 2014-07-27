@@ -15,14 +15,14 @@
             <h2>Shopping Cart</h2>
             <div class="cart_container">
                 <c:forEach items="${requestScope.cartItems}" var="item">
-                    <div class="cart_name"></div>
-                    <div class="cart_quant"></div>
-                    <div class="cart_item_price"></div>
-                    <div class="cart_item_total"></div>
+                    <div class="cart_name">${item.name}</div>
+                    <div class="cart_quant">${item.quantity}</div>
+                    <div class="cart_item_price">${item.price}</div>
+                    <div class="cart_item_total">${item.total}</div>
                 </c:forEach>
-                <div class="cart_total"></div>
+                <div class="cart_total">${cart.total}</div>
             </div>
-            <a href="checkout.jsp">Check Out</a>
+            <a href="CheckOut.action">Check Out</a>
         </div>
         <jsp:include page="Footer.jsp" />
     </div>
