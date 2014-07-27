@@ -8,12 +8,7 @@ import business.exceptions.PolicyException;
 public class Shipping extends Policy {
 
 	@Override
-	public void preCheck(Context context) throws PolicyException {
-
-	}
-
-	@Override
-	public void postCheck(Context context) throws PolicyException {
+	public void rule(Context context) throws PolicyException {
 		policy.Policy polInfo = super.getPolicyInfo();
 		double rate = 0.0;
 		double premiumRate = 0.0;
@@ -39,7 +34,7 @@ public class Shipping extends Policy {
 		// for(CartItem ci : cart){
 		// cartTotal += ci.getUnitCost()*ci.getQuantity();
 		//double shipping = cartTotal * (o.getOrdersByUserID(user.getUserID()).size()>=premiumMinOrder?premiumRate:rate);
-		// cart.setShipping(shipping);
+		// cart.setShipping(shipping);		
 	}
 
 }

@@ -35,8 +35,10 @@ public class ProfileActionBean implements ActionBean {
 		try {
 			udao = new dao.UserDAO();
 			User u = udao.getUserByName(this.userName);
-			u.setUserCart(ctx.getUser().getUserCart());
-			ctx.getUser().setUserCart(null);
+			if(ctx.getUser()!=null){
+				u.setUserCart(ctx.getUser().getUserCart());
+				ctx.getUser().setUserCart(null);
+			}
 			this.ctx.setUser(u);
 		} catch (NamingException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -86,6 +88,27 @@ public class ProfileActionBean implements ActionBean {
 	public String getUserName() {
 		return ctx.getUser()==null?"Not Logged In":ctx.getUser().getName();
 	}
+
+	public String getAddress(){
+		return ctx.getUser()==null?"":ctx.getUser().getAddress();
+	}
+	
+	public String getCity(){
+		return ctx.getUser()==null?"":ctx.getUser().getCity();
+	}
+	
+	public String getState(){
+		return ctx.getUser()==null?"":ctx.getUser().getState();
+	}
+
+	public String getZip(){
+		return ctx.getUser()==null?"":ctx.getUser().getZip();
+	}
+
+	public String getPhone(){
+		return ctx.getUser()==null?"":ctx.getUser().getPhone();
+	}
+
 
 	public void setUserName(String userName) {
 		this.userName = userName;

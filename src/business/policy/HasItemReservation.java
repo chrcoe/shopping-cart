@@ -7,15 +7,9 @@ import business.exceptions.UserNotRegisteredException;
 public class HasItemReservation extends Policy {
 
 	@Override
-	public void preCheck(Context context) throws PolicyException {
+	public void rule(Context context) throws PolicyException {
 		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void postCheck(Context context) throws PolicyException {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 }

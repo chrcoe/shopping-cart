@@ -8,12 +8,9 @@ import model.User;
 public class IsUserRegistered extends Policy {
 
 	@Override
-	public void preCheck(Context context) throws UserNotRegisteredException {
+	public void rule(Context context) throws PolicyException {
 		User user = (User)context.get(User.class);
 		if(!(user.getUserID()>0))throw new UserNotRegisteredException("user is not registered");
 	}
-
-	@Override
-	public void postCheck(Context context) throws PolicyException {}
 
 }

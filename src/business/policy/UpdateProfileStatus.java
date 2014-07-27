@@ -13,11 +13,7 @@ import business.exceptions.UserNotRegisteredException;
 public class UpdateProfileStatus extends Policy {
 
 	@Override
-	public void preCheck(Context context) throws PolicyException {
-	}
-
-	@Override
-	public void postCheck(Context context) throws PolicyException {
+	public void rule(Context context) throws PolicyException {
 		User u = (User) context.get(User.class);
 		Boolean isPremium = false;
 		int minPremium = Integer.MAX_VALUE;
