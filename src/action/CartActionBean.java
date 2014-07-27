@@ -1,8 +1,14 @@
 package action;
 
+import java.sql.SQLException;
+
+import javax.naming.NamingException;
+
 import policy.TransactionPolicy;
 import business.UnitOfWork;
 import business.exceptions.PolicyException;
+import model.CartItem;
+import model.Product;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.ForwardResolution;
@@ -28,7 +34,14 @@ public class CartActionBean implements ActionBean{
 	
 	@HandlesEvent("AddToCart")
 	public Resolution addToCart(){
-		//this.ctx.getUser().getCart().addItem(this.getProductId(),this.getQuantity());
+		Product p;
+		try {
+			p = new dao.ProductDAO().getProductByProductID(productId);
+			this.ctx.getUser().getUserCart().getItems().add(new CartItem(p,this.getQuantity()));
+		} catch (SQLException | NamingException e) {
+			// handle error and pass to page
+			e.printStackTrace();
+		}
 		return new ForwardResolution("/cart.jsp");
 	}
 	
