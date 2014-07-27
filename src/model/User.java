@@ -65,6 +65,12 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	public Cart getUserCart() {
+		return userCart;
+	}
+	public void setUserCart(Cart userCart) {
+		this.userCart = userCart;
+	}
 	
 	
 }
