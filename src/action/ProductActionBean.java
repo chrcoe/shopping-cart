@@ -16,11 +16,11 @@ import net.sourceforge.stripes.action.Resolution;
 
 public class ProductActionBean implements ActionBean{
 	
-	private Product[] products = null;
+	private Product[] products = new Product[]{};
 	private Product item = null;
 	private int itemID;
-	private String category;
-	private String[] categoryNames;
+	private String categoryName;
+	private String[] categoryNames = new String[]{};
 
 	private CartAppActionBeanContext ctx;
 	
@@ -38,19 +38,19 @@ public class ProductActionBean implements ActionBean{
 	@DefaultHandler
     public Resolution getCategories() {
 		try {
-			this.categoryNames = (String[]) new dao.ProductDAO().getCategoryList().toArray();
+			this.categoryNames = new dao.ProductDAO().getCategoryList().toArray(this.categoryNames);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-        return new ForwardResolution("/products.jsp");
+        return new ForwardResolution("/categories.jsp");
     }
 	
 	@HandlesEvent("getProducts")
     public Resolution getCategoryProducts() {
 		//ProductsTest pt = new ProductsTest();
 		try {
-			this.products = (Product[]) new dao.ProductDAO().getProductsByCategoryName(this.category).toArray();
+			this.products = new dao.ProductDAO().getProductsByCategoryName(this.categoryName).toArray(this.products);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -60,8 +60,12 @@ public class ProductActionBean implements ActionBean{
 	
 	@HandlesEvent("showDetail")
 	public Resolution getProduct(){
-		ProductsTest pt = new ProductsTest();
-		this.item = pt.getItem(itemID);
+		try {
+			this.item = new dao.ProductDAO().getProductByProductID(itemID);
+		} catch (SQLException | NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return new ForwardResolution("/productdetail.jsp");
 	}
 
@@ -89,6 +93,14 @@ public class ProductActionBean implements ActionBean{
 
 	public String[] getCategoryNames() {
 		return categoryNames;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 }

@@ -17,7 +17,7 @@
             <c:forEach items="${actionBean.categoryNames}" var="cat">
                 <div class="product_link">
                     <stripes:link beanclass="action.ProductActionBean" event="getProducts">
-                        <stripes:param name="itemId" value="${cat}"/>
+                        <stripes:param name="categoryName" value="${cat}"/>
                         ${cat}
                     </stripes:link>
                 </div>
