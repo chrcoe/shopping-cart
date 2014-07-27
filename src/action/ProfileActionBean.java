@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import javax.naming.NamingException;
 
+import model.Order;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.ForwardResolution;
@@ -15,6 +16,7 @@ public class ProfileActionBean implements ActionBean {
 	private CartAppActionBeanContext ctx;
 	private String userName;
 	private String pwd;
+	private Order[] orders = new Order[]{};
 
 	@Override
 	public CartAppActionBeanContext getContext() {
@@ -31,7 +33,7 @@ public class ProfileActionBean implements ActionBean {
 		dao.UserDAO udao;
 		try {
 			udao = new dao.UserDAO();
-			this.ctx.setUser(udao.getUserByName(this.getUserName()));
+			this.ctx.setUser(udao.getUserByName(this.userName));
 		} catch (NamingException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -46,7 +48,29 @@ public class ProfileActionBean implements ActionBean {
 		this.ctx.setUser(null);
 		return new ForwardResolution("/");
 	}
+	
+	@HandlesEvent("AccountDetail")
+	public Resolution accountDetail(){
+		return new ForwardResolution("/account.jsp");
+	}
 
+	@HandlesEvent("OrderHistory")
+	public Resolution orderHistory(){
+		Resolution r = new ForwardResolution("/");
+		if(ctx.getUser()!=null){
+			try {
+				this.orders = new dao.OrderDAO().getOrdersByUserID(ctx.getUser().getUserID()).toArray(this.orders);
+			} catch (SQLException | NamingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			r = new ForwardResolution("/orderhistory.jsp");
+		}
+		return r;
+	}
+
+	
 	public String getPwd() {
 		return pwd;
 	}
@@ -56,11 +80,19 @@ public class ProfileActionBean implements ActionBean {
 	}
 
 	public String getUserName() {
-		return userName;
+		return ctx.getUser()==null?"Not Logged In":ctx.getUser().getName();
 	}
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public Order[] getOrders() {
+		return orders;
+	}
+
+	public void setOrders(Order[] orders) {
+		this.orders = orders;
 	}
 
 }

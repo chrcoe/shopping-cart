@@ -69,10 +69,10 @@ public class ProductActionBean implements ActionBean{
 		return new ForwardResolution("/productdetail.jsp");
 	}
 
-
 	public Product[] getProducts(){
 		return this.products;
 	}
+
 	public Product getItem() {
 		return item;
 	}
