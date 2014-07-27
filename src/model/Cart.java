@@ -5,14 +5,13 @@ import java.util.ArrayList;
 public class Cart {
 	private int cartID;
 	private int userID;
-	private ArrayList<CartItem> items;
+	private ArrayList<CartItem> items = new ArrayList<CartItem>();
 	
 	private double cartTotal;
 	private double shippingCost;
 	
-	public Cart() {
-		
-	}
+	public Cart() {}
+	
 	public Cart(int cartID, int userID, double cartTotal) {
 		this.cartID = cartID;
 		this.userID = userID;

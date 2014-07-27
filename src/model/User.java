@@ -8,11 +8,10 @@ public class User {
 	private String state;
 	private String zip;
 	private String phone;
-	private Cart userCart;
+	private Cart userCart = new Cart();
 	
-	public User() {
-		
-	}
+	public User() {}
+	
 	public User(int userID, String name, String address, String city,
 			String state, String zip, String phone) {
 		this.userID = userID;

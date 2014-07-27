@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import javax.naming.NamingException;
 
 import model.Order;
+import model.User;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.ForwardResolution;
@@ -33,7 +34,10 @@ public class ProfileActionBean implements ActionBean {
 		dao.UserDAO udao;
 		try {
 			udao = new dao.UserDAO();
-			this.ctx.setUser(udao.getUserByName(this.userName));
+			User u = udao.getUserByName(this.userName);
+			u.setUserCart(ctx.getUser().getUserCart());
+			ctx.getUser().setUserCart(null);
+			this.ctx.setUser(u);
 		} catch (NamingException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -32,7 +32,7 @@ public class Shipping extends Policy {
 				break;
 			}
 		}
-		//User user = (User) context.get(User.class);
+		User user = (User) context.get(User.class);
 		//dao.OrderDAO o = new dao.OrderDAO();
 		double cartTotal = 0.0;
 		// cart = user.getCart();
