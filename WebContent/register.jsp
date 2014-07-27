@@ -29,14 +29,6 @@
 	                    <input type="text" id="email"><BR>
 	                </div>
 	                <div class="single_row">
-	                    <label for="firstname">First Name: </label>
-	                    <input type="text" id="firstname"><BR>
-	                </div>
-	                <div class="single_row">
-	                    <label for="lastname">Last Name: </label>
-	                    <input type="text" id="lastname"><BR>
-	                </div>
-	                <div class="single_row">
 	                    <stripes:submit  class="shared_row" name="Register" value="Register"/>
 	                </div>
                 </stripes:form>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="stripes" uri="http://stripes.sourceforge.net/stripes.tld" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,7 +14,9 @@
         <jsp:include page="Header.jsp" />
         <div id="content">
             <h2>Check Out</h2>
-            <a href="confirmpurchase.jsp">Confirm Purchase</a>
+            <stripes:form beanclass="CartActionBean">
+                <a href="confirmpurchase.jsp">Confirm Purchase</a>
+            </stripes:form>
         </div>
         <jsp:include page="Footer.jsp" />
     </div>
