@@ -20,14 +20,13 @@
                     <div class="detail_name">${actionBean.item.productName}</div>
                     <div class="detail_desc">${actionBean.item.description}</div>
                 </div>
-                
                 <div class="detail_price detail_row2"><b>Price:</b>&nbsp; &nbsp; $ ${actionBean.item.unitPrice}</div>
-                <div class="detail_add">
-                    <stripes:link beanclass="action.CartActionBean" event="AddToCart">
-                        <stripes:param name="itemId" value="${actionBean.item.productID}"/>
-                        <div class="button">Add to Cart</div>
-                    </stripes:link>
-                </div>
+                <stripes:form class="detail_add" beanclass="action.CartActionBean">
+                    <label for="quantity">Quantity: &nbsp;</label>
+                    <input type="text" id="quantity" name="quantity" style="width:20px; height:20px; margin-right:10px" default="1"/>
+                    
+                    <stripes:submit name="AddToCart" value="Add to Cart" style="width:150px" />
+                </stripes:form>
             </div>
         </div>
         <jsp:include page="Footer.jsp" />

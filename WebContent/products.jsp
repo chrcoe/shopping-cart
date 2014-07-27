@@ -24,6 +24,10 @@
                         <div class="product_category product_row2">Category: ${product.categoryName}</div>
                         <div class="product_price product_row2">Price: $${product.unitPrice}</div>
                     </div>
+                    <div>
+                        <label for="quantity">Quantity: &nbsp;</label>
+                        <input type="text" id="quantity" name="quantity" style="width:20px; height:20px; margin-right:10px" default="1"/>
+                    </div>
                     <div class="product_link">
                         <stripes:link beanclass="action.CartActionBean" event="AddToCart">
                             <stripes:param name="itemId" value="${product.productID}"/>

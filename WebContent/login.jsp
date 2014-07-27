@@ -30,11 +30,14 @@
                     <input type="password" id="password">
                 </div>
                 <div class="login_buttons">
-                	<stripes:submit  class="button shared_row" name="LogIn" value="Log In"/>
-                    <a href="register.jsp" class="regCb"><div class="button shared_row">Register</div></a>
+                	<stripes:submit  class="shared_row" name="LogIn" value="Log In" style="width:150px"/>
+                	
                 </div>
             </div>
             </stripes:form>
+            <div style="margin:auto; width:75px" class="shared_row">
+                <a class="regCb" href="register.jsp">Register</a>
+            </div>
         </div>
         <jsp:include page="Footer.jsp" />
     </div>

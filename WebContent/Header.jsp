@@ -6,10 +6,7 @@
         <h1>Southwind Trading Company</h1>
     </div>
     <div id="search">
-        <form method="post" action="SearchForProducts.do">
-            <input name="itemName" type="text" value="" class="txtfield" />
-            <input type="submit" value="Search Products" class="" />
-        </form>
+        
     </div>
     <div class="menu">    
         <ul>
