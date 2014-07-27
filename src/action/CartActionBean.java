@@ -53,7 +53,12 @@ public class CartActionBean implements ActionBean{
 	
 	@HandlesEvent("RemoveFromCart")
 	public Resolution removeFromCart(){
-		
+		for(CartItem ci:this.ctx.getUser().getUserCart().getItems()){
+			if(ci.getProduct().getProductID()==this.productId){
+				this.ctx.getUser().getUserCart().getItems().remove(ci);
+				break;
+			}
+		}
 		return new ForwardResolution("/cart.jsp");
 	}
 
