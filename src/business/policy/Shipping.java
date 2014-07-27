@@ -9,6 +9,11 @@ public class Shipping extends Policy {
 
 	@Override
 	public void preCheck(Context context) throws PolicyException {
+
+	}
+
+	@Override
+	public void postCheck(Context context) throws PolicyException {
 		policy.Policy polInfo = super.getPolicyInfo();
 		double rate = 0.0;
 		double premiumRate = 0.0;
@@ -27,7 +32,7 @@ public class Shipping extends Policy {
 				break;
 			}
 		}
-		User user = (User) context.get(User.class);
+		//User user = (User) context.get(User.class);
 		//dao.OrderDAO o = new dao.OrderDAO();
 		double cartTotal = 0.0;
 		// cart = user.getCart();
@@ -35,12 +40,6 @@ public class Shipping extends Policy {
 		// cartTotal += ci.getUnitCost()*ci.getQuantity();
 		//double shipping = cartTotal * (o.getOrdersByUserID(user.getUserID()).size()>=premiumMinOrder?premiumRate:rate);
 		// cart.setShipping(shipping);
-	}
-
-	@Override
-	public void postCheck(Context context) throws PolicyException {
-		// TODO Auto-generated method stub
-
 	}
 
 }

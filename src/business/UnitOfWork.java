@@ -13,6 +13,7 @@ public abstract class UnitOfWork {
 	
 	private business.Context ctx;
 	private PolicyList policies = new PolicyList();
+	private ICallBackDelegate delegate = null;
 	
 	public static UnitOfWork create(Class<?> workClass,TransactionPolicy policyGraph){
 		UnitOfWork u = null;
@@ -42,7 +43,7 @@ public abstract class UnitOfWork {
 	
 	public void Go() throws PolicyException{
 		this.policies.preCheck(ctx);
-		execute();
+		if(this.delegate==null) execute(); else this.delegate.execute();
 		this.policies.postCheck(ctx);
 	}
 
@@ -58,6 +59,11 @@ public abstract class UnitOfWork {
 		this.ctx = context;
 		return this;
 	}
+	
+	public UnitOfWork using(ICallBackDelegate delegateWork){
+		this.delegate = delegateWork;
+		return this;
+	}
 
 	public PolicyList getPolicies() {
 		return policies;
@@ -65,5 +71,9 @@ public abstract class UnitOfWork {
 
 	public void setPolicies(PolicyList policies) {
 		this.policies = policies;
+	}
+	
+	public interface ICallBackDelegate{
+		void execute();
 	}
 }

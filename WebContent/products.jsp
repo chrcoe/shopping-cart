@@ -27,6 +27,7 @@
                     <div class="product_link">
                         <stripes:link beanclass="action.CartActionBean" event="AddToCart">
                             <stripes:param name="itemId" value="${product.productID}"/>
+                            <stripes:param name="quantity" value="1"/>
                             Add to Cart
                         </stripes:link>
                     </div>
