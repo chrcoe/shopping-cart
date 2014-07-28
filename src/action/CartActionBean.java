@@ -33,6 +33,11 @@ public class CartActionBean implements ActionBean {
 	public void setContext(ActionBeanContext context) {
 		this.ctx = (CartAppActionBeanContext) context;
 	}
+	
+	@HandlesEvent("ShowCart")
+	public Resolution showCart(){
+		return new ForwardResolution("/cart.jsp");
+	}
 
 	@HandlesEvent("AddToCart")
 	public Resolution addToCart() {

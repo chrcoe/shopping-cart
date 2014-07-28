@@ -24,17 +24,16 @@
                         <div class="product_category product_row2">Category: ${product.categoryName}</div>
                         <div class="product_price product_row2">Price: $${product.unitPrice}</div>
                     </div>
+                    <stripes:form beanclass="action.CartActionBean" focus="">
                     <div>
                         <label for="quantity">Quantity: &nbsp;</label>
                         <input type="text" id="quantity" name="quantity" style="width:20px; height:20px; margin-right:10px" default="1"/>
+                        <input type="hidden" name="itemId" value="${product.productID}"/>
                     </div>
                     <div class="product_link">
-                        <stripes:link beanclass="action.CartActionBean" event="AddToCart">
-                            <stripes:param name="itemId" value="${product.productID}"/>
-                            <stripes:param name="quantity" value="1"/>
-                            Add to Cart
-                        </stripes:link>
+                        <stripes:submit name="AddToCart">Add to Cart</stripes:submit>
                     </div>
+                    </stripes:form>
                     <div class="product_link">
                         <stripes:link beanclass="action.ProductActionBean" event="showDetail">
                             <stripes:param name="itemId" value="${product.productID}"/>

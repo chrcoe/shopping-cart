@@ -17,11 +17,16 @@
             <div class="cart_container">
                 <c:forEach items="${actionBean.userCart.items}" var="item">
                     <div class="cart_name">${item.product.productName}</div>
-                    <div class="cart_quant">${item.quantity}</div>
-                    <div class="cart_item_price">${item.product.unitPrice}</div>
-                    <div class="cart_item_total">${item.linePrice}</div>
+                    <div class="cart_quant">Quantity: ${item.quantity}</div>
+                    <div class="cart_item_price">Unit Price: $${item.product.unitPrice}</div>
+                    <div class="cart_item_total">Item Total: $${item.linePrice}</div>
+                    <hr/>
                 </c:forEach>
-                <div class="cart_total">${actionBean.userCart.cartTotal}</div>
+                
+                <div class="cart_total">Sub Total: ${actionBean.userCart.cartTotal}</div>
+                <div class="cart_total">Shipping: ${actionBean.userCart.shippingCost}</div>
+                 <div class="cart_total">Total: ${actionBean.userCart.shippingCost+actionBean.userCart.cartTotal}</div>
+                
             </div>
             <a href="CheckOut.action">Check Out</a>
         </div>
