@@ -8,6 +8,7 @@ import policy.TransactionPolicy;
 import business.UnitOfWork;
 import business.UnitOfWork.ICallBackDelegate;
 import business.exceptions.PolicyException;
+import business.exceptions.UserNotRegisteredException;
 import model.Cart;
 import model.CartItem;
 import model.Product;
@@ -98,17 +99,18 @@ public class CartActionBean implements ActionBean {
 
 	@HandlesEvent("CheckOut")
 	public Resolution checkOut() {
-		TransactionPolicy policyGraph = (TransactionPolicy) this.ctx
-				.getServletContext().getAttribute("AppPolicy");
-		UnitOfWork checkout = UnitOfWork.create(business.CheckOut.class,
-				policyGraph);
+		TransactionPolicy policyGraph = (TransactionPolicy) this.ctx.getServletContext().getAttribute(CartAppActionBeanContext.policyAttribute);
+		UnitOfWork checkout = UnitOfWork.create(business.CheckOut.class, policyGraph).with(ctx.getUser());
 		try {
 			checkout.Go();
+		} catch (UserNotRegisteredException e){
+			String message = "Must be registered to check out";
+			return new ForwardResolution("/login.jsp");
 		} catch (PolicyException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		return new ForwardResolution("/cart.jsp");
+		} 
+		return new ForwardResolution("/confirmpurchase.jsp");
 	}
 
 	public int getItemId() {

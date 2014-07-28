@@ -28,7 +28,7 @@
                  <div class="cart_total">Total: ${actionBean.userCart.shippingCost+actionBean.userCart.cartTotal}</div>
                 
             </div>
-            <a href="CheckOut.action">Check Out</a>
+            <stripes:link beanclass="action.CartActionBean" event="CheckOut">Check Out</stripes:link>
         </div>
         <jsp:include page="Footer.jsp" />
     </div>

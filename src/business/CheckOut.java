@@ -5,7 +5,6 @@ public class CheckOut extends UnitOfWork {
 
 	@Override
 	protected void execute() {
-		// TODO business logic for check out
 
 	}
 
