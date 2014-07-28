@@ -2,6 +2,9 @@ package business;
 
 import java.sql.SQLException;
 import java.util.Hashtable;
+import java.util.Map.Entry;
+
+import javax.naming.NamingException;
 
 import business.exceptions.InsufficientInventoryException;
 import business.exceptions.InventoryConsistancyException;
@@ -11,7 +14,6 @@ public class ProductGateway {
 	private static Hashtable<Integer,ProductGateway> gwTable = new Hashtable<Integer,ProductGateway>();
 	
 	private int productId = 0;
-	private int inventory = 20;
 	private int reservations = 0;
 	
 	private ProductGateway(int productId){
@@ -34,7 +36,7 @@ public class ProductGateway {
 	private synchronized void Reserve(int quantity) throws InsufficientInventoryException{
 		//no other action allowed on this instance while reserving
 		if(this.getCount() < quantity){
-			throw new InsufficientInventoryException();
+			throw new InsufficientInventoryException("Cannot reserve itemID["+this.productId+"] for quantity["+quantity+"]");
 		}
 		this.reservations += quantity;
 	}
@@ -46,11 +48,17 @@ public class ProductGateway {
 	
 	private int getInventory(){
 		/* this is the real inventory (from the database) */
-		return this.inventory;
+		try {
+			return new dao.ProductDAO().getProductByProductID(productId).getUnitsInStock();
+		} catch (SQLException | NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		} //this.inventory;
 	}
 	
 	private synchronized void Reconcile(int cartQuantity) throws InventoryConsistancyException, InventoryUpdateException{
-		if(this.getCount() < cartQuantity){
+		if((this.getCount()+cartQuantity) < cartQuantity){
 			throw new InventoryConsistancyException();
 		}
 		try {
@@ -63,6 +71,31 @@ public class ProductGateway {
 
 	private void updateInventory(int i) throws SQLException {
 		/* update the database while the object is locked */
+		dao.ProductDAO pd;
+		try {
+			pd = new dao.ProductDAO();
+			model.Product p = pd.getProductByProductID(productId);
+			p.setUnitsInStock(i);
+			pd.updateProduct(p.getProductID(), p);
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
+
+	
+	public static void Release(Hashtable<Integer, Integer> reservations) {
+		for(Entry<Integer, Integer> ent:reservations.entrySet()){
+			getInstance(ent.getKey()).reservations -= ent.getValue();
+		}
+	}
+
+	public static void Reconcile(Hashtable<Integer, Integer> reservations) throws InventoryConsistancyException, InventoryUpdateException {
+		for(Entry<Integer, Integer> ent:reservations.entrySet()){
+			getInstance(ent.getKey()).Reconcile(ent.getValue());
+		}
+	}
+	
+	
 }

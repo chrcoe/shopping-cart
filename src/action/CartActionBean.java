@@ -7,6 +7,7 @@ import javax.naming.NamingException;
 import policy.TransactionPolicy;
 import business.UnitOfWork;
 import business.UnitOfWork.ICallBackDelegate;
+import business.exceptions.InsufficientInventoryException;
 import business.exceptions.PolicyException;
 import business.exceptions.UserNotRegisteredException;
 import model.Cart;
@@ -22,6 +23,7 @@ public class CartActionBean implements ActionBean {
 
 	private int itemId;
 	private int quantity;
+	private String error = null;
 
 	private CartAppActionBeanContext ctx;
 
@@ -103,8 +105,11 @@ public class CartActionBean implements ActionBean {
 		try {
 			checkout.Go();
 		} catch (UserNotRegisteredException e){
-			String message = "Must be registered to check out";
+			this.error = "Must be registered to check out";
 			return new ForwardResolution("/login.jsp");
+		} catch (InsufficientInventoryException e){
+			this.error = "Unable to reserve cart item quantities ["+e.getMessage()+"]";
+			return new ForwardResolution("/cart.jsp");
 		} catch (PolicyException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -131,4 +136,14 @@ public class CartActionBean implements ActionBean {
 	public Cart getUserCart(){
 		return ctx.getUser().getUserCart();
 	}
+
+	public boolean getError() {
+		return !(error==null);
+	}
+	
+	public String getErrorMessage() {
+		return error==null?"":error;
+	}
+
+
 }

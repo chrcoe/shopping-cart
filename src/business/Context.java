@@ -15,5 +15,9 @@ public class Context {
 	public Object get(Class clazz) {
 		return contextMap.get(clazz);
 	}
+	
+	public void put(Object obj){
+		this.contextMap.put(obj.getClass(), obj);
+	}
 
 }

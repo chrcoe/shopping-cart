@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import policy.Policy;
 import policy.Transaction;
 import policy.TransactionPolicy;
+import business.exceptions.CheckOutException;
 import business.exceptions.PolicyException;
 import business.policy.PolicyList;
 
@@ -39,7 +40,7 @@ public abstract class UnitOfWork {
 		return u;
 	}
 	
-	protected abstract void execute();
+	protected abstract void execute() throws PolicyException;
 	
 	public void Go() throws PolicyException{
 		this.policies.preCheck(ctx);

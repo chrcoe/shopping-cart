@@ -18,7 +18,10 @@
         <div id="content">
             <h2>Login</h2>
             
-            <p>this form currently does nothing</p>
+            <c:if test="${actionBean.error}">
+			<div>Cart Error: ${actionBean.errorMessage}</div>
+			</c:if>
+			
             <stripes:form beanclass="action.ProfileActionBean" focus="">
             <div class="form">             
                 <div class="single_row">
