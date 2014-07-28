@@ -16,6 +16,7 @@
 		<Policy id="business.policy.Shipping" rule="Post">
 			<Parameter id="Rate" value=".015" />
 			<Parameter id="PremiumRate" value="0.0" />
+			<Parameter id="PremiumMinOrders" value="5" />
 		</Policy>
 	</Transaction>
 </TransactionPolicy>
