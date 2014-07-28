@@ -1,11 +1,18 @@
 package business.policy;
 
+import java.sql.SQLException;
+
+import javax.naming.NamingException;
+
 import dao.OrderDAO;
+import model.CartItem;
 import model.User;
 import business.Context;
 import business.exceptions.PolicyException;
 
 public class Shipping extends Policy {
+
+	private boolean isPremium = false;
 
 	@Override
 	public void rule(Context context) throws PolicyException {
@@ -28,13 +35,16 @@ public class Shipping extends Policy {
 			}
 		}
 		User user = (User) context.get(User.class);
-		//dao.OrderDAO o = new dao.OrderDAO();
-		double cartTotal = 0.0;
-		// cart = user.getCart();
-		// for(CartItem ci : cart){
-		// cartTotal += ci.getUnitCost()*ci.getQuantity();
-		//double shipping = cartTotal * (o.getOrdersByUserID(user.getUserID()).size()>=premiumMinOrder?premiumRate:rate);
-		// cart.setShipping(shipping);		
+		dao.OrderDAO o;
+		try {
+			o = new dao.OrderDAO();
+			isPremium  = o.getOrdersByUserID(user.getUserID()).size()>=premiumMinOrder;
+		} catch (NamingException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		double shipping = user.getUserCart().getCartTotal() * (isPremium?premiumRate:rate);
+		user.getUserCart().setShippingCost(shipping);	
 	}
 
 }

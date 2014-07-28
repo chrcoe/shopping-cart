@@ -7,16 +7,15 @@ public class Cart {
 	private int userID;
 	private ArrayList<CartItem> items = new ArrayList<CartItem>();
 	
-	private double cartTotal;
 	private double shippingCost;
 	
 	public Cart() {}
 	
-	public Cart(int cartID, int userID, double cartTotal) {
+	public Cart(int cartID, int userID) {
 		this.cartID = cartID;
 		this.userID = userID;
-		this.cartTotal = cartTotal;
 	}
+	
 	public int getCartID() {
 		return cartID;
 	}
@@ -30,10 +29,11 @@ public class Cart {
 		this.userID = userID;
 	}
 	public double getCartTotal() {
+		double cartTotal = 0.0;
+		for(CartItem ci : getItems()){
+			cartTotal += ci.getLinePrice();
+		}
 		return cartTotal;
-	}
-	public void setCartTotal(double cartTotal) {
-		this.cartTotal = cartTotal;
 	}
 	public double getShippingCost() {
 		return shippingCost;
