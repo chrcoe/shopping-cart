@@ -18,7 +18,7 @@
                 <stripes:form beanclass="action.ProfileActionBean" focus="">
 	                <div class="single_row">
 	                    <label for="username">Username: </label>
-	                    <input type="text" id="username"><BR>
+	                    <input type="text" name="userName"><BR>
 	                </div>
 	                <div class="single_row">
 	                    <label for="password">Password: </label>

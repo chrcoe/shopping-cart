@@ -55,6 +55,20 @@ public class ProfileActionBean implements ActionBean {
 		return new ForwardResolution("/");
 	}
 	
+	@HandlesEvent("Register")
+	public Resolution register(){
+		User newUser = new User();
+		newUser.setName(this.userName);
+		try {
+			int uid = new dao.UserDAO().createUser(newUser);
+			return new ForwardResolution("/");
+		} catch (SQLException | NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ForwardResolution("/register.jsp");
+	}
+	
 	@HandlesEvent("AccountDetail")
 	public Resolution accountDetail(){
 		return new ForwardResolution("/account.jsp");
