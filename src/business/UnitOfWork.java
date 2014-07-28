@@ -11,7 +11,7 @@ import business.policy.PolicyList;
 
 public abstract class UnitOfWork {
 	
-	private business.Context ctx;
+	protected business.Context ctx;
 	private PolicyList policies = new PolicyList();
 	private ICallBackDelegate delegate = null;
 	

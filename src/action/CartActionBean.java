@@ -50,8 +50,7 @@ public class CartActionBean implements ActionBean {
 				Product p;
 				try {
 					p = new dao.ProductDAO().getProductByProductID(itemId);
-					ctx.getUser().getUserCart().getItems()
-							.add(new CartItem(p, quantity));
+					ctx.getUser().getUserCart().getItems().add(new CartItem(p, quantity));
 				} catch (SQLException | NamingException e) {
 					// handle error and pass to page
 					e.printStackTrace();

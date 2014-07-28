@@ -51,7 +51,7 @@ public class ProfileActionBean implements ActionBean {
 
 	@HandlesEvent("LogOut")
 	public Resolution logOut(){
-		this.ctx.setUser(null);
+		this.ctx.setUser(new model.User());
 		return new ForwardResolution("/");
 	}
 	
