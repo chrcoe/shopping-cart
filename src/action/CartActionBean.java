@@ -8,6 +8,7 @@ import policy.TransactionPolicy;
 import business.UnitOfWork;
 import business.UnitOfWork.ICallBackDelegate;
 import business.exceptions.PolicyException;
+import model.Cart;
 import model.CartItem;
 import model.Product;
 import net.sourceforge.stripes.action.ActionBean;
@@ -121,4 +122,7 @@ public class CartActionBean implements ActionBean {
 		this.quantity = quantity;
 	}
 
+	public Cart getUserCart(){
+		return ctx.getUser().getUserCart();
+	}
 }

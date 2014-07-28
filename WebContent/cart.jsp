@@ -15,13 +15,13 @@
         <div id="content">
             <h2>Shopping Cart</h2>
             <div class="cart_container">
-                <c:forEach items="${requestScope.cartItems}" var="item">
-                    <div class="cart_name">${item.name}</div>
+                <c:forEach items="${actionBean.userCart.items}" var="item">
+                    <div class="cart_name">${item.product.productName}</div>
                     <div class="cart_quant">${item.quantity}</div>
-                    <div class="cart_item_price">${item.price}</div>
-                    <div class="cart_item_total">${item.total}</div>
+                    <div class="cart_item_price">${item.product.unitPrice}</div>
+                    <div class="cart_item_total">${item.linePrice}</div>
                 </c:forEach>
-                <div class="cart_total">${cart.total}</div>
+                <div class="cart_total">${actionBean.userCart.cartTotal}</div>
             </div>
             <a href="CheckOut.action">Check Out</a>
         </div>
