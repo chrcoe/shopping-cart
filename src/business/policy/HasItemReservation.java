@@ -2,7 +2,6 @@ package business.policy;
 
 import business.Context;
 import business.exceptions.PolicyException;
-import business.exceptions.UserNotRegisteredException;
 
 public class HasItemReservation extends Policy {
 

@@ -6,7 +6,6 @@ import java.lang.reflect.InvocationTargetException;
 import policy.Policy;
 import policy.Transaction;
 import policy.TransactionPolicy;
-import business.exceptions.CheckOutException;
 import business.exceptions.PolicyException;
 import business.policy.PolicyList;
 

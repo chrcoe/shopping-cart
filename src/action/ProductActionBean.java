@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import javax.naming.NamingException;
 
 import dao.ProductDAO;
-import test.view.ProductsTest;
 import model.Product;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;

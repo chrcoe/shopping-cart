@@ -4,8 +4,6 @@ import java.sql.SQLException;
 
 import javax.naming.NamingException;
 
-import dao.OrderDAO;
-import model.CartItem;
 import model.User;
 import business.Context;
 import business.exceptions.PolicyException;

@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class Context {
 
+	@SuppressWarnings("rawtypes")
 	private HashMap<Class,Object> contextMap = new  HashMap<Class,Object>();
 	
 	public Context(Object[] objects){
@@ -12,6 +13,7 @@ public class Context {
 		}
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public Object get(Class clazz) {
 		return contextMap.get(clazz);
 	}

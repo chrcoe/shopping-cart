@@ -8,7 +8,6 @@ import policy.Parameter;
 import model.User;
 import business.Context;
 import business.exceptions.PolicyException;
-import business.exceptions.UserNotRegisteredException;
 
 public class UpdateProfileStatus extends Policy {
 

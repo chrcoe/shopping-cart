@@ -55,6 +55,7 @@ public class ProfileActionBean implements ActionBean {
 		return new ForwardResolution("/");
 	}
 	
+	@SuppressWarnings("unused")
 	@HandlesEvent("Register")
 	public Resolution register(){
 		User newUser = new User();
