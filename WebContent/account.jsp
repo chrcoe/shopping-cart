@@ -17,15 +17,20 @@
 		<div id="content">
 			<h2>My Account</h2>
 			<div class="accountContainer">
-			 <div>Name: &nbsp;${actionBean.userName}</div>
-			 <div>Address: &nbsp;${actionBean.address}</div>
-			 <div>City, State ZIP: &nbsp;${actionBean.city},&nbsp;${actionBean.state}&nbsp;${actionBean.zip}</div>
-			 <div>Phone: &nbsp;${actionBean.phone}</div>
+				<div>Name: &nbsp;${actionBean.userName}</div>
+				<div>Address: &nbsp;${actionBean.address}</div>
+				<div>City, State ZIP:
+					&nbsp;${actionBean.city},&nbsp;${actionBean.state}&nbsp;${actionBean.zip}</div>
+				<div>Phone: &nbsp;${actionBean.phone}</div>
 			</div>
 			<br /> <a href="orderhistory.jsp"></a>
 			<stripes:link beanclass="action.ProfileActionBean"
 				event="OrderHistory">
                 	see order history
+                </stripes:link>
+			<stripes:link beanclass="action.ProfileActionBean"
+				event="LogOut">
+                	Log Out
                 </stripes:link>
 		</div>
 		<jsp:include page="Footer.jsp" />
