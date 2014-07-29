@@ -26,6 +26,7 @@
 					<div class="cart_item_price">Unit Price:
 						$${item.product.unitPrice}</div>
 					<div class="cart_item_total">Item Total: $${item.linePrice}</div>
+					<stripes:link beanclass="action.CartActionBean" event="RemoveFromCart">Remove</stripes:link>
 					<hr />
 				</c:forEach>
 
