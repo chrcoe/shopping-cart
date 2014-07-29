@@ -35,7 +35,7 @@
                     </div>
                     </stripes:form>
                     <div class="product_link">
-                        <stripes:link beanclass="action.ProductActionBean" event="showDetail">
+                        <stripes:link beanclass="action.ProductActionBean" event="showDetail" title="Stock: ${product.unitsInStock}">
                             <stripes:param name="itemId" value="${product.productID}"/>
                             Details
                         </stripes:link>
