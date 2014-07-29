@@ -14,9 +14,11 @@
         <div id="content">
             <h2>My Order History</h2>
             <ul>
-            <li>Order 1 - Status:Shipped</li>
-            <li>Order 2 - Status:Canceled</li>
-            <li>Order 3 - Status:Pending Fulfillment</li>
+            <c:set var="orderCount" scope="session" value="${1}"/>
+            <c:forEach items="${actionBean.orders}" var="order">
+                <li>Order ${orderCount} - Status: </li>
+                <c:set var="orderCount" scope="session" value="${orderCount+1}"/>
+            </c:forEach>
             </ul>
         </div>
         <jsp:include page="Footer.jsp" />

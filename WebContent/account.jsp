@@ -16,6 +16,10 @@
 		<jsp:include page="Header.jsp" />
 		<div id="content">
 			<h2>My Account</h2>
+			<stripes:link beanclass="action.ProfileActionBean"
+                event="LogOut">
+                    Log Out
+                </stripes:link>
 			<div class="accountContainer">
 				<div>Name: &nbsp;${actionBean.userName}</div>
 				<div>Address: &nbsp;${actionBean.address}</div>
@@ -27,10 +31,6 @@
 			<stripes:link beanclass="action.ProfileActionBean"
 				event="OrderHistory">
                 	see order history
-                </stripes:link>
-			<stripes:link beanclass="action.ProfileActionBean"
-				event="LogOut">
-                	Log Out
                 </stripes:link>
 		</div>
 		<jsp:include page="Footer.jsp" />
