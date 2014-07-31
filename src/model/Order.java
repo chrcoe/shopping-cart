@@ -6,6 +6,7 @@ public class Order {
 	private int orderID;
 	private int userID;
 	private ArrayList<OrderItem> items;
+	private String status;
 
 	public Order() {
 		
@@ -35,6 +36,14 @@ public class Order {
 
 	public void setItems(ArrayList<OrderItem> items) {
 		this.items = items;
+	}
+
+	public void setStatus(String theStatus) {
+		this.status = theStatus;
+	}
+	
+	public String getStatus(){
+		return this.status;
 	}
 
 }

@@ -16,7 +16,7 @@
             <ul>
             <c:set var="orderCount" scope="session" value="${1}"/>
             <c:forEach items="${actionBean.orders}" var="order">
-                <li>Order ${orderCount} - Status: </li>
+                <li>Order ${orderCount} - Status: ${order.status}</li>
                 <c:set var="orderCount" scope="session" value="${orderCount+1}"/>
             </c:forEach>
             </ul>

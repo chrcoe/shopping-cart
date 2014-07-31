@@ -45,7 +45,10 @@ public class CartActionBean implements ActionBean {
 	@HandlesEvent("AddToCart")
 	public Resolution addToCart() {
 		TransactionPolicy policyGraph = (TransactionPolicy) this.ctx.getServletContext().getAttribute(CartAppActionBeanContext.policyAttribute);
-		UnitOfWork updateCart = UnitOfWork.create(business.UpdateCart.class,policyGraph).with(ctx.getUser()).using(new ICallBackDelegate() {
+		UnitOfWork updateCart = UnitOfWork
+				.create(business.UpdateCart.class,policyGraph)
+				.with(ctx.getUser())
+				.using(new ICallBackDelegate() {
 
 			@Override
 			public void execute() {
@@ -76,8 +79,11 @@ public class CartActionBean implements ActionBean {
 
 	@HandlesEvent("RemoveFromCart")
 	public Resolution removeFromCart() {
-		TransactionPolicy policyGraph = (TransactionPolicy) this.ctx.getServletContext().getAttribute("AppPolicy");
-		UnitOfWork updateCart = UnitOfWork.create(business.UpdateCart.class, policyGraph).using(new ICallBackDelegate() {
+		TransactionPolicy policyGraph = (TransactionPolicy) this.ctx.getServletContext().getAttribute(CartAppActionBeanContext.policyAttribute);
+		UnitOfWork updateCart = UnitOfWork
+				.create(business.UpdateCart.class, policyGraph)
+				.with(ctx.getUser())
+				.using(new ICallBackDelegate() {
 
 			@Override
 			public void execute() {

@@ -5,6 +5,7 @@ import java.util.Hashtable;
 
 import javax.naming.NamingException;
 
+import dao.OrderDAO;
 import business.exceptions.CheckOutException;
 import business.exceptions.InventoryConsistancyException;
 import business.exceptions.InventoryUpdateException;
@@ -27,13 +28,19 @@ public class CheckOut extends UnitOfWork {
 			reservations = (Hashtable<Integer, Integer>) ctx.get(reservations.getClass());
 			try {
 				//create order
-				int oid = new dao.OrderDAO().createOrderByUserID(u.getUserID());
+				dao.OrderDAO odao = new dao.OrderDAO();
+				int oid = odao.createOrderByUserID(u.getUserID());
+				model.Order o = odao.getOrderByOrderID(oid);
+
 				dao.OrderItemDAO oidao = new dao.OrderItemDAO();
 				for(CartItem ci:u.getUserCart().getItems()){
 					//create order item
 					OrderItem newOrderItem = new model.OrderItem(0, ci.getProduct().getProductID(), oid, ci.getQuantity(), ci.getLinePrice());
 					oidao.createOrderItem(newOrderItem);
 				}
+				
+				o.setStatus("Complete");
+				odao.updateOrder(oid, o);
 				// clear cart
 				u.setUserCart(new Cart());
 				// update inventory and release reservations 

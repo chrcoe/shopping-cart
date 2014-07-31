@@ -24,7 +24,7 @@
                 <stripes:form class="detail_add" beanclass="action.CartActionBean">
                     <label for="quantity">Quantity: &nbsp;</label>
                     <input type="text" id="quantity" name="quantity" style="width:20px; height:20px; margin-right:10px" default="1"/>
-                    
+                    <input type="hidden" name="itemId" value="${actionBean.item.productID}"/>
                     <stripes:submit name="AddToCart" value="Add to Cart" style="width:150px" />
                 </stripes:form>
             </div>

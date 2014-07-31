@@ -38,8 +38,8 @@ public class OrderDAO {
 
     // CREATE
     public int createOrderByUserID(int userID) throws SQLException {
-        String sql = "INSERT INTO cart_comp461_db.Order (idOrder, idUser) "
-                + "VALUES (?, ?)";
+        String sql = "INSERT INTO cart_comp461_db.Order (idOrder, idUser, orderStatus) "
+                + "VALUES (?, ?, ?)";
 
         ResultSet rs = null;
 
@@ -47,6 +47,7 @@ public class OrderDAO {
                 Statement.RETURN_GENERATED_KEYS);
         ps.setNull(1, java.sql.Types.INTEGER);
         ps.setInt(2, userID);
+        ps.setString(3, "");
 
         ps.executeUpdate();
         rs = ps.getGeneratedKeys();
@@ -71,8 +72,8 @@ public class OrderDAO {
         while (rs.next()) {
             orderID_ = rs.getInt("idOrder");
             userID = rs.getInt("idUser");
-
             record = new Order(orderID_, userID);
+            record.setStatus(rs.getString("orderStatus"));
         }
 
         s.close();
@@ -96,6 +97,7 @@ public class OrderDAO {
             usrID = rs.getInt("idUser");
 
             Order newOrder = new Order(orderID, usrID);
+            newOrder.setStatus(rs.getString("orderStatus"));
 
             orderList.add(newOrder);
         }
@@ -140,12 +142,12 @@ public class OrderDAO {
     public void updateOrder(int orderID, Order theOrder) throws SQLException {
         // UPDATE <table> SET <column>=<value> WHERE ID=<id>
 
-        String sql = "UPDATE cart_comp461_db.Order SET "
-                + "idUser = ? WHERE idOrder = ?";
+        String sql = "UPDATE cart_comp461_db.Order SET idUser = ?, orderStatus=? WHERE idOrder = ?";
 
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, orderID);
-        ps.setInt(2, theOrder.getOrderID());
+        ps.setInt(1, theOrder.getUserID());
+        ps.setString(2, theOrder.getStatus());
+        ps.setInt(3, theOrder.getOrderID());
 
         ps.executeUpdate();
 

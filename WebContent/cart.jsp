@@ -16,7 +16,7 @@
 		<div id="content">
 			<h2>Shopping Cart</h2>
 			<c:if test="${actionBean.error}">
-			<div>Cart Error: ${actionBean.errorMessage}</div>
+				<div>Cart Error: ${actionBean.errorMessage}</div>
 			</c:if>
 
 			<div class="cart_container">
@@ -26,7 +26,10 @@
 					<div class="cart_item_price">Unit Price:
 						$${item.product.unitPrice}</div>
 					<div class="cart_item_total">Item Total: $${item.linePrice}</div>
-					<stripes:link beanclass="action.CartActionBean" event="RemoveFromCart">Remove</stripes:link>
+					<stripes:link beanclass="action.CartActionBean"
+						event="RemoveFromCart">
+						<stripes:param name="itemId" value="${item.product.productID}" />
+					Remove</stripes:link>
 					<hr />
 				</c:forEach>
 
