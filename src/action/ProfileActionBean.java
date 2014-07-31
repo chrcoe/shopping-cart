@@ -62,7 +62,7 @@ public class ProfileActionBean implements ActionBean {
 		newUser.setName(this.userName);
 		try {
 			int uid = new dao.UserDAO().createUser(newUser);
-			return new ForwardResolution("/");
+			return new ForwardResolution("/confirmregistration.jsp");
 		} catch (SQLException | NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

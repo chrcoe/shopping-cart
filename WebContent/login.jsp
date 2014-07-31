@@ -46,7 +46,7 @@
     </div>
     <script>
     $(document).ready(function() {
-        $(".regCb").colorbox({iframe: true, innerWidth:500, innerHeight:500});
+        $(".regCb").colorbox({iframe: true, innerWidth:500, innerHeight:650});
         $("#loginBtn").click(function(){
         	
         });

@@ -29,6 +29,26 @@
 	                    <input type="text" id="email"><BR>
 	                </div>
 	                <div class="single_row">
+                        <label for="address">Address: &nbsp; &nbsp; </label>
+                        <input type="text" id="address"><BR>
+                    </div>
+                    <div class="single_row">
+                        <label for="city">City: &nbsp; &nbsp; </label>
+                        <input type="text" id="city"><BR>
+                    </div>
+                    <div class="single_row">
+                        <label for="state">State: &nbsp; &nbsp; </label>
+                        <input type="text" id="state"><BR>
+                    </div>
+                    <div class="single_row">
+                        <label for="zip">Zip: &nbsp; &nbsp; </label>
+                        <input type="text" id="zip"><BR>
+                    </div>
+                    <div class="single_row">
+                        <label for="phone">Phone: &nbsp; &nbsp; </label>
+                        <input type="text" id="phone"><BR>
+                    </div>
+	                <div class="single_row">
 	                    <stripes:submit  class="shared_row" name="Register" value="Register"/>
 	                </div>
                 </stripes:form>
