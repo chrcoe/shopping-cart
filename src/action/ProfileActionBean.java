@@ -17,7 +17,14 @@ public class ProfileActionBean implements ActionBean {
 	private CartAppActionBeanContext ctx;
 	private String userName;
 	private String pwd;
+	private String email;
+	private String address;
+	private String city;
+	private String state;
+	private String zip;
+	private String phone;
 	private Order[] orders = new Order[]{};
+	private String error = null;
 
 	@Override
 	public CartAppActionBeanContext getContext() {
@@ -35,11 +42,17 @@ public class ProfileActionBean implements ActionBean {
 		try {
 			udao = new dao.UserDAO();
 			User u = udao.getUserByName(this.userName);
-			if(ctx.getUser()!=null){
-				u.setUserCart(ctx.getUser().getUserCart());
-				ctx.getUser().setUserCart(null);
+			if(null != u){
+				if(ctx.getUser()!=null){
+					u.setUserCart(ctx.getUser().getUserCart());
+					ctx.getUser().setUserCart(null);
+				}
+				this.ctx.setUser(u);
+			}else{
+				this.error = "Login failed. Check username and password.";
+				return new ForwardResolution("/login.jsp");
 			}
-			this.ctx.setUser(u);
+			
 		} catch (NamingException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -60,6 +73,12 @@ public class ProfileActionBean implements ActionBean {
 	public Resolution register(){
 		User newUser = new User();
 		newUser.setName(this.userName);
+		newUser.setAddress(address);
+		newUser.setCity(city);
+		newUser.setPhone(phone);
+		newUser.setState(state);
+		newUser.setZip(zip);
+		
 		try {
 			int uid = new dao.UserDAO().createUser(newUser);
 			return new ForwardResolution("/confirmregistration.jsp");
@@ -135,6 +154,42 @@ public class ProfileActionBean implements ActionBean {
 
 	public void setOrders(Order[] orders) {
 		this.orders = orders;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public boolean getError() {
+		return !(error==null);
+	}
+	
+	public String getErrorMessage() {
+		return error==null?"":error;
 	}
 
 }
