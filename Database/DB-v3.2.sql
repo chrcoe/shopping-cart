@@ -115,9 +115,9 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `cart_comp461_db`;
-INSERT INTO `cart_comp461_db`.`Product` (`idProduct`, `name`, `description`, `categoryName`, `price`, `amt_in_stock`, `amt_on_order`, `reorder_threshold`, `is_discontinued`, `image_path`) VALUES (1, 'Swiss', NULL, 'cheese', 4.99, 10, 2, 3, 0,'imgpath');
-INSERT INTO `cart_comp461_db`.`Product` (`idProduct`, `name`, `description`, `categoryName`, `price`, `amt_in_stock`, `amt_on_order`, `reorder_threshold`, `is_discontinued`, `image_path`) VALUES (2, 'American', NULL, 'cheese', 1.99, 2, 0, 1, 1,'imgpath');
-INSERT INTO `cart_comp461_db`.`Product` (`idProduct`, `name`, `description`, `categoryName`, `price`, `amt_in_stock`, `amt_on_order`, `reorder_threshold`, `is_discontinued`, `image_path`) VALUES (3, 'Jeans', NULL, 'clothes', 24.99, 1, 10, 2, 0,'imgpath');
+INSERT INTO `cart_comp461_db`.`Product` (`idProduct`, `name`, `description`, `categoryName`, `price`, `amt_in_stock`, `amt_on_order`, `reorder_threshold`, `is_discontinued`, `image_path`) VALUES (1, 'Swiss', 'The finest Swiss Cheese from the finest Swiss cows. No additives or preservatives are used in creating this delicious cheese.', 'cheese', 4.99, 10, 2, 3, 0,'./images/swiss_cheese_small.png');
+INSERT INTO `cart_comp461_db`.`Product` (`idProduct`, `name`, `description`, `categoryName`, `price`, `amt_in_stock`, `amt_on_order`, `reorder_threshold`, `is_discontinued`, `image_path`) VALUES (2, 'American', 'The finest American Cheese from the finest American cows. No additives or preservatives are used in creating this delicious cheese.', 'cheese', 1.99, 2, 0, 1, 1,'./images/american_cheese_small.png');
+INSERT INTO `cart_comp461_db`.`Product` (`idProduct`, `name`, `description`, `categoryName`, `price`, `amt_in_stock`, `amt_on_order`, `reorder_threshold`, `is_discontinued`, `image_path`) VALUES (3, 'Jeans', 'Comfortable and stylish. A perfect fit for working around the ranch, or for a night on the town.', 'clothes', 24.99, 1, 10, 2, 0,'./images/jeans_small.png');
 
 COMMIT;
 
