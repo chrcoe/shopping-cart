@@ -19,7 +19,7 @@
             <h2>Login</h2>
             
             <c:if test="${actionBean.error}">
-			<div>Cart Error: ${actionBean.errorMessage}</div>
+			<div>Error: ${actionBean.errorMessage}</div>
 			</c:if>
 			
             <stripes:form beanclass="action.ProfileActionBean" focus="">

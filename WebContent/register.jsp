@@ -22,31 +22,31 @@
 	                </div>
 	                <div class="single_row">
 	                    <label for="password">Password: </label>
-	                    <input type="password" id="password"><BR>
+	                    <input type="password" name="password"><BR>
 	                </div>
 	                <div class="single_row">
 	                    <label for="email">Email: &nbsp; &nbsp; </label>
-	                    <input type="text" id="email"><BR>
+	                    <input type="text" name="email"><BR>
 	                </div>
 	                <div class="single_row">
                         <label for="address">Address: &nbsp; &nbsp; </label>
-                        <input type="text" id="address"><BR>
+                        <input type="text" name="address"><BR>
                     </div>
                     <div class="single_row">
                         <label for="city">City: &nbsp; &nbsp; </label>
-                        <input type="text" id="city"><BR>
+                        <input type="text" name="city"><BR>
                     </div>
                     <div class="single_row">
                         <label for="state">State: &nbsp; &nbsp; </label>
-                        <input type="text" id="state"><BR>
+                        <input type="text" name="state"><BR>
                     </div>
                     <div class="single_row">
                         <label for="zip">Zip: &nbsp; &nbsp; </label>
-                        <input type="text" id="zip"><BR>
+                        <input type="text" name="zip"><BR>
                     </div>
                     <div class="single_row">
                         <label for="phone">Phone: &nbsp; &nbsp; </label>
-                        <input type="text" id="phone"><BR>
+                        <input type="text" name="phone"><BR>
                     </div>
 	                <div class="single_row">
 	                    <stripes:submit  class="shared_row" name="Register" value="Register"/>
