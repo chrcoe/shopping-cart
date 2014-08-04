@@ -9,6 +9,9 @@
 -- if you don't want to see the error after the first build, just uncomment the following
 -- line, and it will drop that user and re-create the user properly.
 
+CREATE DATABASE  IF NOT EXISTS `cart_comp461_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `cart_comp461_db`;
+
 DROP USER `comp461`;
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
